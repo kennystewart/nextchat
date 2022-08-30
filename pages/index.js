@@ -14,6 +14,7 @@ import {
 } from 'react-icons/fa'
 import { TbBeach } from 'react-icons/tb'
 import Footer from '../components/Footer'
+import Collapse from '../components/Collapse'
 import {useTheme} from 'next-themes'
 
 export default function Home() {
@@ -63,26 +64,14 @@ export default function Home() {
             promotional offers to your advantage.
           </p>
           <div className="md:px-60">
+            <hr className="border-sky-700 dark:border-white" />            
+            <Collapse />
             <hr className="border-sky-700 dark:border-white" />
-            <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-              Is bitcoin gambling legal?
-              <FaAngleDown className="mx-4 text-lg font-thin" />
-            </div>
+            <Collapse />
             <hr className="border-sky-700 dark:border-white" />
-            <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-              Is bitcoin gambling legal?
-              <FaAngleDown className="mx-4 text-lg font-thin" />
-            </div>
+            <Collapse />
             <hr className="border-sky-700 dark:border-white" />
-            <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-              Is bitcoin gambling legal?
-              <FaAngleDown className="mx-4 text-lg font-thin" />
-            </div>
-            <hr className="border-sky-700 dark:border-white" />
-            <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-              Is bitcoin gambling legal?
-              <FaAngleDown className="mx-4 text-lg font-thin" />
-            </div>
+            <Collapse />
           </div>
         </div>
         <div className="text-left p-4 mt-2 md:mx-24 md:text-2xl">

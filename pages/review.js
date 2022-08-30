@@ -15,6 +15,7 @@ import { FcBusinessman } from 'react-icons/fc'
 import { RiMailLine } from 'react-icons/ri'
 import { FcCurrencyExchange } from 'react-icons/fc'
 import {GrClose} from 'react-icons/gr'
+import Collapse from '../components/Collapse'
 import {
   AiFillLinkedin,
   AiOutlineCodepenCircle,
@@ -521,25 +522,13 @@ const review = () => {
                   Frequently asked questions
                 </h3>
                 <hr className="border-sky-700 dark:border-white" />
-                <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-                  Is bitcoin gambling legal?
-                  <FaAngleDown className="mx-4 text-lg font-thin" />
-                </div>
+                <Collapse />
                 <hr className="border-sky-700 dark:border-white" />
-                <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-                  Is bitcoin gambling legal?
-                  <FaAngleDown className="mx-4 text-lg font-thin" />
-                </div>
+                <Collapse />
                 <hr className="border-sky-700 dark:border-white" />
-                <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-                  Is bitcoin gambling legal?
-                  <FaAngleDown className="mx-4 text-lg font-thin" />
-                </div>
+                <Collapse />
                 <hr className="border-sky-700 dark:border-white" />
-                <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-                  Is bitcoin gambling legal?
-                  <FaAngleDown className="mx-4 text-lg font-thin" />
-                </div>
+                <Collapse />
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
