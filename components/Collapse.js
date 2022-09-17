@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaAngleDown } from 'react-icons/fa'
 
-const collapse = () => {
+const Collapse = () => {
   const [open, setOpen] = useState(false)
   return (
     <div className="flex flex-col">
@@ -17,4 +17,4 @@ const collapse = () => {
   )
 }
 
-export default collapse
+export default Collapse

@@ -27,7 +27,7 @@ import Lapilanders from '../components/Lapilanders'
 import Oakcasino from '../components/Oakcasino'
 import { CgMenuLeft } from 'react-icons/cg'
 
-const review = () => {  
+const Review = () => {  
   const [show,setShow]=useState(true);
   return (
     <div className='bg-white text-sky-700 dark:bg-black dark:text-white'>
@@ -584,4 +584,4 @@ const review = () => {
   )
 }
 
-export default review
+export default Review
