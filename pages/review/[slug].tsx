@@ -1,36 +1,90 @@
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Image from 'next/image'
-import Slider from '../components/Slider'
-import { useState } from 'react';
-import Imagelap from '../public/images/image-1.png'
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Image from "next/image";
+import Slider from "../../components/Slider";
+import { useState } from "react";
+import Imagelap from "../../public/images/image-1.png";
 import {
   FaPercentage,
   FaAngleDown,
   FaAngleRight,
   FaCreativeCommonsPdAlt,
   FaCcMastercard,
-} from 'react-icons/fa'
-import { FcBusinessman } from 'react-icons/fc'
-import { RiMailLine } from 'react-icons/ri'
-import { FcCurrencyExchange } from 'react-icons/fc'
-import {GrClose} from 'react-icons/gr'
-import Collapse from '../components/Collapse'
+} from "react-icons/fa";
+import { FcBusinessman } from "react-icons/fc";
+import { RiMailLine } from "react-icons/ri";
+import { FcCurrencyExchange } from "react-icons/fc";
+import { GrClose } from "react-icons/gr";
+import Collapse from "../../components/Collapse";
 import {
   AiFillLinkedin,
   AiOutlineCodepenCircle,
   AiOutlineExclamation,
-} from 'react-icons/ai'
-import { BsArrowRightCircleFill, BsFillStarFill } from 'react-icons/bs'
-import Bandits from '../components/Bandits'
-import Lapilanders from '../components/Lapilanders'
-import Oakcasino from '../components/Oakcasino'
-import { CgMenuLeft } from 'react-icons/cg'
+} from "react-icons/ai";
+import { BsArrowRightCircleFill, BsFillStarFill } from "react-icons/bs";
+import Bandits from "../../components/Bandits";
+import Lapilanders from "../../components/Lapilanders";
+import Oakcasino from "../../components/Oakcasino";
+import { InferGetStaticPropsType } from 'next'
+import { CgMenuLeft } from "react-icons/cg";
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
-const Review = () => {  
-  const [show,setShow]=useState(true);
+export async function getStaticProps({ params }) {
+  const slug = params.slug
+
+  const data = await prisma.casino_p_casinos.findFirst({
+    where: { clean_name: slug },
+    select: {
+      id: true,
+      clean_name: true,
+      casino: true,
+      button: true,
+      meta: true,
+      homepageimage: true,
+      bonuses: {
+        orderBy: {
+          position: 'desc',
+        },
+      },
+      banklist: {
+        select: {
+          bank_data: true,
+        },
+      },
+      review: {
+        select: {
+          description: true,
+        },
+        orderBy: {
+          ordered: 'desc',
+        },
+      },
+      softwares: {
+        select: {
+          softwarelist: true,
+        },
+      },
+    },
+  })
+
+  const newReviews = data.review.map((r) => ({
+    ...r,
+    description: r.description.replace('h4>', 'h1>'),
+  }))
+  data.review = newReviews
+  return { props: { data } }
+}
+
+export async function getStaticPaths() {
+  return { paths: [], fallback: 'blocking' }
+}
+
+const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
+  const [show, setShow] = useState(true);
+  const data = props.data
   return (
-    <div className='bg-white text-sky-700 dark:bg-black dark:text-white'>
+    <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
@@ -44,7 +98,7 @@ const Review = () => {
                 <a href="#">Reviews</a>
               </span>
               <FaAngleRight />
-              <span className="text-slate-500">Planet 7 Casino</span>
+              <span className="text-slate-500">{data.casino}</span>
             </div>
           </div>
         </div>
@@ -52,23 +106,25 @@ const Review = () => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Silver Oak Casino Review 2022
+            {data.casino} Casino Review 2022
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
-                Author:{' '}
+                Author:{" "}
                 <a href="" className="font-medium ">
                   Barry Bridges
                 </a>
               </span>
-              <span className="text-sky-600 dark:text-white">June 13, 2022</span>
+              <span className="text-sky-600 dark:text-white">
+                June 13, 2022
+              </span>
             </div>
             <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
               <div className="card p-4">
                 <div className="heading flex items-center border-b gap-7 pb-4">
-                  <button className="w-10 h-7 rounded bg-sky-700 dark:bg-black"></button>
+                  <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
-                    Why you can trust{' '}
+                    Why you can trust{" "}
                     <span className="font-bold">allfreechips.com</span>
                   </h2>
                   <a href="#">
@@ -88,17 +144,31 @@ const Review = () => {
         </section>
 
         <div className="flex md:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
-          <span className='font-medium'>ON THIS PAGE</span>
-          <span onClick={()=>setShow(!show)} className='border-2 border-white dark:border-black p-2 flex items-center rounded px-4'>Jump to <CgMenuLeft className='text-white dark:text-black mx-2 text-xl' /></span>
+          <span className="font-medium">ON THIS PAGE</span>
+          <span
+            onClick={() => setShow(!show)}
+            className="border-2 border-white dark:border-black p-2 flex items-center rounded px-4"
+          >
+            Jump to{" "}
+            <CgMenuLeft className="text-white dark:text-black mx-2 text-xl" />
+          </span>
         </div>
-        <div className={`flex md:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-black  text-2xl font-medium ${show ? 'bottom-[-490px]' : 'bottom-0'}`}>
-          <div className='flex justify-between w-full items-center'>
+        <div
+          className={`flex md:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-zinc-800  text-2xl font-medium ${
+            show ? "bottom-[-490px]" : "bottom-0"
+          }`}
+        >
+          <div className="flex justify-between w-full items-center">
             <div>ON THIS PAGE</div>
-            <div onClick={()=>setShow(!show)} className=""><GrClose className='dark:bg-white' /></div>
+            <div onClick={() => setShow(!show)} className="">
+              <GrClose className="dark:bg-white" />
+            </div>
           </div>
-          <hr className='border-1 my-4 border-sky-700 dark:border-white' />
-          <div className='flex flex-col font-normal text-lg space-x-2 space-y-4'>
-            <span className='font-medium border-l-2 px-4 border-sky-700 dark:border-white'>Our top picks</span>
+          <hr className="border-1 my-4 border-sky-700 dark:border-white" />
+          <div className="flex flex-col font-normal text-lg space-x-2 space-y-4">
+            <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
+              Our top picks
+            </span>
             <span>What is a bitcoin casino</span>
             <span>What is a bitcoin casino</span>
             <span>What is a bitcoin casino</span>
@@ -127,11 +197,16 @@ const Review = () => {
             <p className="py-4">AT A GLANCE</p>
             <div className="flex flex-col border-t-8 md:border-t-0 md:border-l-8 border-sky-700 dark:border-white rounded bg-gray-200 dark:text-black p-4 md:p-10">
               <div className="flex flex-col md:flex-row items-center md:space-x-16">
-                <Image src={Imagelap} width={300} height={200} alt={'Imagelap'} />
+                <Image
+                  src={Imagelap}
+                  width={300}
+                  height={200}
+                  alt={"Imagelap"}
+                />
                 <div className="flex flex-col w-full py-8">
                   <div className="flex flex-col md:flex-row items-center">
                     <div className="text-3xl font-medium items-center w-full">
-                      Silver Oak Casino
+                      {data.casino}
                     </div>
                     <div className="flex w-full justify-between md:justify-start my-4">
                       <div className="flex items-center space-x-2">
@@ -146,7 +221,7 @@ const Review = () => {
                       </div>
                       <div className="flex space-x-4">
                         <span className="flex items-center">Review</span>
-                        <span className="h-8 w-8 rounded-full bg-sky-700 text-white dark:bg-black dark:text-white">
+                        <span className="h-8 w-8 rounded-full bg-sky-700 text-white dark:bg-zinc-800 dark:text-white">
                           <AiOutlineExclamation className="relative top-2 left-2" />
                         </span>
                       </div>
@@ -180,7 +255,7 @@ const Review = () => {
                         <span className="text-sm">details</span>
                       </div>
                     </div>
-                    <button className="bg-sky-700 text-white dark:text-white dark:bg-black flex w-full justify-center rounded-lg items-center h-14">
+                    <button className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
                       Claim Now
                       <BsArrowRightCircleFill className="mx-4" />
                     </button>
@@ -213,7 +288,7 @@ const Review = () => {
             </div>
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
-                MORE BONUSES AT SILVER OAK CASINO
+                MORE BONUSES AT {data.casino} CASINO
               </p>
               <Lapilanders />
               <Lapilanders />
@@ -225,8 +300,8 @@ const Review = () => {
             <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
               <div className="flex flex-col">
                 <div className="flex justify-between md:justify-start md:space-x-4 p-4 items-center">
-                  <span className="bg-sky-700 dark:bg-black w-7 h-7"></span>
-                  <h4>Game providers at Planet 7</h4>
+                  <span className="bg-sky-700 dark:bg-zinc-800 w-7 h-7"></span>
+                  <h4>Game providers at {data.casino}</h4>
                   <AiOutlineExclamation />
                 </div>
                 <hr className="m-4" />
@@ -287,8 +362,8 @@ const Review = () => {
               </div>
               <div className="flex flex-col">
                 <div className="flex justify-between md:justify-start md:space-x-4 items-center">
-                <span className="bg-sky-700 dark:bg-black w-7 h-7"></span>
-                  <h4>Payment methods at Planet 7</h4>
+                  <span className="bg-sky-700 dark:bg-zinc-800 w-7 h-7"></span>
+                  <h4>Payment methods at {data.casino}</h4>
                   <AiOutlineExclamation />
                 </div>
                 <hr className="m-4" />
@@ -350,7 +425,7 @@ const Review = () => {
             </div>
             <div>
               <h3 className="text-3xl font-medium my-8 md:text-4xl">
-                Silver Oak Casino Review
+              {data.casino} Casino Review
               </h3>
               <p className="text-justify my-4 md:my-8">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -448,7 +523,7 @@ const Review = () => {
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl">
-                  Silver Oak Player Protection Measures
+                {data.casino} Player Protection Measures
                 </h3>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -472,7 +547,7 @@ const Review = () => {
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl">
-                  Silver Oak Player Protection Measures
+                {data.casino} Player Protection Measures
                 </h3>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -495,7 +570,7 @@ const Review = () => {
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  How Silver Oak Casino compares to other online casino
+                  How {data.casino} Casino compares to other online casino
                 </h3>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -512,9 +587,21 @@ const Review = () => {
                   dictum eleifend.
                 </p>
                 <div className="flex flex-col md:flex-row space-y-4 md:space-y-0">
-                  <Oakcasino classs={'flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl'} />
-                  <Oakcasino classs={'hidden md:flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl'} />
-                  <Oakcasino classs={'hidden md:flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl'} />
+                  <Oakcasino
+                    classs={
+                      "flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl"
+                    }
+                  />
+                  <Oakcasino
+                    classs={
+                      "hidden md:flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl"
+                    }
+                  />
+                  <Oakcasino
+                    classs={
+                      "hidden md:flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl"
+                    }
+                  />
                 </div>
               </div>
               <div className="">
@@ -532,7 +619,7 @@ const Review = () => {
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Slots you can play at Silver Oak Casino
+                  Slots you can play at {data.casino} Casino
                 </h3>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -581,7 +668,7 @@ const Review = () => {
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Review
+export default Review;
