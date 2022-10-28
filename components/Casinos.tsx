@@ -1,5 +1,5 @@
 import React from 'react'
-import Casino from '../components/Casino'
+import Casino from './Casino'
 import { FaMedal } from 'react-icons/fa'
 import { GiUsaFlag } from 'react-icons/gi'
 import { SiBitcoinsv } from 'react-icons/si'

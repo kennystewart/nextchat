@@ -1,16 +1,16 @@
-import React from 'react'
-import Image from 'next/image'
-import ima from '../public/images/imag.jpg'
+import React from "react";
+import Image from "next/legacy/image";
+import ima from "../public/images/imag.jpg";
 import {
   FaStar,
   FaArrowCircleRight,
   FaCopyright,
   FaAngleDown,
-} from 'react-icons/fa'
-import { GiTrophy } from 'react-icons/gi'
-import HighRollerCard from './HighRollerCard'
-import Bonus from './Bonus'
-import Buttonlight from './Buttonlight'
+} from "react-icons/fa";
+import { GiTrophy } from "react-icons/gi";
+import HighRollerCard from "./HighRollerCard";
+import Bonus from "./Bonus";
+import Buttonlight from "./Buttonlight";
 
 const HighRoller = () => {
   return (
@@ -18,27 +18,27 @@ const HighRoller = () => {
       <h2 className="text-2xl font-semibold px-8 py-4 md:text-5xl md:py-14">
         Best Online Gambling Sites in US
       </h2>
-      <div className='flex overflow-scroll md:overflow-hidden space-x-3 space-y-2 justify-center my-4'>
-        <Buttonlight name={'All Casino'} />
-        <Buttonlight name={'All Casino'} />
-        <Buttonlight name={'All Casino'} />
-        <Buttonlight name={'All Casino'} />
-        <Buttonlight name={'All Casino'} />
-        <Buttonlight name={'All Casino'} />
-        <Buttonlight name={'All Casino'} />
+      <div className="flex overflow-scroll md:overflow-hidden space-x-3 space-y-2 justify-center my-4">
+        <Buttonlight name={"All Casino"} />
+        <Buttonlight name={"All Casino"} />
+        <Buttonlight name={"All Casino"} />
+        <Buttonlight name={"All Casino"} />
+        <Buttonlight name={"All Casino"} />
+        <Buttonlight name={"All Casino"} />
+        <Buttonlight name={"All Casino"} />
       </div>
       <div className="flex flex-col md:flex-row border-2 border-gray-300 p-6 rounded md:mx-80 md:p-12 md:rounded-xl space-x-8">
         <span className="bg-sky-600 dark:bg-white rounded-t-lg text-white dark:text-black p-1 md:hidden">
           TOP US CASINO
         </span>
-        <Image src={ima} height={300} width={400} alt={'Lapalander'} />
+        <Image src={ima} height={300} width={400} alt={"Lapalander"} />
         <div className="flex flex-col py-4 md:py-0 md:pl-10">
           <div className="flex flex-col md:flex-row md:space-x-16">
             <h3 className="text-xl font-medium text-center mb-10 md:mb-0">
               BEST FOR NEW PLAYERS
             </h3>
             <div className="flex items-center justify-between md:space-x-2">
-              <span className='hidden md:block'>Approved By Experts</span>
+              <span className="hidden md:block">Approved By Experts</span>
               <div className="flex items-center space-x-1">
                 <FaStar />
                 <FaStar />
@@ -56,13 +56,19 @@ const HighRoller = () => {
           <div className="flex flex-col md:flex-row items-start md:items-end py-5 md:space-x-32 ">
             <h5 className="font-medium md:text-2xl">Deposit Bonus</h5>
             <div className="flex items-center space-x-4 md:items-end">
-              <span className="text-base mr-2 md:text-5xl md:font-medium">320%</span>up to $3,200
+              <span className="text-base mr-2 md:text-5xl md:font-medium">
+                320%
+              </span>
+              up to $3,200
             </div>
           </div>
           <div className="flex flex-col md:flex-row items-start md:items-end py-5 md:py-4 md:space-x-20 ">
             <h5 className="font-medium md:text-2xl">No Deposit Bonus</h5>
             <div className="flex items-center space-x-4 md:items-end">
-              <span className="text-base mr-2 md:text-5xl md:font-medium">25</span> Free Spins
+              <span className="text-base mr-2 md:text-5xl md:font-medium">
+                25
+              </span>{" "}
+              Free Spins
             </div>
           </div>
           <div className="flex flex-col">
@@ -94,7 +100,7 @@ const HighRoller = () => {
           sed neque rhoncus dapibus. Aenean nunc erat, lobortis a ex dignissim,
           scelerisque malesuada odio. Sed vestibulum dictum eleifend.
         </p>
-        <div className="px-2 md:py-2" >
+        <div className="px-2 md:py-2">
           <div className="font-medium flex text-xl space-x-2 md:text-3xl md:space-x-6">
             <GiTrophy className="m-1" />
             <p className="text-left">
@@ -109,7 +115,7 @@ const HighRoller = () => {
             great casino promotions.
           </p>
           <button className="bg-sky-700 text-white dark:bg-white dark:text-black px-10 py-3 flex items-center justify-center rounded text-base font-medium md:my-6">
-            Discover Golden Lion{' '}
+            Discover Golden Lion{" "}
             <FaArrowCircleRight className="mx-4 md:mx-6 md:my-2" />
           </button>
         </div>
@@ -136,7 +142,9 @@ const HighRoller = () => {
         </div>
       </div>
       <div className="px-2 md:my-4 md:mx-80">
-        <p className="text-left font-medium md:my-8 md:text-center md:text-4xl md:font-normal">MORE BONUSES</p>
+        <p className="text-left font-medium md:my-8 md:text-center md:text-4xl md:font-normal">
+          MORE BONUSES
+        </p>
         <div className="flex flex-col">
           <Bonus />
           <Bonus />
@@ -149,7 +157,7 @@ const HighRoller = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HighRoller
+export default HighRoller;

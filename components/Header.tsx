@@ -16,9 +16,7 @@ const Header = (props) => {
           <CgMenuLeft name={open ? "close" : "menu"} />
         </div>
         <div className="font-medium text-3xl cursor-pointer flex items-center">
-          <Link href="/">
-            <a>Logo</a>
-          </Link>
+          <Link href="/">Logo</Link>
         </div>
       </div>
       <ul
@@ -27,31 +25,35 @@ const Header = (props) => {
         }`}
       >
         <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link href="/review">
-            <a className="font-medium hover:text-gray-400 duration-500">
-              Casino Reviews
-            </a>
+          <Link
+            href="/review"
+            className="font-medium hover:text-gray-400 duration-500"
+          >
+            Casino Reviews
           </Link>
         </li>
         <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link href="/casino-bonuses">
-            <a className="font-medium hover:text-gray-400 duration-500">
-              Casino Bonuses
-            </a>
+          <Link
+            href="/casino-bonuses"
+            className="font-medium hover:text-gray-400 duration-500"
+          >
+            Casino Bonuses
           </Link>
         </li>
         <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link href="/casino-software">
-            <a className="font-medium hover:text-gray-400 duration-500">
-              Casino Softwares
-            </a>
+          <Link
+            href="/casino-software"
+            className="font-medium hover:text-gray-400 duration-500"
+          >
+            Casino Softwares
           </Link>
         </li>
         <li className="md:ml-8 text-xl md:my-0 my-7">
-          <Link href="/guides">
-            <a className="font-medium hover:text-gray-400 duration-500">
-              Guides
-            </a>
+          <Link
+            href="/guides"
+            className="font-medium hover:text-gray-400 duration-500"
+          >
+            Guides
           </Link>
         </li>
         <li className="md:ml-8 text-xl md:my-0 my-7"></li>

@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Slider from "../components/Slider";
 import { useState } from "react";
 import Imagelap from "../public/images/image-1.png";
@@ -22,7 +22,7 @@ import {
 } from "react-icons/ai";
 import { BsArrowRightCircleFill, BsFillStarFill } from "react-icons/bs";
 import Bandits from "../components/Bandits";
-import Lapilanders from "../components/Lapilanders";
+import Lapilanders from "../components/BonusItem";
 import Oakcasino from "../components/Oakcasino";
 import { CgMenuLeft } from "react-icons/cg";
 import { useTheme } from "next-themes";
@@ -130,7 +130,7 @@ const Signin = () => {
           Our top picks
         </span>
         <div className="my-4 flex flex-col space-y-4">
-          <span>What is a bitcoin casino</span>
+          <span>What is a LITECOIN casino</span>
           <span>What is a bitcoin casino</span>
           <span>What is a bitcoin casino</span>
           <span>What is a bitcoin casino</span>

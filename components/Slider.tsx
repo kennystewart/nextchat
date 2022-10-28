@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Lapilanders from "../public/images/lapp.png";
 import { useInterval } from "../hooks/use-interval";
 

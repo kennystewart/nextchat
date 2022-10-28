@@ -1,8 +1,9 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
 import { useState } from "react";
+import TopOffer from "../../components/TopOffer";
 import Imagelap from "../../public/images/image-1.png";
 import {
   FaPercentage,
@@ -11,6 +12,7 @@ import {
   FaCreativeCommonsPdAlt,
   FaCcMastercard,
 } from "react-icons/fa";
+import Head from "next/head";
 import { FcBusinessman } from "react-icons/fc";
 import { RiMailLine } from "react-icons/ri";
 import { FcCurrencyExchange } from "react-icons/fc";
@@ -23,15 +25,15 @@ import {
 } from "react-icons/ai";
 import { BsArrowRightCircleFill, BsFillStarFill } from "react-icons/bs";
 import Bandits from "../../components/Bandits";
-import Lapilanders from "../../components/Lapilanders";
+import BonusItem from "../../components/BonusItem";
 import Oakcasino from "../../components/Oakcasino";
-import { InferGetStaticPropsType } from 'next'
+import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
-  const slug = params.slug
+  const slug = params.slug;
 
   const data = await prisma.casino_p_casinos.findFirst({
     where: { clean_name: slug },
@@ -44,7 +46,7 @@ export async function getStaticProps({ params }) {
       homepageimage: true,
       bonuses: {
         orderBy: {
-          position: 'desc',
+          position: "desc",
         },
       },
       banklist: {
@@ -57,7 +59,7 @@ export async function getStaticProps({ params }) {
           description: true,
         },
         orderBy: {
-          ordered: 'desc',
+          ordered: "desc",
         },
       },
       softwares: {
@@ -66,26 +68,35 @@ export async function getStaticProps({ params }) {
         },
       },
     },
-  })
+  });
 
-  const newReviews = data.review.map((r) => ({
-    ...r,
-    description: r.description.replace('h4>', 'h1>'),
-  }))
-  data.review = newReviews
-  return { props: { data } }
+  return { props: { data } };
 }
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' }
+  return { paths: [], fallback: "blocking" };
 }
 
-const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
+const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const firstBonus = props.data.bonuses.find((v) => v.deposit > 0);
+
   const [show, setShow] = useState(true);
-  const data = props.data
+  const data = props.data;
+
+  const buttondata = data.button;
+  const bonuslist = data.bonuses;
+  const casinoname = data.casino;
+  const bonusdata = { buttondata, bonuslist, casinoname };
+  const Homepage =
+    "https://www.allfreechips.com/image/games/" + data.homepageimage;
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
+      <Head>
+        <title>{data.meta[0].title}</title>
+        <meta name="description" content={data.meta[0].description} />
+        <meta property="og:image" content= {Homepage} />
+      </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
           <div className="container mx-auto">
@@ -106,7 +117,7 @@ const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-            {data.casino} Casino Review 2022
+              {data.casino} Casino Review 2022
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -195,104 +206,89 @@ const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <p className="py-4">AT A GLANCE</p>
-            <div className="flex flex-col border-t-8 md:border-t-0 md:border-l-8 border-sky-700 dark:border-white rounded bg-gray-200 dark:text-black p-4 md:p-10">
-              <div className="flex flex-col md:flex-row items-center md:space-x-16">
-                <Image
-                  src={Imagelap}
-                  width={300}
-                  height={200}
-                  alt={"Imagelap"}
-                />
-                <div className="flex flex-col w-full py-8">
-                  <div className="flex flex-col md:flex-row items-center">
-                    <div className="text-3xl font-medium items-center w-full">
-                      {data.casino}
+            <div className="flex flex-col md:flex-row items-center md:space-x-16">
+              <Image
+                src={Homepage}
+                width={300}
+                height={200}
+                alt={props.data.homepageimage}
+              />
+              <div className="flex flex-col w-full py-8">
+                <div className="flex flex-col md:flex-row items-center">
+                  <div className="text-3xl font-medium items-center w-full">
+                    {props.data.casino}
+                  </div>
+                  <div className="flex w-full justify-between md:justify-start my-4">
+                    <div className="flex items-center space-x-2">
+                      <span className="flex">
+                        <BsFillStarFill />
+                        <BsFillStarFill />
+                        <BsFillStarFill />
+                        <BsFillStarFill />
+                        <BsFillStarFill />
+                      </span>
+                      <span>4.1</span>
                     </div>
-                    <div className="flex w-full justify-between md:justify-start my-4">
-                      <div className="flex items-center space-x-2">
-                        <span className="flex">
-                          <BsFillStarFill />
-                          <BsFillStarFill />
-                          <BsFillStarFill />
-                          <BsFillStarFill />
-                          <BsFillStarFill />
-                        </span>
-                        <span>4.1</span>
-                      </div>
-                      <div className="flex space-x-4">
-                        <span className="flex items-center">Review</span>
-                        <span className="h-8 w-8 rounded-full bg-sky-700 text-white dark:bg-zinc-800 dark:text-white">
-                          <AiOutlineExclamation className="relative top-2 left-2" />
-                        </span>
-                      </div>
+                    <div className="flex space-x-4">
+                      <span className="flex items-center">Review</span>
+                      <span className="h-8 w-8 rounded-full bg-sky-700 text-white dark:bg-zinc-800 dark:text-white">
+                        <AiOutlineExclamation className="relative top-2 left-2" />
+                      </span>
                     </div>
                   </div>
-                  <div className="flex flex-col items-center md:items-end md:flex-row">
-                    <div>Top Offer</div>
-                    <div className="flex items-center">
-                      <span className="text-5xl">320</span>
-                      <div className="flex flex-col space-y-0 leading-4 text-base">
-                        <span>%</span>
-                        <span>Bonus</span>
-                      </div>
+                </div>
+                <div className="flex flex-col items-center md:items-end md:flex-row">
+                  <div>Top Offer</div>
+                  <div className="flex items-center">
+                    <span className="text-5xl">{firstBonus?.deposit} </span>
+                    <div className="flex flex-col space-y-0 leading-4 text-base">
+                      <span>
+                        %
+                        {(
+                          (firstBonus?.deposit /
+                            (firstBonus?.deposit_amount || 1)) *
+                          100
+                        ).toFixed(0)}
+                      </span>
+                      <span>Bonus</span>
                     </div>
-                    <div className="font-normal">up to $3,200</div>
                   </div>
-                  <div className="flex flex-col md:flex-row space-y-8">
-                    <div className="flex items-center mt-4 w-full">
-                      <div className="flex flex-col items-center">
-                        <span className="text-2xl">$10</span>
-                        <span className="text-sm font-light">Min. Deposit</span>
-                      </div>
-                      <hr className="border-sky-200 w-10 h-1 rotate-90" />
-                      <div className="flex flex-col items-center">
-                        <span className="text-2xl">30x</span>
-                        <span className="text-sm font-light">Playthrough</span>
-                      </div>
-                      <hr className="border-sky-200 w-10 h-1 rotate-90" />
-                      <div className="flex flex-col items-center">
-                        <span className="text-sm">Bonus</span>
-                        <span className="text-sm">details</span>
-                      </div>
+                  <div className="font-normal">
+                    up to ${firstBonus?.deposit_amount}
+                  </div>
+                </div>
+                <div className="flex flex-col md:flex-row space-y-8">
+                  <div className="flex items-center mt-4 w-full">
+                    <div className="flex flex-col items-center">
+                      <span className="text-2xl">$10</span>
+                      <span className="text-sm font-light">Min. Deposit</span>
                     </div>
-                    <button className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
-                      Claim Now
-                      <BsArrowRightCircleFill className="mx-4" />
-                    </button>
+                    <hr className="border-sky-200 w-10 h-1 rotate-90" />
+                    <div className="flex flex-col items-center">
+                      <span className="text-2xl">
+                        {firstBonus?.playthrough}
+                      </span>
+                      <span className="text-sm font-light">Playthrough</span>
+                    </div>
+                    <hr className="border-sky-200 w-10 h-1 rotate-90" />
+                    <div className="flex flex-col items-center">
+                      <span className="text-sm">Bonus</span>
+                      <span className="text-sm">details</span>
+                    </div>
                   </div>
+                  <button className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
+                    Claim Now
+                    <BsArrowRightCircleFill className="mx-4" />
+                  </button>
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row justify-between md:p-8 space-y-2">
-                <div className="flex space-x-2 justify-center">
-                  <FaCcMastercard className="text-2xl" />
-                  <FaCcMastercard className="text-2xl" />
-                  <FaCcMastercard className="text-2xl" />
-                  <FaCcMastercard className="text-2xl" />
-                  <FaCcMastercard className="text-2xl" />
-                  <FaCcMastercard className="text-2xl" />
-                  <FaCcMastercard className="text-2xl" />
-                </div>
-                <div className="flex space-x-2 justify-center items-center">
-                  <FaCreativeCommonsPdAlt />
-                  <span>Daily Rewards</span>
-                </div>
-                <div className="flex space-x-2 justify-center items-center">
-                  <FaCreativeCommonsPdAlt />
-                  <span>Exclusive VIP Program</span>
-                </div>
-              </div>
-              <p className="text-justify px-0 md:px-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                volutpat elit vel tellus eleifend imperdiet.
-              </p>
             </div>
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
                 MORE BONUSES AT {data.casino} CASINO
               </p>
-              <Lapilanders />
-              <Lapilanders />
-              <Lapilanders />
+
+              <BonusItem data={bonusdata} />
               <span className="text-2xl text-center py-2 md:py-6">
                 Show more
               </span>
@@ -425,7 +421,7 @@ const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
             </div>
             <div>
               <h3 className="text-3xl font-medium my-8 md:text-4xl">
-              {data.casino} Casino Review
+                {data.casino} Casino Review
               </h3>
               <p className="text-justify my-4 md:my-8">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -523,7 +519,7 @@ const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl">
-                {data.casino} Player Protection Measures
+                  {data.casino} Player Protection Measures
                 </h3>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -547,7 +543,7 @@ const Review = ( props: InferGetStaticPropsType<typeof getStaticProps> ) => {
               </div>
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl">
-                {data.casino} Player Protection Measures
+                  {data.casino} Player Protection Measures
                 </h3>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
