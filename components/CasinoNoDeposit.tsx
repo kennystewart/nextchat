@@ -46,7 +46,7 @@ function CasinoNoDeposit(props) {
                 <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
                   {d.deposit_amount}%{" "}
                   <span className="md:text-lg">
-                    up to ${d.deposit_amount}
+                    up to ${d.bonuses.deposit_amount}
                   </span>
                 </p>
               </div>
@@ -58,7 +58,7 @@ function CasinoNoDeposit(props) {
             <div className="flex flex-col">
               <div className="flex items-center">
                 <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
-                  ${d.bonuses.nodeposit} <span className="md:text-lg">No Deposit</span>
+                  ${d.bonuses[0].nodeposit} <span className="md:text-lg">No Deposit</span>
                 </p>
               </div>
             </div>
@@ -74,7 +74,7 @@ function CasinoNoDeposit(props) {
             </p>
             <h5 className="text-normal font-medium">
               <Link href={`review/${encodeURIComponent(d.clean_name)}`}>
-                {d.casino}
+                {d.casino} Review
               </Link>
             </h5>
           </div>

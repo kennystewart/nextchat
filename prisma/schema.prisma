@@ -327,3 +327,4 @@ model casino_p_restrictions {
   allow      Int?
   casino_geo casino_p_casinos @relation(fields: [casino], references: [id])
 }
+

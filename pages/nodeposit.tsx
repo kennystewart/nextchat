@@ -21,25 +21,26 @@ import CasinoNoDeposit from "../components/CasinoNoDeposit";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
-    where: { approved: 1, rogue: 0 },
+    where: { 
+      approved: 1, 
+      rogue: 0,
+     },
     select: {
       id: true,
       clean_name: true,
       casino: true,
       button: true,
       bonuses: {
-        select: {
-          nodeposit: true,
-        },
-        where: {
-          nodeposit: { gt: 0 },
-        },
-      },
+        orderBy: {
+          nodeposit: 'desc',
+        }
+      }
     },
-    take: 14,
+  
+    take: 114,
   });
-
-  return { props: { data: data.filter((p) => p.bonuses.length > 0) } };
+  
+  return { props: { data: data.filter((p) => p.bonuses.length > 0 && p.bonuses[0].nodeposit > 0 ) } };
 }
 
 export default function Nodeposit(
