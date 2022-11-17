@@ -3,8 +3,6 @@ import Footer from "../../components/Footer";
 import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
 import { useState } from "react";
-import TopOffer from "../../components/TopOffer";
-import Imagelap from "../../public/images/image-1.png";
 import {
   FaPercentage,
   FaAngleDown,
@@ -30,6 +28,7 @@ import Oakcasino from "../../components/Oakcasino";
 import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
+import SoftwareProv from "../../components/SoftwareProv";
 const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
@@ -78,14 +77,18 @@ export async function getStaticPaths() {
 }
 
 const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+  
   const firstBonus = props.data.bonuses.find((v) => v.deposit > 0);
+
 
   const [show, setShow] = useState(true);
   const data = props.data;
-
+  const casinoReview = { __html: data.review[0].description }
   const buttondata = data.button;
   const bonuslist = data.bonuses;
   const casinoname = data.casino;
+  const softwares = data.softwares;
+  const softwaredata = {casinoname , softwares}
   const bonusdata = { buttondata, bonuslist, casinoname };
   const Homepage =
     "https://www.allfreechips.com/image/games/" + data.homepageimage;
@@ -143,11 +146,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend.
+                  Allfreechips is dedicated to bringing the best and latest online casino bonus information. We rely on your input to insure the casinos listed here are both correct and on the level by leaving your reviews.
                 </p>
               </div>
             </div>
@@ -196,12 +195,11 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
-              <span>What is a bitcoin casino</span>
-              <span>What is a bitcoin casino</span>
-              <span>What is a bitcoin casino</span>
-              <span>What is a bitcoin casino</span>
-              <span>What is a bitcoin casino</span>
-              <span>What is a bitcoin casino</span>
+              <span>{data.casino} Bonuses</span>
+              <span>{data.casino} Review</span>
+              <span>{data.casino} Pros and Cons</span>
+              <span>Casinos Like {data.casino} Bonuses</span>
+              <span>Slots at {data.casino}</span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
@@ -294,68 +292,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </span>
             </div>
             <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
-              <div className="flex flex-col">
-                <div className="flex justify-between md:justify-start md:space-x-4 p-4 items-center">
-                  <span className="bg-sky-700 dark:bg-zinc-800 w-7 h-7"></span>
-                  <h4>Game providers at {data.casino}</h4>
-                  <AiOutlineExclamation />
-                </div>
-                <hr className="m-4" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-8">
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <FcCurrencyExchange className="text-2xl" />
-                    Netent
-                  </div>
-                </div>
-              </div>
+              <SoftwareProv data={softwaredata} />
               <div className="flex flex-col">
                 <div className="flex justify-between md:justify-start md:space-x-4 items-center">
                   <span className="bg-sky-700 dark:bg-zinc-800 w-7 h-7"></span>
@@ -420,51 +357,8 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </div>
             </div>
             <div>
-              <h3 className="text-3xl font-medium my-8 md:text-4xl">
-                {data.casino} Casino Review
-              </h3>
-              <p className="text-justify my-4 md:my-8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                dignissim, scelerisque malesuada odio. Sed vestibulum dictum
-                eleifend.
-              </p>
-              <p className="text-4xl my-8">
-                <q>Dolor sit amet, consectetur adipiscing elit donec.</q>
-              </p>
-              <div className="flex flex-col my-4">
-                <span className="flex items-center">
-                  <hr className="bg-sky-700 dark:bg-white w-10 h-1 mx-1" />
-                  Garry Bridges
-                </span>
-                <p className="text-gray-400 dark:text-white text-sm">
-                  Senior Casino Expert at allfreechips.com
-                </p>
-              </div>
-              <p className="text-justify my-4 md:my-10">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                dignissim, scelerisque malesuada odio. Sed vestibulum dictum
-                eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit. Donec volutpat elit vel tellus eleifend imperdiet. Donec
-                consectetur urna sed neque rhoncus dapibus. Aenean nunc erat,
-                lobortis a ex dignissim, scelerisque malesuada odio. Sed
-                vestibulum dictum eleifend
-              </p>
-              <div>
-                <h3 className="text-3xl my-8 md:text-4xl">
-                  What are the advantages and disadvantages?
-                </h3>
-                <p className="text-justify my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend.
-                </p>
-              </div>
+              <h1 className="text-3xl font-semibold my-4">{data.casino} Review</h1>
+              <div dangerouslySetInnerHTML={{ __html: data.review[0].description }}></div>
               <div className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal">
                 <div className="md:mx-10">
                   <h3 className="text-3xl font-semibold my-4">Pros</h3>
