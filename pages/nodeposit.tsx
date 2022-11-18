@@ -48,7 +48,6 @@ export async function getStaticProps({ params }) {
       {hot: 'desc'},
       {new: 'desc'},
     ],
-    take: 5,
   });
   
   return { props: { data: data.filter((p) => p.bonuses.length > 0  ) } };

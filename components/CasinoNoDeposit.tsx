@@ -11,15 +11,36 @@ function CasinoNoDeposit(props) {
   data.forEach(function (item, index) {
     let firstBonus = item.bonuses.find((v) => v.deposit > 0);
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    item.nodeposit = ndBonus.nodeposit;
-    item.nodeposit = ndBonus.playthrough;
-    item.nodepositCode = ndBonus.code;
-    item.deposit = firstBonus.deposit;
-    item.depositBonus = firstBonus.deposit_amount;
-    item.depositPlaythough = firstBonus.playthrough;
-    item.depositCode = firstBonus.code;
-    item.depositPercent = firstBonus.percent;
-    console.log(item.bonuses)
+    if (firstBonus && ndBonus){
+      item.nodeposit = ndBonus.nodeposit;
+      item.nodeposit = ndBonus.playthrough;
+      item.nodepositCode = ndBonus.code;
+      if(ndBonus.code.length > 1){
+        item.ndCodeDisp = ndBonus.code;
+      }else{
+        item.ndCodeDisp = "No Code Used";
+      }
+      
+      item.deposit = firstBonus.deposit;
+      item.depositBonus = firstBonus.deposit_amount;
+      item.depositPlaythough = firstBonus.playthrough;
+      item.depositCode = firstBonus.code;
+      item.depositPercent = firstBonus.percent;
+      if(item.depositCode.length > 1){
+        item.depCodeDisp = item.depositCode;
+      }else{
+        item.depCodeDisp = "No Code Used";
+      }
+      if (item.casino.length > 10){
+        item.casinoRevText =item.casino;
+        item.casinoSiteText ='site';
+      }else{
+        item.casinoRevText =item.casino + ' Review';
+        item.casinoSiteText ='secure site';
+      }
+    }
+
+    
   });
 
 
@@ -76,7 +97,7 @@ function CasinoNoDeposit(props) {
               <div className="flex items-center">
                 <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
                   ${d.nodeposit}{" "}
-                  <span className="md:text-lg">No Deposit</span>
+                  <span className="md:text-lg">{d.ndCodeDisp}</span>
                 </p>
               </div>
             </div>
@@ -87,10 +108,10 @@ function CasinoNoDeposit(props) {
               Play Now
               <FaArrowCircleRight className="mx-2" />
             </button>
-            <p className="text-sm font-normal">On {d.casino}’s secure site</p>
+            <p className="text-sm font-normal">On {d.casino}’s {d.casinoSiteText}</p>
             <h5 className="text-normal font-medium">
               <Link href={`review/${encodeURIComponent(d.clean_name)}`}>
-                {d.casino} Review
+                {d.casinoRevText}
               </Link>
             </h5>
           </div>
