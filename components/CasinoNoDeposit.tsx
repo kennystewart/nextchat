@@ -53,9 +53,9 @@ function CasinoNoDeposit(props) {
           <div className="flex items-center md:flex-col">
             <Image
               unoptimized // avoids getting charged
-              alt={data.casino}
-              width={110}
-              height={88}
+              alt={d.casino + ' logo'}
+              width={100}
+              height={80}
               src={`https://www.allfreechips.com/image/casinoiconscut/${encodeURIComponent(
                 d.button
               )}`}
