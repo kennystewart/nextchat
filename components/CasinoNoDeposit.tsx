@@ -43,8 +43,6 @@ function CasinoNoDeposit(props) {
     
   });
 
-
-  console.log(data);
   return (
     <div>
       {data.map((d) => (
