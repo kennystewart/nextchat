@@ -18,7 +18,6 @@ const Header = (props) => {
         <div className="font-medium text-3xl cursor-pointer flex items-center">
           <Link href="/">
             <Image
-            unoptimized // avoids getting charged
               alt={'Allfreechips Casino Guide'}
               width={250}
               height={57}
