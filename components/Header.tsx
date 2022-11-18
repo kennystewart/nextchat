@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { CgMenuLeft } from "react-icons/cg";
 import { useSession, signIn, signOut } from "next-auth/react";
-
+import Image from "next/dist/client/image";
 const Header = (props) => {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
@@ -16,7 +16,15 @@ const Header = (props) => {
           <CgMenuLeft name={open ? "close" : "menu"} />
         </div>
         <div className="font-medium text-3xl cursor-pointer flex items-center">
-          <Link href="/">Logo</Link>
+          <Link href="/">
+            <Image
+            unoptimized // avoids getting charged
+              alt={'Allfreechips Casino Guide'}
+              width={250}
+              height={57}
+              src={`https://afc-redux.vercel.app/logo.png`}
+            />
+            </Link>
         </div>
       </div>
       <ul
