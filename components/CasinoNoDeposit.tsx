@@ -7,6 +7,23 @@ import { FaCopyright } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 function CasinoNoDeposit(props) {
   const data = props.data;
+
+  data.forEach(function (item, index) {
+    let firstBonus = item.bonuses.find((v) => v.deposit > 0);
+    let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
+    item.nodeposit = ndBonus.nodeposit;
+    item.nodeposit = ndBonus.playthrough;
+    item.nodepositCode = ndBonus.code;
+    item.deposit = firstBonus.deposit;
+    item.depositBonus = firstBonus.deposit_amount;
+    item.depositPlaythough = firstBonus.playthrough;
+    item.depositCode = firstBonus.code;
+    item.depositPercent = firstBonus.percent;
+    console.log(item.bonuses)
+  });
+
+
+  console.log(data);
   return (
     <div>
       {data.map((d) => (
@@ -44,9 +61,9 @@ function CasinoNoDeposit(props) {
             <div className="flex flex-col">
               <div className="flex items-center">
                 <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
-                  {d.deposit_amount}%{" "}
+                  {d.depositPercent}%{" "}
                   <span className="md:text-lg">
-                    up to ${d.bonuses.deposit_amount}
+                    up to ${d.depositBonus}
                   </span>
                 </p>
               </div>
@@ -58,7 +75,8 @@ function CasinoNoDeposit(props) {
             <div className="flex flex-col">
               <div className="flex items-center">
                 <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
-                  ${d.bonuses[0].nodeposit} <span className="md:text-lg">No Deposit</span>
+                  ${d.nodeposit}{" "}
+                  <span className="md:text-lg">No Deposit</span>
                 </p>
               </div>
             </div>
@@ -69,9 +87,7 @@ function CasinoNoDeposit(props) {
               Play Now
               <FaArrowCircleRight className="mx-2" />
             </button>
-            <p className="text-sm font-normal">
-              On {d.casino}’s secure site
-            </p>
+            <p className="text-sm font-normal">On {d.casino}’s secure site</p>
             <h5 className="text-normal font-medium">
               <Link href={`review/${encodeURIComponent(d.clean_name)}`}>
                 {d.casino} Review

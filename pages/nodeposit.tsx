@@ -24,23 +24,34 @@ export async function getStaticProps({ params }) {
     where: { 
       approved: 1, 
       rogue: 0,
+      bonuses: {
+        some: {
+          nodeposit: { gt: 0 }
+        }
+      }
      },
     select: {
       id: true,
       clean_name: true,
       casino: true,
+      hot: true,
+      new: true,
       button: true,
       bonuses: {
-        orderBy: {
-          nodeposit: 'desc',
-        }
+        orderBy: [
+          {nodeposit: 'desc'},
+          {deposit: 'desc'}
+        ]
       }
     },
-  
-    take: 114,
+    orderBy:[
+      {hot: 'desc'},
+      {new: 'desc'},
+    ],
+    take: 5,
   });
   
-  return { props: { data: data.filter((p) => p.bonuses.length > 0 && p.bonuses[0].nodeposit > 0 ) } };
+  return { props: { data: data.filter((p) => p.bonuses.length > 0  ) } };
 }
 
 export default function Nodeposit(
@@ -57,9 +68,9 @@ export default function Nodeposit(
       <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
         <Header />
         <div className="md:px-24 py-8 text-center mt-28 p-2">
-          <h2 className="text-3xl font-semibold px-8 md:text-6xl md:">
+          <h1 className="text-3xl font-semibold px-8 md:text-6xl md:">
             Complete No Deposit Casino Guide
-          </h2>
+          </h1>
           <p className="py-6 font-medium md:text-xl md:my-10">
             Allfreechips is a top teir provider of exclusive no deposit casino bonuses allowing you to get the largest no deposit play with no deposit required.
           </p>
@@ -68,7 +79,7 @@ export default function Nodeposit(
 
         <div className="text-left p-4 md:container mx-auto">
           <h3 className="text-2xl font-semibold md:text-5xl md:my-12">
-            Allfreechips - No Deposit online casiono bonuses
+            Allfreechips - No Deposit online casino bonuses
           </h3>
           <p className="text-base font-medium my-6 text-justify  md:text-2xl">
             All About NDB
