@@ -1,8 +1,10 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import LikeSlots from "../../components/LikeSlots";
 import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
 import { useState } from "react";
+import cheerio from "cheerio";
 import {
   FaPercentage,
   FaAngleDown,
@@ -69,7 +71,21 @@ export async function getStaticProps({ params }) {
     },
   });
 
-  return { props: { data } };
+  const gamedata = await prisma.$queryRawUnsafe(
+    `SELECT game_name,game_clean_name,game_reels,game_lines,game_image FROM casino_p_games 
+    WHERE game_software in (1,2)
+    ORDER BY RANDOM ()
+    LIMIT 5`
+  );
+
+  data.review = data.review.map((entry) => {
+    let desc = entry.description;
+    const $ = cheerio.load(desc);
+    $("p").addClass("my-4");
+    return { description: $.html() };
+  });
+
+  return { props: { data, gamedata } };
 }
 
 export async function getStaticPaths() {
@@ -77,18 +93,16 @@ export async function getStaticPaths() {
 }
 
 const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  
   const firstBonus = props.data.bonuses.find((v) => v.deposit > 0);
-
 
   const [show, setShow] = useState(true);
   const data = props.data;
-  const casinoReview = { __html: data.review[0].description }
+  const casinoReview = { __html: data.review[0].description };
   const buttondata = data.button;
   const bonuslist = data.bonuses;
   const casinoname = data.casino;
   const softwares = data.softwares;
-  const softwaredata = {casinoname , softwares}
+  const softwaredata = { casinoname, softwares };
   const bonusdata = { buttondata, bonuslist, casinoname };
   const Homepage =
     "https://www.allfreechips.com/image/games/" + data.homepageimage;
@@ -96,9 +110,12 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
       <Head>
-        <title>{data.meta[0].title}</title>
-        <meta name="description" content={data.meta[0].description} />
-        <meta property="og:image" content= {Homepage} />
+        <title>{data.meta[0]?.title ?? "Missing Title"}</title>
+        <meta
+          name="description"
+          content={data.meta[0]?.description ?? "Missing Description"}
+        />
+        <meta property="og:image" content={Homepage} />
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
@@ -146,7 +163,10 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Allfreechips is dedicated to bringing the best and latest online casino bonus information. We rely on your input to insure the casinos listed here are both correct and on the level by leaving your reviews.
+                  Allfreechips is dedicated to bringing the best and latest
+                  online casino bonus information. We rely on your input to
+                  insure the casinos listed here are both correct and on the
+                  level by leaving your reviews.
                 </p>
               </div>
             </div>
@@ -207,8 +227,8 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <div className="flex flex-col md:flex-row items-center md:space-x-16">
               <Image
                 src={Homepage}
-                width={300}
-                height={200}
+                width={440}
+                height={300}
                 alt={props.data.homepageimage}
               />
               <div className="flex flex-col w-full py-8">
@@ -285,7 +305,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <p className="py-4 font-bold my-4 md:my-8">
                 MORE BONUSES AT {data.casino} CASINO
               </p>
-
+              <LikeSlots data={props.gamedata} />
               <BonusItem data={bonusdata} />
               <span className="text-2xl text-center py-2 md:py-6">
                 Show more
@@ -357,8 +377,13 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </div>
             </div>
             <div>
-              <h1 className="text-3xl font-semibold my-4">{data.casino} Review</h1>
-              <div dangerouslySetInnerHTML={{ __html: data.review[0].description }}></div>
+              <h1 className="text-3xl font-semibold my-4">
+                {data.casino} Review
+              </h1>
+              <div
+                className="text-lg font-normal"
+                dangerouslySetInnerHTML={casinoReview}
+              ></div>
               <div className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal">
                 <div className="md:mx-10">
                   <h3 className="text-3xl font-semibold my-4">Pros</h3>

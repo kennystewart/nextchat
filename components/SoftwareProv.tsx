@@ -16,12 +16,14 @@ const SoftwareProv = (props) => {
         {props.data.softwares.map(function (d, id) {
           return (
             <div key={d.id} className="flex items-center">
-                 <Image
+              <Image
                 unoptimized // avoids getting charged
-                width = {175}
-                height = {100}
+                width={175}
+                height={100}
                 alt={d.softwarelist.software_name}
-                src={`https://www.allfreechips.com/image/software/${encodeURIComponent(d.softwarelist.image)}`}
+                src={`https://www.allfreechips.com/image/software/${encodeURIComponent(
+                  d.softwarelist.image
+                )}`}
               />
             </div>
           );

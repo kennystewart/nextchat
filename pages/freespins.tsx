@@ -21,16 +21,16 @@ import CasinoNoDeposit from "../components/CasinoNoDeposit";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
-    where: {
-      approved: 1,
+    where: { 
+      approved: 1, 
       rogue: 0,
       bonuses: {
         some: {
           nodeposit: { gt: 0 },
-          freespins: { lt: 1 },
-        },
-      },
-    },
+          freespins: { gt: 0},
+        }
+      }
+     },
     select: {
       id: true,
       clean_name: true,
@@ -39,51 +39,20 @@ export async function getStaticProps({ params }) {
       new: true,
       button: true,
       bonuses: {
-        orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
-      },
+        orderBy: [
+          {nodeposit: 'desc'},
+          {deposit: 'desc'}
+        ]
+      }
     },
-    orderBy: [{ hot: "desc" }, { new: "desc" }],
+    orderBy:[
+      {hot: 'desc'},
+      {new: 'desc'},
+    ],
     take: 25,
   });
-
-  const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
-
-  bdata.forEach(function (item, index) {
-    let firstBonus = item.bonuses.find((v) => v.deposit > 0);
-    let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    if (firstBonus && ndBonus) {
-      item.nodeposit = ndBonus.nodeposit;
-      item.nodeposit = ndBonus.playthrough;
-      item.nodepositCode = ndBonus.code;
-      if (ndBonus.code.length > 1) {
-        item.ndCodeDisp = ndBonus.code;
-      } else {
-        item.ndCodeDisp = "No Code Used";
-      }
-
-      item.deposit = firstBonus.deposit;
-      item.depositBonus = firstBonus.deposit_amount;
-      item.depositPlaythough = firstBonus.playthrough;
-      item.depositCode = firstBonus.code;
-      item.depositPercent = firstBonus.percent;
-      if (item.depositCode.length > 1) {
-        item.depCodeDisp = item.depositCode;
-      } else {
-        item.depCodeDisp = "No Code Used";
-      }
-      if (item.casino.length > 10) {
-        item.casinoRevText = item.casino;
-        item.casinoSiteText = "site";
-      } else {
-        item.casinoRevText = item.casino + " Review";
-        item.casinoSiteText = "secure site";
-      }
-    }
-
-    delete item.bonuses;
-  });
-
-  return { props: { data: bdata } };
+  
+  return { props: { data: data.filter((p) => p.bonuses.length > 0  ) } };
 }
 
 export default function Nodeposit(
@@ -104,15 +73,9 @@ export default function Nodeposit(
             Complete No Deposit Casino Guide
           </h1>
           <p className="py-6 font-medium md:text-xl md:my-10">
-            Allfreechips is a top teir provider of exclusive no deposit casino
-            bonuses allowing you to get the largest no deposit play with no
-            deposit required.
+            Allfreechips is a top teir provider of exclusive no deposit casino bonuses allowing you to get the largest no deposit play with no deposit required.
           </p>
         </div>
-        <div className="border-4 border-1 items-center border-gray-300 p-6 rounded my-8 md:mx-80 md:p-12 md:rounded-xl md:flex md:justify-between">
-          Data Stuff
-        </div>
-
         <CasinoNoDeposit data={bdata} />
 
         <div className="text-left p-4 md:container mx-auto">
