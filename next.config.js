@@ -8,6 +8,9 @@ const nextConfig = {
       "afc-redux.vercel.app",
     ],
   },
+  experimental: {
+    appDir: true,
+  },
 };
 
 module.exports = nextConfig;

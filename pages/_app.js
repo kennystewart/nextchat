@@ -1,6 +1,5 @@
-import '../styles/globals.css'
-import { SessionProvider } from 'next-auth/react'
-import { ThemeProvider } from 'next-themes'
+import "../styles/globals.css";
+import { SessionProvider } from "next-auth/react";
 
 export default function MyApp({
   Component,
@@ -8,9 +7,7 @@ export default function MyApp({
 }) {
   return (
     <SessionProvider session={session}>
-      <ThemeProvider attribute="class">
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </SessionProvider>
-  )
+  );
 }

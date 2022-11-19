@@ -25,11 +25,9 @@ import Bandits from "../components/Bandits";
 import Lapilanders from "../components/BonusItem";
 import Oakcasino from "../components/Oakcasino";
 import { CgMenuLeft } from "react-icons/cg";
-import { useTheme } from "next-themes";
 
 const Signin = () => {
   const [show, setShow] = useState(true);
-  const { theme, setTheme } = useTheme("light");
   return (
     <div>
       <Header />
