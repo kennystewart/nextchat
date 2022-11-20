@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import LikeSlots from "../../components/LikeSlots";
+import LikeCasinos from "../../components/LikeCasinos";
 import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
 import { useState } from "react";
@@ -70,22 +71,35 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-
+  console.log(data.softwares[0].softwarelist)
+ 
+  const swId = data.softwares.filter(x => x.softwarelist.id > 0).map(x => x.softwarelist.id);
+  
+  console.log(swId);
   const gamedata = await prisma.$queryRawUnsafe(
-    `SELECT game_name,game_clean_name,game_reels,game_lines,game_image FROM casino_p_games 
-    WHERE game_software in (1,2)
+    `SELECT s.software_name,g.game_name,g.game_clean_name,g.game_reels,g.game_lines,g.game_image FROM casino_p_games g
+    
+    LEFT JOIN casino_p_software s
+    ON g.game_software = s.id
+    WHERE game_software in (` + swId + `)
     ORDER BY RANDOM ()
     LIMIT 5`
   );
-
+  
   data.review = data.review.map((entry) => {
     let desc = entry.description;
     const $ = cheerio.load(desc);
     $("p").addClass("my-4");
+    $("h1").addClass("text-3xl font-semibold my-6 md:text-4xl");
+    $("h2").addClass("text-3xl font-semibold my-6 md:text-4xl");
+    $("h3").addClass("text-3xl font-semibold my-6 md:text-4xl");
+    $("h4").addClass("text-3xl font-semibold my-6 md:text-4xl");
+    $("h5").addClass("text-3xl font-semibold my-6 md:text-4xl");
+    $("h6").addClass("text-3xl font-semibold my-6 md:text-4xl");
     return { description: $.html() };
   });
-
-  return { props: { data, gamedata } };
+  
+  return { props: { data, gamedata} };
 }
 
 export async function getStaticPaths() {
@@ -97,6 +111,8 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const [show, setShow] = useState(true);
   const data = props.data;
+  
+  const gameList = props.gamedata;
   const casinoReview = { __html: data.review[0].description };
   const buttondata = data.button;
   const bonuslist = data.bonuses;
@@ -305,7 +321,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <p className="py-4 font-bold my-4 md:my-8">
                 MORE BONUSES AT {data.casino} CASINO
               </p>
-              <LikeSlots data={props.gamedata} />
+              
               <BonusItem data={bonusdata} />
               <span className="text-2xl text-center py-2 md:py-6">
                 Show more
@@ -384,140 +400,15 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 className="text-lg font-normal"
                 dangerouslySetInnerHTML={casinoReview}
               ></div>
-              <div className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal">
-                <div className="md:mx-10">
-                  <h3 className="text-3xl font-semibold my-4">Pros</h3>
-                  <ul className="text-justify list-disc md:space-x-0 space-y-4 ">
-                    <li>
-                      <span className="font-medium">Lorem ipsum:</span> dolor
-                      sit amet, consectetur adipiscing elit. Donec volutpat elit
-                      vel tellus eleifend imperdiet. Donec consectetur urna sed
-                      neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                      dignissim, scelerisque malesuada odio. Sed vestibulum
-                      dictum eleifend¢
-                    </li>
-                    <li>
-                      <span className="font-medium">Lorem ipsum:</span> dolor
-                      sit amet, consectetur adipiscing elit. Donec volutpat elit
-                      vel tellus eleifend imperdiet. Donec consectetur urna sed
-                      neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                      dignissim, scelerisque malesuada odio. Sed vestibulum
-                      dictum eleifend¢
-                    </li>
-                    <li>
-                      <span className="font-medium">Lorem ipsum:</span> dolor
-                      sit amet, consectetur adipiscing elit. Donec volutpat elit
-                      vel tellus eleifend imperdiet. Donec consectetur urna sed
-                      neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                      dignissim, scelerisque malesuada odio. Sed vestibulum
-                      dictum eleifend¢
-                    </li>
-                  </ul>
-                </div>
-                <div className="md:mx-20">
-                  <h3 className="text-3xl font-semibold my-4">Cons</h3>
-                  <ul className="text-justify list-disc md:space-x-0 space-y-4 ">
-                    <li>
-                      <span className="font-medium">Lorem ipsum:</span> dolor
-                      sit amet, consectetur adipiscing elit. Donec volutpat elit
-                      vel tellus eleifend imperdiet. Donec consectetur urna sed
-                      neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                      dignissim, scelerisque malesuada odio. Sed vestibulum
-                      dictum eleifend¢
-                    </li>
-                    <li>
-                      <span className="font-medium">Lorem ipsum:</span> dolor
-                      sit amet, consectetur adipiscing elit. Donec volutpat elit
-                      vel tellus eleifend imperdiet. Donec consectetur urna sed
-                      neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                      dignissim, scelerisque malesuada odio. Sed vestibulum
-                      dictum eleifend¢
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="text-lg font-normal">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl">
-                  {data.casino} Player Protection Measures
-                </h3>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend.
-                </p>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend. Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Donec volutpat elit vel tellus eleifend
-                  imperdiet. Donec consectetur urna sed neque rhoncus dapibus.
-                  Aenean nunc erat, lobortis a ex dignissim, scelerisque
-                  malesuada odio. Sed vestibulum dictum eleifend.
-                </p>
-                <Slider />
-              </div>
-              <div className="text-lg font-normal">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl">
-                  {data.casino} Player Protection Measures
-                </h3>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend.
-                </p>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend. Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Donec volutpat elit vel tellus eleifend
-                  imperdiet. Donec consectetur urna sed neque rhoncus dapibus.
-                  Aenean nunc erat, lobortis a ex dignissim, scelerisque
-                  malesuada odio. Sed vestibulum dictum eleifend.
-                </p>
-              </div>
+            
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  How {data.casino} Casino compares to other online casino
+                  How {data.casino} Casino compares to other online casinos
                 </h3>
                 <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend
+                  Casinos Like {data.casino}
                 </p>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend.
-                </p>
-                <div className="flex flex-col md:flex-row space-y-4 md:space-y-0">
-                  <Oakcasino
-                    classs={
-                      "flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl"
-                    }
-                  />
-                  <Oakcasino
-                    classs={
-                      "hidden md:flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl"
-                    }
-                  />
-                  <Oakcasino
-                    classs={
-                      "hidden md:flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl"
-                    }
-                  />
-                </div>
+              <LikeCasinos data = 'r' />
               </div>
               <div className="">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
@@ -536,18 +427,9 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   Slots you can play at {data.casino} Casino
                 </h3>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  volutpat elit vel tellus eleifend imperdiet. Donec consectetur
-                  urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a
-                  ex dignissim, scelerisque malesuada odio. Sed vestibulum
-                  dictum eleifend.
-                </p>
               </div>
               <div>
-                <Bandits />
-                <Bandits />
-                <Bandits />
+              <LikeSlots data={gameList} />
                 <p className="text-center my-8">Show More</p>
               </div>
               <div className="flex flex-col border border-gray-200 p-3 rounded-lg">
