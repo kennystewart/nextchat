@@ -51,7 +51,7 @@ function CasinoNoDeposit(props) {
       </div>
       <hr className="md:border md:h-14 border-sky-700 dark:border-white" />
       <div className="flex items-center justify-between py-4 md:flex-col">
-        <p className="">No Deposit Bonus</p>
+        <p className="">{d.nodeposit_type} Bonus</p>
         <div className="flex flex-col">
           <div className="flex items-center">
             <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">

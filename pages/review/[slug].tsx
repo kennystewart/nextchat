@@ -27,7 +27,7 @@ import {
 import { BsArrowRightCircleFill, BsFillStarFill } from "react-icons/bs";
 import Bandits from "../../components/Bandits";
 import BonusItem from "../../components/BonusItem";
-import Oakcasino from "../../components/Oakcasino";
+import Oakcasino from "../../components/DefaultCasino";
 import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
@@ -71,21 +71,106 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-  console.log(data.softwares[0].softwarelist)
- 
-  const swId = data.softwares.filter(x => x.softwarelist.id > 0).map(x => x.softwarelist.id);
-  
-  console.log(swId);
+  const swId = data.softwares
+    .filter((x) => x.softwarelist.id > 0)
+    .map((x) => x.softwarelist.id);
+
   const gamedata = await prisma.$queryRawUnsafe(
     `SELECT s.software_name,g.game_name,g.game_clean_name,g.game_reels,g.game_lines,g.game_image FROM casino_p_games g
     
     LEFT JOIN casino_p_software s
     ON g.game_software = s.id
-    WHERE game_software in (` + swId + `)
+    WHERE game_software in (` +
+      swId +
+      `)
     ORDER BY RANDOM ()
     LIMIT 5`
   );
+// Find 3 casinos that share the same software as the reviewd casino
+  const casinodata: any[]  = await prisma.$queryRawUnsafe(
+    `SELECT c.id FROM casino_p_casinos c
+    LEFT JOIN casino_p_software_link s 
+    on s.casino = c.id
+    WHERE s.software in (` +
+      swId +
+      `)
+    ORDER BY RANDOM ()
+    LIMIT 3`
+  );
   
+  const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
+ 
+  const LikeCasinoData = await prisma.casino_p_casinos.findMany({
+    where: { 
+      id: {in: likeCasinoIds },
+    },
+    select: {
+      id: true,
+      clean_name: true,
+      casino: true,
+      button: true,
+      homepageimage: true,
+      bonuses: {
+        orderBy: {
+          position: "desc",
+        },
+      },
+    },
+  });
+ 
+  const bdata: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
+
+  bdata.forEach(function (item, index) {
+    let firstBonus = item.bonuses.find((v) => v.deposit > 0);
+    let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
+    item.nodeposit_type='No Deposit';
+    if (ndBonus) {
+      item.nodeposit = ndBonus.nodeposit;
+      item.nodepositplaythrough = ndBonus.playthrough;
+      item.nodepositCode = ndBonus.code;
+      if (ndBonus.code.length > 1) {
+        item.ndCodeDisp = ndBonus.code;
+      } else {
+        item.ndCodeDisp = "No Code Used";
+      }
+      if (item.freespins > 0){
+        item.nodeposit_type='Free Spins';
+      }
+    }else{
+      item.ndCodeDisp = "No Code Used";
+      item.nodeposit = 0;
+      item.nodepositplaythrough = 0;
+    }
+    if (firstBonus) {
+      item.deposit = firstBonus.deposit;
+      item.depositBonus = firstBonus.deposit_amount;
+      item.depositPlaythough = firstBonus.playthrough;
+      item.depositCode = firstBonus.code;
+      item.depositPercent = firstBonus.percent;
+    }else{
+      item.deposit = 0;
+      item.depositBonus = 0;
+      item.depositPlaythough = 0;
+      item.depositCode = 'No Bonus';
+      item.depositPercent = 0;
+    }
+      if (item.depositCode.length > 1) {
+        item.depCodeDisp = item.depositCode;
+      } else {
+        item.depCodeDisp = "No Code Used";
+      }
+      if (item.casino.length > 10) {
+        item.casinoRevText = item.casino;
+        item.casinoSiteText = "site";
+      } else {
+        item.casinoRevText = item.casino + " Review";
+        item.casinoSiteText = "secure site";
+      }
+    
+
+    delete item.bonuses;
+  });
+console.log(bdata);
   data.review = data.review.map((entry) => {
     let desc = entry.description;
     const $ = cheerio.load(desc);
@@ -98,8 +183,8 @@ export async function getStaticProps({ params }) {
     $("h6").addClass("text-3xl font-semibold my-6 md:text-4xl");
     return { description: $.html() };
   });
-  
-  return { props: { data, gamedata} };
+
+  return { props: { data, gamedata } };
 }
 
 export async function getStaticPaths() {
@@ -111,7 +196,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const [show, setShow] = useState(true);
   const data = props.data;
-  
+
   const gameList = props.gamedata;
   const casinoReview = { __html: data.review[0].description };
   const buttondata = data.button;
@@ -321,7 +406,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <p className="py-4 font-bold my-4 md:my-8">
                 MORE BONUSES AT {data.casino} CASINO
               </p>
-              
+
               <BonusItem data={bonusdata} />
               <span className="text-2xl text-center py-2 md:py-6">
                 Show more
@@ -400,15 +485,13 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 className="text-lg font-normal"
                 dangerouslySetInnerHTML={casinoReview}
               ></div>
-            
+
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   How {data.casino} Casino compares to other online casinos
                 </h3>
-                <p className="my-4">
-                  Casinos Like {data.casino}
-                </p>
-              <LikeCasinos data = 'r' />
+                <p className="my-4">Casinos Like {data.casino}</p>
+                <LikeCasinos data="r" />
               </div>
               <div className="">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
@@ -429,7 +512,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 </h3>
               </div>
               <div>
-              <LikeSlots data={gameList} />
+                <LikeSlots data={gameList} />
                 <p className="text-center my-8">Show More</p>
               </div>
               <div className="flex flex-col border border-gray-200 p-3 rounded-lg">

@@ -3,7 +3,7 @@ import ima from "../public/images/nitro.png";
 import { BsFillStarFill } from "react-icons/bs";
 import Button from "./Button";
 
-const Oakcasino = (props) => {
+const DefaultCasino = (props) => {
   return (
     <div className={props.classs}>
       <Image src={ima} height={300} width={400} alt={"Lapalander"} />
@@ -27,4 +27,4 @@ const Oakcasino = (props) => {
   );
 };
 
-export default Oakcasino;
+export default DefaultCasino;
