@@ -5,7 +5,7 @@ import lapander from "../public/images/lapander.png";
 import { FaStar } from "react-icons/fa";
 import { FaCopyright } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
-
+//src={`https://www.allfreechips.com/image/casinoiconscut/${encodeURIComponent(  d.button  )}`}
 function CasinoNoDeposit(props) {
   const data = props.data;
   return data.map((d) => (
@@ -22,6 +22,7 @@ function CasinoNoDeposit(props) {
           src={`https://www.allfreechips.com/image/casinoiconscut/${encodeURIComponent(
             d.button
           )}`}
+          
         />
 
         <div className="flex flex-col items-end md:flex-row md:items-center space-x-6">

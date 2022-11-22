@@ -170,7 +170,7 @@ export async function getStaticProps({ params }) {
 
     delete item.bonuses;
   });
-console.log(bdata);
+
   data.review = data.review.map((entry) => {
     let desc = entry.description;
     const $ = cheerio.load(desc);
@@ -184,7 +184,7 @@ console.log(bdata);
     return { description: $.html() };
   });
 
-  return { props: { data, gamedata } };
+  return { props: { data, gamedata, bdata } };
 }
 
 export async function getStaticPaths() {
@@ -196,7 +196,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const [show, setShow] = useState(true);
   const data = props.data;
-
+  const likeCasinoData = props.bdata;
   const gameList = props.gamedata;
   const casinoReview = { __html: data.review[0].description };
   const buttondata = data.button;
@@ -491,7 +491,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   How {data.casino} Casino compares to other online casinos
                 </h3>
                 <p className="my-4">Casinos Like {data.casino}</p>
-                <LikeCasinos data="r" />
+                <LikeCasinos data={likeCasinoData} />
               </div>
               <div className="">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
