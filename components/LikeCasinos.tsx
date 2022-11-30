@@ -5,7 +5,7 @@ import Button from "./Button";
 import Image from "next/image";
 
 const LikeCasinos = (props) => {
-  console.log(props);
+  //console.log(props);
 
   return (
     <div

@@ -7,7 +7,7 @@ import { GiConsoleController } from "react-icons/gi";
 function LikeSlots(props) {
   const games = props.data;
  
-  console.log(games);
+  //console.log(games);
   return (
     <>
       {games?.map((g) => (
