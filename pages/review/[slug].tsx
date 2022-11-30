@@ -305,7 +305,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </span>
 
               <span>
-                <Link href="#CsinoReview">{data.casino} Review</Link>
+                <Link href="#CasinoReview">{data.casino} Review</Link>
               </span>
               <span>
                 <Link href="#ProsCons">{data.casino} Pros and Cons</Link>
@@ -331,7 +331,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </span>
 
               <span>
-                <Link href="#CsinoReview">{data.casino} Review</Link>
+                <Link href="#CasinoReview">{data.casino} Review</Link>
               </span>
               <span>
                 <Link href="#ProsCons">{data.casino} Pros and Cons</Link>
@@ -499,7 +499,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </div>
             </div>
             <div>
-              <h1 id="CsinoReview" className="text-3xl font-semibold my-4">
+              <h1 id="CasinoReview" className="text-3xl font-semibold my-4">
                 {data.casino} Review
               </h1>
               <div
