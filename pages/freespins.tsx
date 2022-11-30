@@ -3,7 +3,8 @@ import Casinos from "../components/Casinos";
 import Image from "next/legacy/image";
 import React from "react";
 import Header from "../components/Header";
-import HighRoller from "../components/HighRoller";
+import Faq from "../components/faq";
+
 import { InferGetStaticPropsType } from "next";
 import {
   FaAngleDown,
@@ -127,16 +128,7 @@ export default function Nodeposit(
             All About NDB
           </p>
 
-          <div className="md:px-60">
-            <hr className="border-sky-700 dark:border-white" />
-            <Collapse />
-            <hr className="border-sky-700 dark:border-white" />
-            <Collapse />
-            <hr className="border-sky-700 dark:border-white" />
-            <Collapse />
-            <hr className="border-sky-700 dark:border-white" />
-            <Collapse />
-          </div>
+          <Faq />
         </div>
         <div className="text-left p-4 mt-2 md:mx-24 md:text-2xl">
           <h3 className="text-2xl font-semibold md:text-5xl">
