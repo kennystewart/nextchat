@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Link from "next/dist/client/link";
+import Faq from "../../components/faq";
 import LikeSlots from "../../components/LikeSlots";
 import LikeCasinos from "../../components/LikeCasinos";
 import Image from "next/legacy/image";
@@ -316,6 +317,9 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <span>
                 <Link href="#LikeSlots">Slots at {data.casino}</Link>
               </span>
+              <span>
+                <Link href="#faq">{data.casino} FAQs</Link>
+              </span>
           </div>
         </div>
         <section className="flex flex-col mx-4 md:flex-row">
@@ -341,6 +345,9 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </span>
               <span>
                 <Link href="#LikeSlots">Slots at {data.casino}</Link>
+              </span>
+              <span>
+                <Link href="#faq">{data.casino} FAQs</Link>
               </span>
             </div>
           </div>
@@ -516,19 +523,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 </p>
                 <LikeCasinos data={likeCasinoData} />
               </div>
-              <div className="">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Frequently asked questions
-                </h3>
-                <hr className="border-sky-700 dark:border-white" />
-                <Collapse />
-                <hr className="border-sky-700 dark:border-white" />
-                <Collapse />
-                <hr className="border-sky-700 dark:border-white" />
-                <Collapse />
-                <hr className="border-sky-700 dark:border-white" />
-                <Collapse />
-              </div>
+              <Faq />
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   Slots you can play at {data.casino} Casino
