@@ -8,7 +8,7 @@ function BonusItem(props) {
     props.data.buttondata;
   const casinobonusalt = props.data.casinoname + " Casino Bonus";
   return (
-    <div>
+    <div id="bonusList">
       {props.data.bonuslist?.map(function (d, id) {
         var infoLine = "$20";
         var infoLine2 = "Min. deposit";

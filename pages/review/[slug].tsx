@@ -1,5 +1,6 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Link from "next/dist/client/link";
 import LikeSlots from "../../components/LikeSlots";
 import LikeCasinos from "../../components/LikeCasinos";
 import Image from "next/legacy/image";
@@ -86,8 +87,8 @@ export async function getStaticProps({ params }) {
     ORDER BY RANDOM ()
     LIMIT 5`
   );
-// Find 3 casinos that share the same software as the reviewd casino
-  const casinodata: any[]  = await prisma.$queryRawUnsafe(
+  // Find 3 casinos that share the same software as the reviewd casino
+  const casinodata: any[] = await prisma.$queryRawUnsafe(
     `SELECT c.id FROM casino_p_casinos c
     LEFT JOIN casino_p_software_link s 
     on s.casino = c.id
@@ -97,12 +98,12 @@ export async function getStaticProps({ params }) {
     ORDER BY RANDOM ()
     LIMIT 3`
   );
-  
+
   const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
- 
+
   const LikeCasinoData = await prisma.casino_p_casinos.findMany({
-    where: { 
-      id: {in: likeCasinoIds },
+    where: {
+      id: { in: likeCasinoIds },
     },
     select: {
       id: true,
@@ -117,13 +118,13 @@ export async function getStaticProps({ params }) {
       },
     },
   });
- 
+
   const bdata: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
 
   bdata.forEach(function (item, index) {
     let firstBonus = item.bonuses.find((v) => v.deposit > 0);
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    item.nodeposit_type='No Deposit';
+    item.nodeposit_type = "No Deposit";
     if (ndBonus) {
       item.nodeposit = ndBonus.nodeposit;
       item.nodepositplaythrough = ndBonus.playthrough;
@@ -133,10 +134,10 @@ export async function getStaticProps({ params }) {
       } else {
         item.ndCodeDisp = "No Code Used";
       }
-      if (item.freespins > 0){
-        item.nodeposit_type='Free Spins';
+      if (item.freespins > 0) {
+        item.nodeposit_type = "Free Spins";
       }
-    }else{
+    } else {
       item.ndCodeDisp = "No Code Used";
       item.nodeposit = 0;
       item.nodepositplaythrough = 0;
@@ -147,26 +148,25 @@ export async function getStaticProps({ params }) {
       item.depositPlaythough = firstBonus.playthrough;
       item.depositCode = firstBonus.code;
       item.depositPercent = firstBonus.percent;
-    }else{
+    } else {
       item.deposit = 0;
       item.depositBonus = 0;
       item.depositPlaythough = 0;
-      item.depositCode = 'No Bonus';
+      item.depositCode = "No Bonus";
       item.depositPercent = 0;
     }
-      if (item.depositCode.length > 1) {
-        item.depCodeDisp = item.depositCode;
-      } else {
-        item.depCodeDisp = "No Code Used";
-      }
-      if (item.casino.length > 10) {
-        item.casinoRevText = item.casino;
-        item.casinoSiteText = "site";
-      } else {
-        item.casinoRevText = item.casino + " Review";
-        item.casinoSiteText = "secure site";
-      }
-    
+    if (item.depositCode.length > 1) {
+      item.depCodeDisp = item.depositCode;
+    } else {
+      item.depCodeDisp = "No Code Used";
+    }
+    if (item.casino.length > 10) {
+      item.casinoRevText = item.casino;
+      item.casinoSiteText = "site";
+    } else {
+      item.casinoRevText = item.casino + " Review";
+      item.casinoSiteText = "secure site";
+    }
 
     delete item.bonuses;
   });
@@ -300,12 +300,22 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
               Our top picks
             </span>
-            <span>What is a bitcoin casino</span>
-            <span>What is a bitcoin casino</span>
-            <span>What is a bitcoin casino</span>
-            <span>What is a bitcoin casino</span>
-            <span>What is a bitcoin casino</span>
-            <span>What is a bitcoin casino</span>
+            <span>
+                <Link href="#bonusList">{data.casino} Bonuses</Link>
+              </span>
+
+              <span>
+                <Link href="#CsinoReview">{data.casino} Review</Link>
+              </span>
+              <span>
+                <Link href="#ProsCons">{data.casino} Pros and Cons</Link>
+              </span>
+              <span>
+                <Link href="#LikeCasinos">Casinos Like {data.casino}</Link>
+              </span>
+              <span>
+                <Link href="#LikeSlots">Slots at {data.casino}</Link>
+              </span>
           </div>
         </div>
         <section className="flex flex-col mx-4 md:flex-row">
@@ -316,11 +326,22 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
-              <span>{data.casino} Bonuses</span>
-              <span>{data.casino} Review</span>
-              <span>{data.casino} Pros and Cons</span>
-              <span>Casinos Like {data.casino} Bonuses</span>
-              <span>Slots at {data.casino}</span>
+              <span>
+                <Link href="#bonusList">{data.casino} Bonuses</Link>
+              </span>
+
+              <span>
+                <Link href="#CsinoReview">{data.casino} Review</Link>
+              </span>
+              <span>
+                <Link href="#ProsCons">{data.casino} Pros and Cons</Link>
+              </span>
+              <span>
+                <Link href="#LikeCasinos">Casinos Like {data.casino}</Link>
+              </span>
+              <span>
+                <Link href="#LikeSlots">Slots at {data.casino}</Link>
+              </span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
@@ -478,7 +499,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </div>
             </div>
             <div>
-              <h1 className="text-3xl font-semibold my-4">
+              <h1 id="CsinoReview" className="text-3xl font-semibold my-4">
                 {data.casino} Review
               </h1>
               <div
@@ -490,7 +511,9 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   How {data.casino} Casino compares to other online casinos
                 </h3>
-                <p className="my-4">Casinos Like {data.casino}</p>
+                <p id="LikeCasinos" className="my-4">
+                  Casinos Like {data.casino}
+                </p>
                 <LikeCasinos data={likeCasinoData} />
               </div>
               <div className="">
@@ -511,7 +534,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   Slots you can play at {data.casino} Casino
                 </h3>
               </div>
-              <div>
+              <div id="LikeSlots">
                 <LikeSlots data={gameList} />
                 <p className="text-center my-8">Show More</p>
               </div>
