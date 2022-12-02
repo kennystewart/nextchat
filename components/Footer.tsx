@@ -1,9 +1,20 @@
-import React from 'react'
 
+import React from "react";
+import Link from "next/link";
+import Image from "next/dist/client/image";
 const Footer = () => {
   return (
     <div className="flex flex-col p-4 md:flex-row md:justify-between md:container mx-auto">
-      <span className="text-4xl font-medium">LOGO</span>
+      <span className="text-4xl font-medium">
+        <Link href="/">
+          <Image
+            alt={"Allfreechips Casino Guide"}
+            width={250}
+            height={57}
+            src={`https://afc-redux.vercel.app/logo.png`}
+          />
+        </Link>
+      </span>
       <div className="flex space-x-6 md:flex-row md:space-x-28">
         <div className="flex flex-col">
           <div className="my-2 text-xl font-medium">
@@ -31,10 +42,9 @@ const Footer = () => {
             <li className="my-6">AFC Dice Game</li>
           </ul>
         </div>
-        
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
