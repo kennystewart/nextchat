@@ -111,6 +111,9 @@ model casino_p_casinos {
   meta          casino_p_meta_casinos[]
   casino_geo    casino_p_restrictions[]
   softwares     casino_p_software_link[]
+  casino_faq    casino_p_casino_faq[]
+  casino_pros   casino_p_casino_pros[]
+  casino_cons   casino_p_casino_cons[]
 }
 
 model casino_p_meta_casinos {
@@ -213,6 +216,9 @@ model casino_p_games {
   game_images            casino_p_games_image[]
   meta                   casino_p_meta_games[]
   slot_theme             casino_p_slot_details[]
+  game_faq               casino_p_games_faq[]
+  game_pros              casino_p_games_pros[]
+  game_cons              casino_p_games_cons[]
 }
 model casino_p_pages {
   id          Int     @id @default(autoincrement())
@@ -328,3 +334,50 @@ model casino_p_restrictions {
   casino_geo casino_p_casinos @relation(fields: [casino], references: [id])
 }
 
+model casino_p_games_pros {
+  id         Int              @id @default(autoincrement())
+  game       Int
+  title      String
+  content    String
+  game_pros   casino_p_games @relation(fields: [game], references: [game_id])
+}
+
+model casino_p_games_cons {
+  id         Int              @id @default(autoincrement())
+  game       Int
+  title      String
+  content    String
+  game_cons   casino_p_games @relation(fields: [game], references: [game_id])
+}
+
+model casino_p_games_faq {
+  id         Int              @id @default(autoincrement())
+  game       Int
+  question   String
+  answer     String
+  game_faq   casino_p_games @relation(fields: [game], references: [game_id])
+}
+
+model casino_p_casino_pros {
+  id         Int              @id @default(autoincrement())
+  casino       Int
+  title      String
+  content    String
+  casino_pros   casino_p_casinos @relation(fields: [casino], references: [id])
+}
+
+model casino_p_casino_cons {
+  id         Int              @id @default(autoincrement())
+  casino       Int
+  title      String
+  content    String
+  casino_cons   casino_p_casinos @relation(fields: [casino], references: [id])
+}
+
+model casino_p_casino_faq {
+  id         Int              @id @default(autoincrement())
+  casino       Int
+  question   String
+  answer     String
+  casino_faq   casino_p_casinos @relation(fields: [casino], references: [id])
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import Casino from './Casino'
+import Link from 'next/link'
 import { FaMedal } from 'react-icons/fa'
 import { GiUsaFlag } from 'react-icons/gi'
 import { SiBitcoinsv } from 'react-icons/si'
@@ -15,7 +16,7 @@ const Casinos = () => {
             <Casino icon={<FaMedal className='text-4xl' />} title={'Best Online Casinos'} />
             <Casino icon={<GiUsaFlag className='text-4xl' />} title={'USA Online Casinos'} />
             <Casino icon={<SiBitcoinsv className='text-4xl' />} title={'Bitcoin USA Casinos'} />
-            <Casino icon={<RiGameFill className='text-4xl' />} title={'No Deposit Casinos'} />
+            <Link href="../nodeposit"><Casino icon={<RiGameFill className='text-4xl' />} title={'No Deposit Casinos'} /></Link>
             <Casino icon={<FaMedal className='text-4xl' />} title={'Free Spins Casinos'} />
             <Casino icon={<BiNotepad className='text-4xl' />} title={'Casinos by Software'} />
             <Casino icon={<FaMedal className='text-4xl' />} title={'Free Spins Casinos'} />

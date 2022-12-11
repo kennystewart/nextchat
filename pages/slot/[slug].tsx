@@ -28,9 +28,7 @@ import {
   AiOutlineExclamation,
 } from "react-icons/ai";
 import { BsArrowRightCircleFill, BsFillStarFill } from "react-icons/bs";
-import Bandits from "../../components/Bandits";
 import BonusItem from "../../components/BonusItem";
-import Oakcasino from "../../components/DefaultCasino";
 import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
@@ -39,59 +37,57 @@ const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
   const slug = params.slug;
-
-  const data = await prisma.casino_p_casinos.findFirst({
-    where: { clean_name: slug },
+  const data = await prisma.casino_p_games.findFirst({
+    where: { game_clean_name: slug },
     select: {
-      id: true,
-      casino_faq: true,
-      clean_name: true,
-      casino: true,
-      button: true,
-      meta: true,
-      homepageimage: true,
-      bonuses: {
-        orderBy: {
-          position: "desc",
-        },
-      },
-      banklist: {
+      game_name: true,
+      game_image: true,
+      meta: {
         select: {
-          bank_data: true,
+          title: true,
+          description: true,
         },
       },
       review: {
         select: {
           description: true,
         },
-        orderBy: {
-          ordered: "desc",
+      },
+      software: {
+        select: {
+          id: true,
+          software_name: true,
         },
       },
-      softwares: {
+      game_images: {
         select: {
-          softwarelist: true,
+          game_image_url: true,
+          game_image_alt_text: true,
+        },
+      },
+      slot_theme: {
+        select: {
+          theme: true,
         },
       },
     },
   });
-  const swId = data.softwares
-    .filter((x) => x.softwarelist.id > 0)
-    .map((x) => x.softwarelist.id);
+  console.log(data);
+  const swId = data.software.id;
 
   const gamedata = await prisma.$queryRawUnsafe(
     `SELECT s.software_name,g.game_name,g.game_clean_name,g.game_reels,g.game_lines,g.game_image FROM casino_p_games g
-      
-      LEFT JOIN casino_p_software s
-      ON g.game_software = s.id
-      LEFT JOIN casino_p_descriptions_games d
-      ON g.game_id = d.parent
-      WHERE game_software in (` +
+    
+    LEFT JOIN casino_p_software s
+    ON g.game_software = s.id
+    LEFT JOIN casino_p_descriptions_games d
+    ON g.game_id = d.parent
+    WHERE game_software in (` +
       swId +
       `)
-      AND d.description != ''  
-      ORDER BY RANDOM ()
-      LIMIT 5`
+    AND d.description != ''  
+    ORDER BY RANDOM ()
+    LIMIT 5`
   );
   // Find 3 casinos that share the same software as the reviewd casino
   const casinodata: any[] = await prisma.$queryRawUnsafe(
@@ -206,22 +202,14 @@ export async function getStaticPaths() {
 }
 
 const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const firstBonus = props.data.bonuses.find((v) => v.deposit > 0);
   const faq = props.faq;
   const prosCons = props.prosCons;
   const [show, setShow] = useState(true);
   const data = props.data;
   const likeCasinoData = props.bdata;
   const gameList = props.gamedata;
-  const casinoReview = { __html: data.review[0].description };
-  const buttondata = data.button;
-  const bonuslist = data.bonuses;
-  const casinoname = data.casino;
-  const softwares = data.softwares;
-  const softwaredata = { casinoname, softwares };
-  const bonusdata = { buttondata, bonuslist, casinoname };
-  const Homepage =
-    "https://www.allfreechips.com/image/games/" + data.homepageimage;
+  const gameReview = { __html: data.review[0].description };
+
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
@@ -231,21 +219,21 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           name="description"
           content={data.meta[0]?.description ?? "Missing Description"}
         />
-        <meta property="og:image" content={Homepage} />
+        <meta property="og:image" content={data.game_image} />
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
           <div className="container mx-auto">
             <div className="flex text-sm gap-1 font-medium  items-center md:gap-4">
               <span>
-                <Link href="../">Online Casinos</Link>
+                <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
               <span>
-                <Link href="../review">Reviews</Link>
+                <Link href="../slot/">Reviews</Link>
               </span>
               <FaAngleRight />
-              <span className="text-slate-500">{data.casino}</span>
+              <span className="text-slate-500">{data.game_name}</span>
             </div>
           </div>
         </div>
@@ -253,7 +241,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              {data.casino} Casino Review 2022
+              {data.game_name} Slot Review 2022
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -316,23 +304,23 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <span>
-              <Link href="#bonusList">{data.casino} Bonuses</Link>
+              <Link href="#bonusList">{data.game_name} Bonuses</Link>
             </span>
 
             <span>
-              <Link href="#CasinoReview">{data.casino} Review</Link>
+              <Link href="#CasinoReview">{data.game_name} Review</Link>
             </span>
             <span>
-              <Link href="#ProsCons">{data.casino} Pros and Cons</Link>
+              <Link href="#ProsCons">{data.game_name} Pros and Cons</Link>
             </span>
             <span>
-              <Link href="#LikeCasinos">Casinos Like {data.casino}</Link>
+              <Link href="#LikeCasinos">Casinos Like {data.game_name}</Link>
             </span>
             <span>
-              <Link href="#LikeSlots">Slots at {data.casino}</Link>
+              <Link href="#LikeSlots">Slots at {data.game_name}</Link>
             </span>
             <span>
-              <Link href="#faq">{data.casino} FAQs</Link>
+              <Link href="#faq">{data.game_name} FAQs</Link>
             </span>
           </div>
         </div>
@@ -345,202 +333,60 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </span>
             <div className="my-4 flex flex-col space-y-4">
               <span>
-                <Link href="#bonusList">{data.casino} Bonuses</Link>
+                <Link href="#bonusList">{data.game_name} Bonuses</Link>
               </span>
 
               <span>
-                <Link href="#CasinoReview">{data.casino} Review</Link>
+                <Link href="#CasinoReview">{data.game_name} Review</Link>
               </span>
               <span>
-                <Link href="#ProsCons">{data.casino} Pros and Cons</Link>
+                <Link href="#ProsCons">{data.game_name} Pros and Cons</Link>
               </span>
               <span>
-                <Link href="#LikeCasinos">Casinos Like {data.casino}</Link>
+                <Link href="#LikeCasinos">Casinos Like {data.game_name}</Link>
               </span>
               <span>
-                <Link href="#LikeSlots">Slots at {data.casino}</Link>
+                <Link href="#LikeSlots">Slots at {data.game_name}</Link>
               </span>
               <span>
-                <Link href="#faq">{data.casino} FAQs</Link>
+                <Link href="#faq">{data.game_name} FAQs</Link>
               </span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <p className="py-4">AT A GLANCE</p>
-            <div className="flex flex-col md:flex-row items-center md:space-x-16">
-              <Image
-                src={Homepage}
-                width={440}
-                height={300}
-                alt={props.data.homepageimage}
-              />
-              <div className="flex flex-col w-full py-8">
-                <div className="flex flex-col md:flex-row items-center">
-                  <div className="text-3xl font-medium items-center w-full">
-                    {props.data.casino}
-                  </div>
-                  <div className="flex w-full justify-between md:justify-start my-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="flex">
-                        <BsFillStarFill />
-                        <BsFillStarFill />
-                        <BsFillStarFill />
-                        <BsFillStarFill />
-                        <BsFillStarFill />
-                      </span>
-                      <span>4.1</span>
-                    </div>
-                    <div className="flex space-x-4">
-                      <span className="flex items-center">Review</span>
-                      <span className="h-8 w-8 rounded-full bg-sky-700 text-white dark:bg-zinc-800 dark:text-white">
-                        <AiOutlineExclamation className="relative top-2 left-2" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center md:items-end md:flex-row">
-                  <div>Top Offer</div>
-                  <div className="flex items-center">
-                    <span className="text-5xl">{firstBonus?.deposit} </span>
-                    <div className="flex flex-col space-y-0 leading-4 text-base">
-                      <span>
-                        %
-                        {(
-                          (firstBonus?.deposit /
-                            (firstBonus?.deposit_amount || 1)) *
-                          100
-                        ).toFixed(0)}
-                      </span>
-                      <span>Bonus</span>
-                    </div>
-                  </div>
-                  <div className="font-normal">
-                    up to ${firstBonus?.deposit_amount}
-                  </div>
-                </div>
-                <div className="flex flex-col md:flex-row space-y-8">
-                  <div className="flex items-center mt-4 w-full">
-                    <div className="flex flex-col items-center">
-                      <span className="text-2xl">$10</span>
-                      <span className="text-sm font-light">Min. Deposit</span>
-                    </div>
-                    <hr className="border-sky-200 w-10 h-1 rotate-90" />
-                    <div className="flex flex-col items-center">
-                      <span className="text-2xl">
-                        {firstBonus?.playthrough}
-                      </span>
-                      <span className="text-sm font-light">Playthrough</span>
-                    </div>
-                    <hr className="border-sky-200 w-10 h-1 rotate-90" />
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm">Bonus</span>
-                      <span className="text-sm">details</span>
-                    </div>
-                  </div>
-                  <button className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
-                    Claim Now
-                    <BsArrowRightCircleFill className="mx-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
+            
+          
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
-                MORE BONUSES AT {data.casino} CASINO
+                MORE BONUSES AT {data.game_name} CASINO
               </p>
 
-              <BonusItem data={bonusdata} />
-              <span className="text-2xl text-center py-2 md:py-6">
-                Show more
-              </span>
+
             </div>
-            <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
-              <SoftwareProv data={softwaredata} />
-              <div className="flex flex-col">
-                <div className="flex justify-between md:justify-start md:space-x-4 items-center">
-                  <span className="bg-sky-700 dark:bg-zinc-800 w-7 h-7"></span>
-                  <h4>Payment methods at {data.casino}</h4>
-                  <AiOutlineExclamation />
-                </div>
-                <hr className="m-4" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-8">
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <div>
               <h1 id="CasinoReview" className="text-3xl font-semibold my-4">
-                {data.casino} Review
+                {data.game_name} Review
               </h1>
               <div
                 className="text-lg font-normal"
-                dangerouslySetInnerHTML={casinoReview}
+                dangerouslySetInnerHTML={gameReview}
               ></div>
               <ProsCons data={prosCons} />
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  How {data.casino} Casino compares to other online casinos
+                  How {data.game_name} Casino compares to other online casinos
                 </h3>
                 <p id="LikeCasinos" className="my-4">
-                  Casinos Like {data.casino}
+                  Casinos You Can Play The {data.game_name} Slot Machine At
                 </p>
                 <LikeCasinos data={likeCasinoData} />
               </div>
               <Faq data={faq} />
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Slots you can play at {data.casino} Casino
+                  Other slots you can play like {data.game_name} slot
                 </h3>
               </div>
               <div id="LikeSlots">

@@ -2,8 +2,7 @@ import React from "react";
 import { BsStarFill } from "react-icons/bs";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import Image from "next/legacy/image";
-import { GiConsoleController } from "react-icons/gi";
-
+import Link from "next/link";
 function LikeSlots(props) {
   const games = props.data;
  
@@ -36,7 +35,9 @@ function LikeSlots(props) {
             <p className="">4.1</p>
           </div>
           <div className="flex items-center space-x-3">
-            <p>Review</p>
+            <p><Link href={`../slot/${encodeURIComponent(
+            g.game_clean_name
+          )}`}>{g.game_name} Review</Link></p>
             <AiFillExclamationCircle />
           </div>
         </div>
