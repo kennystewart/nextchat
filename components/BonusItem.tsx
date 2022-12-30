@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/dist/client/link";
 import Image from "next/legacy/image";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 
@@ -71,12 +72,12 @@ function BonusItem(props) {
                 <span>details</span>
               </div>
             </div>
-            <a href={bonusLink} rel="noreferrer" target="_blank">
-              <button className="bg-sky-700 text-white dark:bg-white dark:text-black px-10 py-3 rounded-lg my-6 flex items-center justify-center">
+            
+              <Link href={bonusLink} rel="noreferrer" target="_blank" type="button" className="bg-sky-700 text-white dark:bg-white dark:text-black px-10 py-3 rounded-lg my-6 flex items-center justify-center">
                 Claim Now
                 <BsArrowRightCircleFill className="mx-4" />
-              </button>
-            </a>
+              </Link>
+            
           </div>
         );
       })}

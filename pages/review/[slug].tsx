@@ -220,6 +220,8 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const casinoname = data.casino;
   const softwares = data.softwares;
   const softwaredata = { casinoname, softwares };
+  const casinoLink =
+          "https://www.allfreechips.com/play_casino" + data.id + ".html";
   const bonusdata = { buttondata, bonuslist, casinoname };
   const Homepage =
     "https://www.allfreechips.com/image/games/" + data.homepageimage;
@@ -438,10 +440,12 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                       <span className="text-sm">details</span>
                     </div>
                   </div>
-                  <button className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
+                  
+                  <Link  rel="noreferrer" target ="_blank" href = {casinoLink} type="button" className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
                     Claim Now
                     <BsArrowRightCircleFill className="mx-4" />
-                  </button>
+                  </Link>
+                  
                 </div>
               </div>
             </div>
