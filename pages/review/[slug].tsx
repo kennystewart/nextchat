@@ -218,6 +218,11 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const buttondata = data.button;
   const bonuslist = data.bonuses;
   const casinoname = data.casino;
+  const casinoid = data.id;
+  const casinoData = {casinoid, casinoname};
+  const gameListData = {gameList , casinoData};
+  const bankListItems = data.banklist;
+  const bankListData = {bankListItems, casinoData};
   const softwares = data.softwares;
   const softwaredata = { casinoname, softwares };
   const casinoLink =
@@ -461,7 +466,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
             <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
               <SoftwareProv data={softwaredata} />
-              <BankOptions data= {data.banklist} />
+              <BankOptions data= {bankListData} />
             </div>
             <div>
               <h1 id="CasinoReview" className="text-3xl font-semibold my-4">
@@ -488,7 +493,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 </h3>
               </div>
               <div id="LikeSlots">
-                <LikeSlots data={gameList} />
+                <LikeSlots data={gameListData} />
                 <p className="text-center my-8">Show More</p>
               </div>
               <div className="flex flex-col border border-gray-200 p-3 rounded-lg">

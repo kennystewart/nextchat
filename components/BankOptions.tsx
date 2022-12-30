@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import { AiOutlineCodepenCircle, AiOutlineExclamation } from "react-icons/ai";
+import { AiOutlineExclamation } from "react-icons/ai";
 const BankOptions = (props) => {
-  const casino = "CasinoName";
+  const banks = props.data.bankListItems;
+  const casino = props.data.casinoData.casinoname;
   return (
     <div className="flex flex-col">
       <div className="flex justify-between md:justify-start md:space-x-4 items-center">
@@ -12,7 +13,7 @@ const BankOptions = (props) => {
       </div>
       <hr className="m-4" />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-8">
-        {props.data.map(function (d, id) {
+        {banks.map(function (d, id) {
           return (
             <div className="flex items-center">
               <Image

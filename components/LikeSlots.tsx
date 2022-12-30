@@ -4,8 +4,10 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import Image from "next/legacy/image";
 import Link from "next/link";
 function LikeSlots(props) {
-  const games = props.data;
- 
+  const games = props.data.gameList;
+  const casino = props.data.casinoData.casinoname;
+  const casinoId = props.data.casinoData.casinoid;
+  const bonusLink = "https://www.allfreechips.com/play_casino" + casinoId + ".html";
   //console.log(games);
   return (
     <>
@@ -60,11 +62,11 @@ function LikeSlots(props) {
             details
           </p>
         </div>
-        <button className="bg-sky-700 text-white dark:bg-white dark:text-black py-2 px-20 my-6">
+        <Link href={bonusLink} rel="noreferrer" target="_blank" type="button" className="bg-sky-700 text-white dark:bg-white dark:text-black py-2 px-20 my-6">
           Play Now
-        </button>
+        </Link>
         <p className="font-normal text-base">
-          On Silver Oak Casino s secure site
+          On {casino}'s secure site
         </p>
       </div>
     </div>

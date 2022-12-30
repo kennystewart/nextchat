@@ -208,6 +208,10 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const data = props.data;
   const likeCasinoData = props.bdata;
   const gameList = props.gamedata;
+  const casinoname = likeCasinoData[0].casino;
+  const casinoid = likeCasinoData[0].id;
+  const casinoData = {casinoid, casinoname};
+  const gameListData = {gameList , casinoData};
   const gameReview = { __html: data.review[0].description };
 
   return (
@@ -390,7 +394,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 </h3>
               </div>
               <div id="LikeSlots">
-                <LikeSlots data={gameList} />
+                <LikeSlots data={gameListData} />
                 <p className="text-center my-8">Show More</p>
               </div>
               <div className="flex flex-col border border-gray-200 p-3 rounded-lg">

@@ -1,12 +1,14 @@
 import React from "react";
-import { BsFillStarFill } from "react-icons/bs";
+import Link from "next/link";
+import { BsFillStarFill ,BsArrowRightCircleFill} from "react-icons/bs";
 import { VscStarEmpty } from "react-icons/vsc";
 import Button from "./Button";
 import Image from "next/image";
 
 const LikeCasinos = (props) => {
   //console.log(props);
-
+  const casinoLink = "https://www.allfreechips.com/play_casino";
+  const htmltxt = ".html";
   return (
     <div
     className="flex flex-col md:flex-row space-y-4 md:space-y-0"
@@ -23,7 +25,10 @@ const LikeCasinos = (props) => {
               <VscStarEmpty />
               <span className="px-2">4.1</span>
             </span>
-            <Button name={"Play Now"} />
+            <Link href={`https://allfreechips.com/play_casino${encodeURIComponent(d.id)}.html`} rel="noreferrer" target="_blank" type="button" className="bg-sky-700 text-white dark:bg-white dark:text-black px-10 py-3 rounded-lg my-6 flex items-center justify-center">
+                Play Now
+                <BsArrowRightCircleFill className="mx-4" />
+              </Link>
             <hr className="w-full border-sky-700 dark:border-white h-0.5" />
             <span>Deposit Bonus</span>
             <span>{d.depositPercent}% up to ${d.depositBonus}</span>
