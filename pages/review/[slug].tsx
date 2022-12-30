@@ -5,6 +5,7 @@ import Faq from "../../components/faq";
 import ProsCons from "../../components/ProsCons";
 import LikeSlots from "../../components/LikeSlots";
 import LikeCasinos from "../../components/LikeCasinos";
+import BankOptions from "../../components/BankOptions";
 import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
 import { useState } from "react";
@@ -456,68 +457,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
             <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
               <SoftwareProv data={softwaredata} />
-              <div className="flex flex-col">
-                <div className="flex justify-between md:justify-start md:space-x-4 items-center">
-                  <span className="bg-sky-700 dark:bg-zinc-800 w-7 h-7"></span>
-                  <h4>Payment methods at {data.casino}</h4>
-                  <AiOutlineExclamation />
-                </div>
-                <hr className="m-4" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-8">
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineCodepenCircle className="text-2xl" />
-                    Netent
-                  </div>
-                </div>
-              </div>
+              <BankOptions data= {data.banklist} />
             </div>
             <div>
               <h1 id="CasinoReview" className="text-3xl font-semibold my-4">
