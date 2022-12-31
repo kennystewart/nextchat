@@ -15,17 +15,19 @@ const BankOptions = (props) => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-8">
         {banks.map(function (d, id) {
           return (
-            <div key = {d.id} className="flex items-center">
-              <Image
-                unoptimized // avoids getting charged
-                width={d.bank_data.tw}
-                height={d.bank_data.th}
-                alt={d.bank_data.name}
-                src={`https://www.allfreechips.com/image/banks/${encodeURIComponent(
-                  d.bank_data.image
-                )}`}
-              />
-              {d.bank_data.name}
+            <div key={d.id} className="flex items-center fd-column">
+              <div>
+                <Image
+                  unoptimized // avoids getting charged
+                  width={d.bank_data.tw}
+                  height={d.bank_data.th}
+                  alt={d.bank_data.name}
+                  src={`https://www.allfreechips.com/image/banks/${encodeURIComponent(
+                    d.bank_data.image
+                  )}`}
+                />
+              </div>
+              <div className ="space-x-2">{d.bank_data.name}</div>
             </div>
           );
         })}
