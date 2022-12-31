@@ -25,7 +25,7 @@ function Slider() {
       <div className="flex flex-col justify-between space-x-4 mt-16">
         <div className="flex">
           <div className="flex">
-            <img
+            <Image
               className="absolute w-72 pr-2 md:pr-0 mt-2 ml-7 md:w-96 md:mt-4 md:ml-10"
               src={images[index]}
               alt="new"

@@ -72,7 +72,7 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-  console.log(data);
+  //console.log(data);
   const swId = data.software.id;
 
   const gamedata = await prisma.$queryRawUnsafe(
