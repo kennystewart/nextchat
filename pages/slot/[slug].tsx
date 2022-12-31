@@ -202,7 +202,7 @@ export async function getStaticPaths() {
 
 const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const author = 'AFC Chris';
-  const reviewDate = props.game_updated;
+  const reviewDate = props.data.game_updated;
   const authorText = 'Chris Started workinng on Allfreechips in July of 2004, After many frustraiting years of learning how mto make a webpage we now have the current site!  Chris started by beinbg a player first, and loved online gaming so much he created the Allfreechips Community.';
   const authorData = {author, authorText};
   const faq = props.faq;
