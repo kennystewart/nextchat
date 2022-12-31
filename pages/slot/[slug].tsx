@@ -216,7 +216,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const casinoData = {casinoid, casinoname};
   const gameListData = {gameList , casinoData};
   const gameReview = { __html: data.review[0].description };
-
+ 
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
