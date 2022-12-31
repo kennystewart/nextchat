@@ -36,6 +36,7 @@ import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
 import SoftwareProv from "../../components/SoftwareProv";
+import Author from "../../components/AboutAuthor";
 const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
@@ -46,8 +47,11 @@ export async function getStaticProps({ params }) {
     select: {
       id: true,
       casino_faq: true,
+      casino_pros: true,
+      casino_cons: true,
       clean_name: true,
       casino: true,
+      updated: true,
       button: true,
       meta: true,
       homepageimage: true,
@@ -225,10 +229,15 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const bankListData = {bankListItems, casinoData};
   const softwares = data.softwares;
   const softwaredata = { casinoname, softwares };
+  const author = 'AFC Chris';
+  const reviewDate = data.updated;
+  const authorText = 'Chris Started workinng on Allfreechips in July of 2004, After many frustraiting years of learning how mto make a webpage we now have the current site!  Chris started by beinbg a player first, and loved online gaming so much he created the Allfreechips Community.';
+  const authorData = {author, authorText};
   const casinoLink =
           "https://www.allfreechips.com/play_casino" + data.id + ".html";
   const bonusdata = { buttondata, bonuslist, casinoname };
   const Homepage =
+
     "https://www.allfreechips.com/image/games/" + data.homepageimage;
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
@@ -267,11 +276,11 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <span className="">
                 Author:{" "}
                 <a href="" className="font-medium ">
-                  Barry Bridges
+                  {author}
                 </a>
               </span>
               <span className="text-sky-600 dark:text-white">
-                June 13, 2022
+                {reviewDate}
               </span>
             </div>
             <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
@@ -496,33 +505,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <LikeSlots data={gameListData} />
                 <p className="text-center my-8">Show More</p>
               </div>
-              <div className="flex flex-col border border-gray-200 p-3 rounded-lg">
-                <h5 className="text-base">ABOUT THE AUTHOR</h5>
-                <div className="flex items-center">
-                  <div>
-                    <FcBusinessman className="text-6xl" />
-                  </div>
-                  <div className="flex flex-col">
-                    <h5 className="text-3xl">Barry Bridges</h5>
-                    <div className="flex text-sm space-x-4 my-2">
-                      <span className="flex items-center">
-                        <RiMailLine />
-                        Email
-                      </span>
-                      <span className="flex items-center">
-                        <AiFillLinkedin />
-                        Linkedin
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <p className="my-6">
-                  Dolor sit amet, consectetur adipiscing elit. Donec volutpat
-                  elit vel tellus eleifend imperdiet. Donec consectetur urna sed
-                  neque rhoncus dapibus. Aenean nunc erat, lobortis a ex
-                  dignissim, scelerisque malesuada odio.
-                </p>
-              </div>
+              <Author data={authorData} />
             </div>
           </div>
         </section>
