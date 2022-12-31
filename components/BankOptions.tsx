@@ -15,7 +15,7 @@ const BankOptions = (props) => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-8">
         {banks.map(function (d, id) {
           return (
-            <div className="flex items-center">
+            <div key = {d.id} className="flex items-center">
               <Image
                 unoptimized // avoids getting charged
                 width={d.bank_data.tw}

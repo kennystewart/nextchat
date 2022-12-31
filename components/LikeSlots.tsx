@@ -66,7 +66,7 @@ function LikeSlots(props) {
           Play Now
         </Link>
         <p className="font-normal text-base">
-          On {casino}'s secure site
+          On {casino}&#39;s secure site
         </p>
       </div>
     </div>
@@ -74,4 +74,4 @@ function LikeSlots(props) {
     </>
   );
 }
-export default LikeSlots;
+export default LikeSlots
