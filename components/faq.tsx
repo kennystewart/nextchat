@@ -2,9 +2,6 @@ import React from "react";
 import Collapse from "./Collapse";
 
 const Faq = (props) => {
-  if (!props) {
-    return;
-  }
   if (!props.data) {
     return;
   }
