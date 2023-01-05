@@ -1,15 +1,15 @@
 import React from "react";
 
-const Faq = (props) => {
+const ProItem = (props) => {
   const pro = props.data;
   return (
     <>
       {pro.map((d) => (
         <li key={d.id}>
-          <span className="font-medium">{d.title}:</span> {d.text}
+          <span className="font-medium">{d.title}:</span> {d.content}
         </li>
       ))}
     </>
   );
 };
-export default Faq;
+export default ProItem;

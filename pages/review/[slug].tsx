@@ -199,9 +199,9 @@ export async function getStaticProps({ params }) {
     "Hell is the spot you dont want to visit in July",
     "Test this one is the actual best",
   ];
-  const faq = { questions, answers };
-  const pros = ["Fast payments", "Big jackpots", "No crime"];
-  const cons = ["never pay", "slow"];
+  const faq = data.casino_faq;
+  const pros = data.casino_pros;
+  const cons = data.casino_cons;
   const prosCons = { pros, cons };
   return { props: { data, gamedata, bdata, faq, prosCons } };
 }

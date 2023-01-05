@@ -5,7 +5,7 @@ import lapander from "../public/images/lapander.png";
 import { FaStar } from "react-icons/fa";
 import { FaCopyright } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
-//src={`https://www.allfreechips.com/image/casinoiconscut/${encodeURIComponent(  d.button  )}`}
+
 function CasinoNoDeposit(props) {
   const data = props.data;
   return data.map((d) => (
@@ -63,10 +63,10 @@ function CasinoNoDeposit(props) {
       </div>
       <hr className="border-sky-700 dark:border-white" />
       <div className="flex flex-col">
-        <button className="flex rounded bg-sky-700 text-white dark:bg-white dark:text-black py-3 my-4 justify-center items-center font-bold md:px-8">
+        <Link rel = "nofollow" target="_blank" href={`https://allfreechips.com/play_casino${encodeURIComponent(d.id)}.html`}  type="button" className="flex rounded bg-sky-700 text-white dark:bg-white dark:text-black py-3 my-4 justify-center items-center font-bold md:px-8">
           Play Now
           <FaArrowCircleRight className="mx-2" />
-        </button>
+        </Link>
         <p className="text-sm font-normal">
           On {d.casino}’s {d.casinoSiteText}
         </p>

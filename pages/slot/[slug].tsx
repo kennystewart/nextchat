@@ -41,6 +41,9 @@ export async function getStaticProps({ params }) {
       game_name: true,
       game_image: true,
       game_updated: true,
+      game_faq: true,
+      game_pros: true,
+      game_cons: true,
       meta: {
         select: {
           title: true,
@@ -184,15 +187,12 @@ export async function getStaticProps({ params }) {
     $("h6").addClass("text-3xl font-semibold my-6 md:text-4xl");
     return { description: $.html() };
   });
-  const questions = ["what the hell", "Best casino really?"];
-  const answers = [
-    "Hell is the spot you dont want to visit in July",
-    "Test this one is the actual best",
-  ];
-  const faq = { questions, answers };
-  const pros = ["Fast payments", "Big jackpots", "No crime"];
-  const cons = ["never pay", "slow"];
+  const faq = data.game_faq;
+  const pros = data.game_pros;
+  const cons = data.game_cons;
   const prosCons = { pros, cons };
+  console.log(prosCons);
+  console.log(faq);
   return { props: { data, gamedata, bdata, faq, prosCons } };
 }
 
@@ -310,21 +310,18 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
               Our top picks
             </span>
-            <span>
-              <Link href="#bonusList">{data.game_name} Bonuses</Link>
-            </span>
 
             <span>
-              <Link href="#CasinoReview">{data.game_name} Review</Link>
+              <Link href="#SlotReview">{data.game_name} Review</Link>
             </span>
             <span>
               <Link href="#ProsCons">{data.game_name} Pros and Cons</Link>
             </span>
             <span>
-              <Link href="#LikeCasinos">Casinos Like {data.game_name}</Link>
+              <Link href="#LikeCasinos">Casinos With {data.game_name}</Link>
             </span>
             <span>
-              <Link href="#LikeSlots">Slots at {data.game_name}</Link>
+              <Link href="#LikeSlots">Slots Like {data.game_name}</Link>
             </span>
             <span>
               <Link href="#faq">{data.game_name} FAQs</Link>
@@ -339,21 +336,19 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
-              <span>
-                <Link href="#bonusList">{data.game_name} Bonuses</Link>
-              </span>
+    
 
               <span>
-                <Link href="#CasinoReview">{data.game_name} Review</Link>
+                <Link href="#SlotReview">{data.game_name} Review</Link>
               </span>
               <span>
                 <Link href="#ProsCons">{data.game_name} Pros and Cons</Link>
               </span>
               <span>
-                <Link href="#LikeCasinos">Casinos Like {data.game_name}</Link>
+                <Link href="#LikeCasinos">Casinos With {data.game_name}</Link>
               </span>
               <span>
-                <Link href="#LikeSlots">Slots at {data.game_name}</Link>
+                <Link href="#LikeSlots">Slots Like {data.game_name}</Link>
               </span>
               <span>
                 <Link href="#faq">{data.game_name} FAQs</Link>
@@ -366,14 +361,14 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
-                MORE BONUSES AT {data.game_name} CASINO
+                Slot Details of the {data.game_name} Slot Machine
               </p>
 
 
             </div>
 
             <div>
-              <h1 id="CasinoReview" className="text-3xl font-semibold my-4">
+              <h1 id="SlotReview" className="text-3xl font-semibold my-4">
                 {data.game_name} Review
               </h1>
               <div
@@ -383,7 +378,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <ProsCons data={prosCons} />
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  How {data.game_name} Casino compares to other online casinos
+                  Find Online Casinos To Play {data.game_name}
                 </h3>
                 <p id="LikeCasinos" className="my-4">
                   Casinos You Can Play The {data.game_name} Slot Machine At

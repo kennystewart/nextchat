@@ -2,6 +2,9 @@ import React from "react";
 import ProsConsItem from "./ProsConsItem";
 const ProsCons = (props) => {
   const pro = props.data;
+  if (!pro.cons) {
+    return;
+  }
   return (
     <div className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal">
       <div className="md:mx-10">

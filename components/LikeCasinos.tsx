@@ -6,9 +6,7 @@ import Button from "./Button";
 import Image from "next/image";
 
 const LikeCasinos = (props) => {
-  //console.log(props);
-  const casinoLink = "https://www.allfreechips.com/play_casino";
-  const htmltxt = ".html";
+
   return (
     <div
     className="flex flex-col md:flex-row space-y-4 md:space-y-0"
