@@ -14,7 +14,7 @@ const Faq = (props) => {
       {faq.map(function (d, id) {
         return (
           <>
-            <hr key={d.id} className="border-sky-700 dark:border-white" />
+            <hr className="border-sky-700 dark:border-white" />
             <Collapse data={d} />
           </>
         );
