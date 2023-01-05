@@ -5,7 +5,7 @@ const Faq = (props) => {
   if (!props) {
     return;
   }
-  if (!props.data[0]) {
+  if (!props.data) {
     return;
   }
   const faq = props.data;
