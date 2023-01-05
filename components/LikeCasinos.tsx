@@ -13,7 +13,13 @@ const LikeCasinos = (props) => {
   >
       {props.data.map((d) => (
           <div key={d.id} className="flex flex-col items-center w-full md:w-1/3 border border-gray-200 shadow-md space-y-4 py-6 rounded-xl">
-            <Image src={`https://radiumpowered.com/radiumimages/homepage/${encodeURIComponent(d.clean_name)}-homescreen.jpg`}  height={500} width={312} alt={d.casinoname} />
+            <Image 
+            src={`https://radiumpowered.com/radiumimages/homepage/${encodeURIComponent(d.clean_name)}-homescreen.jpg`} 
+             height={500} 
+             width={312} 
+             alt={d.casinoname} 
+             
+             />
             <span>{d.casino}</span>
             <span className="flex items-center">
               <BsFillStarFill />

@@ -201,10 +201,11 @@ export async function getStaticPaths() {
 }
 
 const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const author = 'AFC Chris';
-  const reviewDate = props.data.game_updated;
-  const authorText = 'Chris Started workinng on Allfreechips in July of 2004, After many frustraiting years of learning how mto make a webpage we now have the current site!  Chris started by beinbg a player first, and loved online gaming so much he created the Allfreechips Community.';
-  const authorData = {author, authorText};
+  const author = "AFC Chris";
+  const reviewDate = "";
+  const authorText =
+    "Chris Started workinng on Allfreechips in July of 2004, After many frustraiting years of learning how mto make a webpage we now have the current site!  Chris started by beinbg a player first, and loved online gaming so much he created the Allfreechips Community.";
+  const authorData = { author, authorText };
   const faq = props.faq;
   const prosCons = props.prosCons;
   const [show, setShow] = useState(true);
@@ -213,10 +214,10 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const gameList = props.gamedata;
   const casinoname = likeCasinoData[0].casino;
   const casinoid = likeCasinoData[0].id;
-  const casinoData = {casinoid, casinoname};
-  const gameListData = {gameList , casinoData};
+  const casinoData = { casinoid, casinoname };
+  const gameListData = { gameList, casinoData };
   const gameReview = { __html: data.review[0].description };
- 
+
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
@@ -257,9 +258,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   {author}
                 </a>
               </span>
-              <span className="text-sky-600 dark:text-white">
-                {reviewDate}
-              </span>
+              <span className="text-sky-600 dark:text-white">{reviewDate}</span>
             </div>
             <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
               <div className="card p-4">
@@ -336,8 +335,6 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
-    
-
               <span>
                 <Link href="#SlotReview">{data.game_name} Review</Link>
               </span>
@@ -357,14 +354,11 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <p className="py-4">AT A GLANCE</p>
-            
-          
+
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
                 Slot Details of the {data.game_name} Slot Machine
               </p>
-
-
             </div>
 
             <div>
@@ -395,7 +389,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <LikeSlots data={gameListData} />
                 <p className="text-center my-8">Show More</p>
               </div>
-              <Author data={authorData}/>
+              <Author data={authorData} />
             </div>
           </div>
         </section>

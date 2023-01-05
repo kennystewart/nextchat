@@ -2,11 +2,11 @@ import React from "react";
 import ProsConsItem from "./ProsConsItem";
 const ProsCons = (props) => {
   const pro = props.data;
-  if (!pro.cons) {
+  if (!pro.pros[0]) {
     return;
   }
   return (
-    <div className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal">
+    <div id = "ProsCons" className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal">
       <div className="md:mx-10">
         <h3 className="text-3xl font-semibold my-4">Pros</h3>
         <ul className="text-justify list-disc md:space-x-0 space-y-4 ">
