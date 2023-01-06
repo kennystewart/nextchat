@@ -52,10 +52,13 @@ export async function getStaticProps({ params }) {
   bdata.forEach(function (item, index) {
     let firstBonus = item.bonuses.find((v) => v.deposit > 0);
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
+    item.currency='$';
     if (firstBonus && ndBonus) {
       item.nodeposit_type='No Deposit';
+      item.ndcurrency = '$';
       if (ndBonus.freespins > 0){
         item.nodeposit_type='Free Spins';
+        item.ndcurrency = '';
       }
       item.nodeposit = ndBonus.nodeposit;
       item.nodepositplaythrough = ndBonus.playthrough;

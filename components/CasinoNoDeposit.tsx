@@ -8,6 +8,7 @@ import { FaArrowCircleRight } from "react-icons/fa";
 
 function CasinoNoDeposit(props) {
   const data = props.data;
+  console.log(props.data)
   return data.map((d) => (
     <div
       key={d.id}
@@ -45,7 +46,7 @@ function CasinoNoDeposit(props) {
           <div className="flex items-center">
             <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
               {d.depositPercent}%{" "}
-              <span className="md:text-lg">up to ${d.depositBonus}</span>
+              <span className="md:text-lg">up to {d.currency}{d.depositBonus}</span>
             </p>
           </div>
         </div>
@@ -56,7 +57,7 @@ function CasinoNoDeposit(props) {
         <div className="flex flex-col">
           <div className="flex items-center">
             <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
-              ${d.nodeposit} <span className="md:text-lg">{d.ndCodeDisp}</span>
+              {d.ndcurrency}{d.nodeposit} <span className="md:text-lg">{d.ndCodeDisp}</span>
             </p>
           </div>
         </div>

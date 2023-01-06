@@ -2,9 +2,9 @@ import Head from "next/head";
 import Casinos from "../components/Casinos";
 import Image from "next/legacy/image";
 import React from "react";
-import Faq from "../components/faq";
 import Header from "../components/Header";
-import HighRoller from "../components/HighRoller";
+import Faq from "../components/faq";
+
 import { InferGetStaticPropsType } from "next";
 import {
   FaAngleDown,
@@ -25,12 +25,6 @@ export async function getStaticProps({ params }) {
     where: {
       approved: 1,
       rogue: 0,
-      bonuses: {
-        some: {
-          nodeposit: { gt: 0 },
-          freespins: { lt: 1 },
-        },
-      },
     },
     select: {
       id: true,
@@ -52,7 +46,7 @@ export async function getStaticProps({ params }) {
   bdata.forEach(function (item, index) {
     let firstBonus = item.bonuses.find((v) => v.deposit > 0);
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-      item.currency='$';
+    item.currency=firstBonus.currency;
     if (firstBonus && ndBonus) {
       item.nodeposit_type='No Deposit';
       item.ndcurrency = '$';
