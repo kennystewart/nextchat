@@ -19,7 +19,6 @@ const Casinos = () => {
             <Link href="../nodeposit"><Casino icon={<RiGameFill className='text-4xl' />} title={'No Deposit Casinos'} /></Link>
             <Link href="../freespins"><Casino icon={<FaMedal className='text-4xl' />} title={'Free Spins Casinos'} /></Link>
             <Link href="../software"><Casino icon={<BiNotepad className='text-4xl' />} title={'Casinos by Software'} /></Link>
-
         </div>
     </div>
   )
