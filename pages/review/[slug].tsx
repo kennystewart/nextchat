@@ -194,11 +194,6 @@ export async function getStaticProps({ params }) {
     $("h6").addClass("text-3xl font-semibold my-6 md:text-4xl");
     return { description: $.html() };
   });
-  const questions = ["what the hell", "Best casino really?"];
-  const answers = [
-    "Hell is the spot you dont want to visit in July",
-    "Test this one is the actual best",
-  ];
   const faq = data.casino_faq;
   const pros = data.casino_pros;
   const cons = data.casino_cons;

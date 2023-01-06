@@ -2,7 +2,7 @@ import React from "react";
 import Collapse from "./Collapse";
 
 const Faq = (props) => {
-  if (!props.data) {
+  if (!props.data[0]?.question) {
     return;
   }
   const faq = props.data;
