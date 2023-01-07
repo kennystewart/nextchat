@@ -8,7 +8,6 @@ import { FaArrowCircleRight } from "react-icons/fa";
 
 function CasinoNoDeposit(props) {
   const data = props.data;
-  console.log(props.data)
   return data.map((d) => (
     <div
       key={d.id}
