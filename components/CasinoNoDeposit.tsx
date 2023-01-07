@@ -57,7 +57,7 @@ function CasinoNoDeposit(props) {
         <div className="flex flex-col">
           <div className="flex items-center">
             <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
-              {d.ndcurrency}{d.nodeposit} <span className="md:text-lg">{d.ndCodeDisp}</span>
+              {d.ndcurrency}{d.nodeposit}{d.fstext} <span className="md:text-lg">{d.ndCodeDisp}</span>
             </p>
           </div>
         </div>
