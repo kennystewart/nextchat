@@ -29,10 +29,9 @@ export async function getStaticProps({ params }) {
       OR: [
         {
           NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
-          casino_geo: { some: { allow: 0 } },
         },
         {
-          casino_geo: { some: { allow: 1, country: { not: "US" } } },
+          casino_geo: { some: { allow: 1, country: "US" } },
         },
       ],
     },
