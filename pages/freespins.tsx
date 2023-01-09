@@ -27,6 +27,7 @@ export async function getStaticProps({ params }) {
       rogue: 0,
       bonuses: {
         some: {
+          deposit: {gt:0},
           nodeposit: { gt: 0 },
           freespins: { gt: 1 },
         },
