@@ -25,6 +25,16 @@ export async function getStaticProps({ params }) {
     where: {
       approved: 1,
       rogue: 0,
+      bonuses:{ some: { deposit: {gt:0} }},
+      OR: [
+        {
+          NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
+          casino_geo: { some: { allow: 0 } },
+        },
+        {
+          casino_geo: { some: { allow: 1, country: { not: "US" } } },
+        },
+      ],
     },
     select: {
       id: true,
@@ -38,15 +48,20 @@ export async function getStaticProps({ params }) {
       },
     },
     orderBy: [{ hot: "desc" }, { new: "desc" }],
-    take: 25,
+    
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
   bdata.forEach(function (item, index) {
     let firstBonus = item.bonuses.find((v) => v.deposit > 0);
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    item.currency=firstBonus.currency;
+    item.currency = firstBonus.currency; 
     item.fstext = "";
+    if (firstBonus.freespins > 0) {
+      item.depositFreeSpins = firstBonus.freespins;
+    } else {
+      item.depositFreeSpins = 0;
+    }
     if (firstBonus && ndBonus) {
       item.nodeposit_type = "No Deposit";
       item.ndcurrency = "$";

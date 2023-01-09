@@ -54,6 +54,11 @@ export async function getStaticProps({ params }) {
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
     item.currency = firstBonus.currency;
     item.fstext = "";
+    if (firstBonus.freespins > 0){
+      item.depositFreeSpins = firstBonus.freespins;
+    }else{
+      item.depositFreeSpins =
+    }
     if (firstBonus && ndBonus) {
       item.nodeposit_type = "No Deposit";
       item.ndcurrency = "$";
@@ -62,6 +67,7 @@ export async function getStaticProps({ params }) {
         item.fstext = " Spins";
         item.ndcurrency = "";
       }
+      
       item.nodeposit = ndBonus.nodeposit;
       item.nodepositplaythrough = ndBonus.playthrough;
       item.nodepositCode = ndBonus.code;
