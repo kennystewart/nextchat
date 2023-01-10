@@ -2,11 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { BsFillStarFill ,BsArrowRightCircleFill} from "react-icons/bs";
 import { VscStarEmpty } from "react-icons/vsc";
-import Button from "./Button";
 import Image from "next/image";
-
 const LikeCasinos = (props) => {
-
   return (
     <div
     className="flex flex-col md:flex-row space-y-4 md:space-y-0"
@@ -35,10 +32,10 @@ const LikeCasinos = (props) => {
               </Link>
             <hr className="w-full border-sky-700 dark:border-white h-0.5" />
             <span>Deposit Bonus</span>
-            <span>{d.depositPercent}% up to ${d.depositBonus}</span>
+            <span>{d.depositPercent}% up to {d.currency} {d.depositBonus}</span>
             <hr className="w-full border-sky-700 dark:border-white h-0.5" />
             <span>No Deposit Bonus</span>
-            <span>{d.nodeposit} {d.nodeposit_type}</span>
+            <span>{d.ndcurrency}{d.nodeposit} {d.nodeposit_type}</span>
           </div>
         
       ))}

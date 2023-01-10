@@ -10,6 +10,7 @@ import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
 import { useState } from "react";
 import cheerio from "cheerio";
+import BonusFilter from "../../components/functions/bonusfilter";
 import {
   FaPercentage,
   FaAngleDown,
@@ -37,6 +38,7 @@ import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
 import SoftwareProv from "../../components/SoftwareProv";
 import Author from "../../components/AboutAuthor";
+import { GiConsoleController } from "react-icons/gi";
 const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
@@ -107,7 +109,7 @@ export async function getStaticProps({ params }) {
       swId +
       `)
     ORDER BY RANDOM ()
-    LIMIT 3`
+    LIMIT 5`
   );
 
   const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
@@ -128,59 +130,12 @@ export async function getStaticProps({ params }) {
         },
       },
     },
+    take : 3
   });
+ 
+  const bdatav: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
 
-  const bdata: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
-
-  bdata.forEach(function (item, index) {
-    let firstBonus = item.bonuses.find((v) => v.deposit > 0);
-    let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    item.nodeposit_type = "No Deposit";
-    if (ndBonus) {
-      item.nodeposit = ndBonus.nodeposit;
-      item.nodepositplaythrough = ndBonus.playthrough;
-      item.nodepositCode = ndBonus.code;
-      if (ndBonus.code.length > 1) {
-        item.ndCodeDisp = ndBonus.code;
-      } else {
-        item.ndCodeDisp = "No Code Used";
-      }
-      if (item.freespins > 0) {
-        item.nodeposit_type = "Free Spins";
-      }
-    } else {
-      item.ndCodeDisp = "No Code Used";
-      item.nodeposit = 0;
-      item.nodepositplaythrough = 0;
-    }
-    if (firstBonus) {
-      item.deposit = firstBonus.deposit;
-      item.depositBonus = firstBonus.deposit_amount;
-      item.depositPlaythough = firstBonus.playthrough;
-      item.depositCode = firstBonus.code;
-      item.depositPercent = firstBonus.percent;
-    } else {
-      item.deposit = 0;
-      item.depositBonus = 0;
-      item.depositPlaythough = 0;
-      item.depositCode = "No Bonus";
-      item.depositPercent = 0;
-    }
-    if (item.depositCode.length > 1) {
-      item.depCodeDisp = item.depositCode;
-    } else {
-      item.depCodeDisp = "No Code Used";
-    }
-    if (item.casino.length > 10) {
-      item.casinoRevText = item.casino;
-      item.casinoSiteText = "site";
-    } else {
-      item.casinoRevText = item.casino + " Review";
-      item.casinoSiteText = "secure site";
-    }
-
-    delete item.bonuses;
-  });
+  const bdata = BonusFilter(bdatav);
 
   data.review = data.review.map((entry) => {
     let desc = entry.description;

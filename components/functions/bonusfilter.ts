@@ -1,13 +1,14 @@
+import Currency from "./currency";
 const BonusFilter = (bdata) => {
 
   bdata.forEach(function (item, index) {
     let firstBonus = item.bonuses.find((v) => v.deposit > 0);
     let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    item.currency = firstBonus.currency;
+    item.currency = Currency(firstBonus.multi_currency);
     item.fstext = "";
     if (firstBonus && ndBonus) {
       item.nodeposit_type = "No Deposit";
-      item.ndcurrency = "$";
+      item.ndcurrency = Currency(firstBonus.multi_currency);
       if (ndBonus.freespins > 0) {
         item.nodeposit_type = "Free Spins";
         item.fstext = "Spins";
@@ -62,6 +63,7 @@ const BonusFilter = (bdata) => {
     delete item.bonuses;
   });
 
-  return { props: { data: bdata } };
+  //return { props: { data: bdata } };
+  return  bdata;
 };
 export default BonusFilter;

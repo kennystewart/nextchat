@@ -49,7 +49,7 @@ export async function getStaticProps({ params }) {
   });
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
   const bonus = BonusFilter(bdata);
-  return bonus;
+  return { props: { data: bonus } };
 };
 export default function Nodeposit(
   props: InferGetStaticPropsType<typeof getStaticProps>

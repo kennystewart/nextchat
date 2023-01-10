@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/dist/client/link";
 import Image from "next/legacy/image";
 import { BsArrowRightCircleFill } from "react-icons/bs";
-
+import Currency from "./functions/currency";
 function BonusItem(props) {
   const casinologo =
     "https://www.allfreechips.com/image/casinoiconscut/" +
@@ -11,8 +11,10 @@ function BonusItem(props) {
   return (
     <div id="bonusList">
       {props.data.bonuslist?.map(function (d, id) {
-        var infoLine = "$20";
+        var currency = Currency(d.multi_currency);
+        var infoLine = currency + "20";
         var infoLine2 = "Min. deposit";
+        
         var bonusLink =
           "https://www.allfreechips.com/play_casino" + d.parent + ".html";
         if (d.code) {
@@ -29,12 +31,12 @@ function BonusItem(props) {
         if (d.nodeposit && !d.freespins) {
           var bname = "No Deposit";
           var bnameTwo = "Bonus";
-          var bonusValue = "$" + d.nodeposit;
+          var bonusValue = currency + d.nodeposit;
         }
         if (d.deposit) {
           var bname = "Match";
           var bnameTwo = "Bonus";
-          var bonusValue = "$" + d.deposit;
+          var bonusValue = currency+ d.deposit;
         }
         return (
           <div

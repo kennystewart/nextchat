@@ -4,12 +4,7 @@ import Header from "../components/Header";
 import Faq from "../components/faq";
 import BonusFilter from "../components/functions/bonusfilter";
 import { InferGetStaticPropsType } from "next";
-import {
-  FaBalanceScale,
-  FaHandsWash,
-  FaGifts,
-  FaGift,
-} from "react-icons/fa";
+import { FaBalanceScale, FaHandsWash, FaGifts, FaGift } from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
 import { PrismaClient } from "@prisma/client";
@@ -20,10 +15,11 @@ export async function getStaticProps({ params }) {
     where: {
       approved: 1,
       rogue: 0,
-      bonuses:{ some: { deposit: {gt:0} }},
+      bonuses: { some: { deposit: { gt: 0 } } },
       OR: [
         {
           NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
+          casino_geo: { some: { allow: 0 } },
         },
         {
           casino_geo: { some: { allow: 1, country: "US" } },
@@ -42,12 +38,11 @@ export async function getStaticProps({ params }) {
       },
     },
     orderBy: [{ hot: "desc" }, { new: "desc" }],
-    
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
   const bonus = BonusFilter(bdata);
-  return bonus;
+  return { props: { data: bonus } };
 }
 
 export default function Nodeposit(
