@@ -1,17 +1,23 @@
 import Head from "next/head";
+import Casinos from "../components/Casinos";
+import Image from "next/legacy/image";
 import React from "react";
-import Header from "../components/Header";
 import Faq from "../components/faq";
+import Header from "../components/Header";
+import HighRoller from "../components/HighRoller";
 import BonusFilter from "../components/functions/bonusfilter";
 import { InferGetStaticPropsType } from "next";
 import {
+  FaAngleDown,
   FaBalanceScale,
   FaHandsWash,
   FaGifts,
   FaGift,
+  FaArrowCircleRight,
 } from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
+import Collapse from "../components/Collapse";
 import { PrismaClient } from "@prisma/client";
 import CasinoNoDeposit from "../components/CasinoNoDeposit";
 const prisma = new PrismaClient();
@@ -20,15 +26,12 @@ export async function getStaticProps({ params }) {
     where: {
       approved: 1,
       rogue: 0,
-      bonuses:{ some: { deposit: {gt:0} }},
-      OR: [
-        {
-          NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
+      bonuses: {
+        some: {
+          nodeposit: { gt: 0 },
+          freespins: { lt: 1 },
         },
-        {
-          casino_geo: { some: { allow: 1, country: "US" } },
-        },
-      ],
+      },
     },
     select: {
       id: true,
@@ -42,14 +45,12 @@ export async function getStaticProps({ params }) {
       },
     },
     orderBy: [{ hot: "desc" }, { new: "desc" }],
-    
+    take: 25,
   });
-
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
   const bonus = BonusFilter(bdata);
   return bonus;
-}
-
+};
 export default function Nodeposit(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {

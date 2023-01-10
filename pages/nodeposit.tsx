@@ -1,22 +1,17 @@
 import Head from "next/head";
-import Casinos from "../components/Casinos";
-import Image from "next/legacy/image";
 import React from "react";
 import Faq from "../components/faq";
 import Header from "../components/Header";
-import HighRoller from "../components/HighRoller";
+import BonusFilter from "../components/functions/bonusfilter";
 import { InferGetStaticPropsType } from "next";
 import {
-  FaAngleDown,
   FaBalanceScale,
   FaHandsWash,
   FaGifts,
   FaGift,
-  FaArrowCircleRight,
 } from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
-import Collapse from "../components/Collapse";
 import { PrismaClient } from "@prisma/client";
 import CasinoNoDeposit from "../components/CasinoNoDeposit";
 const prisma = new PrismaClient();
@@ -27,7 +22,6 @@ export async function getStaticProps({ params }) {
       rogue: 0,
       bonuses: {
         some: {
-          deposit: {gt:0},
           nodeposit: { gt: 0 },
           freespins: { lt: 1 },
         },
@@ -49,70 +43,8 @@ export async function getStaticProps({ params }) {
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
-
-  bdata.forEach(function (item, index) {
-    let firstBonus = item.bonuses.find((v) => v.deposit > 0);
-    let ndBonus = item.bonuses.find((v) => v.nodeposit > 0);
-    item.currency = firstBonus.currency;
-    item.fstext = "";
-    if (firstBonus && ndBonus) {
-      item.nodeposit_type = "No Deposit";
-      item.ndcurrency = "$";
-      if (ndBonus.freespins > 0) {
-        item.nodeposit_type = "Free Spins";
-        item.fstext = "Spins";
-        item.ndcurrency = "";
-      }
-      item.nodeposit = ndBonus.nodeposit;
-      item.nodepositplaythrough = ndBonus.playthrough;
-      item.nodepositCode = ndBonus.code;
-      if (ndBonus.code.length > 1) {
-        item.ndCodeDisp = ndBonus.code;
-      } else {
-        item.ndCodeDisp = "No Code Used";
-      }
-
-      item.deposit = firstBonus.deposit;
-      item.depositBonus = firstBonus.deposit_amount;
-      item.depositPlaythough = firstBonus.playthrough;
-      item.depositCode = firstBonus.code;
-      item.depositPercent = firstBonus.percent;
-      if (item.depositCode.length > 1) {
-        item.depCodeDisp = item.depositCode;
-      } else {
-        item.depCodeDisp = "No Code Used";
-      }
-      if (item.casino.length > 10) {
-        item.casinoRevText = item.casino;
-        item.casinoSiteText = "site";
-      } else {
-        item.casinoRevText = item.casino + " Review";
-        item.casinoSiteText = "secure site";
-      }
-    } else if (firstBonus) {
-      item.deposit = firstBonus.deposit;
-      item.depositBonus = firstBonus.deposit_amount;
-      item.depositPlaythough = firstBonus.playthrough;
-      item.depositCode = firstBonus.code;
-      item.depositPercent = firstBonus.percent;
-      if (item.depositCode.length > 1) {
-        item.depCodeDisp = item.depositCode;
-      } else {
-        item.depCodeDisp = "No Code Used";
-      }
-      if (item.casino.length > 10) {
-        item.casinoRevText = item.casino;
-        item.casinoSiteText = "site";
-      } else {
-        item.casinoRevText = item.casino + " Review";
-        item.casinoSiteText = "secure site";
-      }
-    }
-
-    delete item.bonuses;
-  });
-
-  return { props: { data: bdata } };
+  const bonus = BonusFilter(bdata);
+  return bonus;
 }
 
 export default function Nodeposit(
