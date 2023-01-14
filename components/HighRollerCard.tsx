@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import lapander from "../public/images/lapander.png";
 import { FaStar, FaCopyright, FaArrowCircleRight } from "react-icons/fa";
 

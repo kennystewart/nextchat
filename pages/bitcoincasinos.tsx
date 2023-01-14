@@ -1,20 +1,19 @@
-import Header from "../components/Header";
-import monthYear from "../components/functions/monthYear";
-import Footer from "../components/Footer";
-import Link from "next/dist/client/link";
-import Faq from "../components/faq";
-import ProsCons from "../components/ProsCons";
-import LikeSlots from "../components/LikeSlots";
-import LikeCasinos from "../components/LikeCasinos";
-import BonusFilter from "../components/functions/bonusfilter";
-import { useState } from "react";
-import { FaAngleRight } from "react-icons/fa";
-import Head from "next/head";
-import { GrClose } from "react-icons/gr";
-import { InferGetStaticPropsType } from "next";
-import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
+import { InferGetStaticPropsType } from "next";
+import Link from "next/dist/client/link";
+import Head from "next/head";
+import { useState } from "react";
+import { CgMenuLeft } from "react-icons/cg";
+import { FaAngleRight } from "react-icons/fa";
+import { GrClose } from "react-icons/gr";
 import Author from "../components/AboutAuthor";
+import Faq from "../components/faq";
+import Footer from "../components/Footer";
+import BonusFilter from "../components/functions/bonusfilter";
+import monthYear from "../components/functions/monthYear";
+import Header from "../components/Header";
+import ProsCons from "../components/ProsCons";
+
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/legacy/image";
 import React from "react";
 import Header from "../components/Header";
 import Casinos from "../components/Casinos";
