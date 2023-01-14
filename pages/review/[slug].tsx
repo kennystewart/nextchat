@@ -179,10 +179,15 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const bankListData = {bankListItems, casinoData};
   const softwares = data.softwares;
   const softwaredata = { casinoname, softwares };
-  const author = 'AFC Chris';
-  const reviewDate = data.updated;
-  const authorText = 'Chris Started workinng on Allfreechips in July of 2004, After many frustraiting years of learning how mto make a webpage we now have the current site!  Chris started by beinbg a player first, and loved online gaming so much he created the Allfreechips Community.';
-  const authorData = {author, authorText};
+  const author = "AFC Chris";
+  const reviewDate = "";
+  const authorText =
+    "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
+  const authorData = { author, authorText };
+
+
+
+
   const casinoLink =
           "https://www.allfreechips.com/play_casino" + data.id + ".html";
   const bonusdata = { buttondata, bonuslist, casinoname };

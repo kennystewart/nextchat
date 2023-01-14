@@ -5,6 +5,7 @@ const Faq = (props) => {
   if (!props.data) {
     return;
   }
+  console.log(props.data);
   const faq = props.data;
   return (
     <div id="faq" className="">

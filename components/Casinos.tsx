@@ -15,7 +15,7 @@ const Casinos = () => {
         <div className='grid grid-cols-2 md:grid md:grid-cols-3'>
         <Link href="../bestcasinos"><Casino icon={<FaMedal className='text-4xl' />} title={'Best Online Casinos'} /></Link>
             <Link href="../usacasinos"><Casino icon={<GiUsaFlag className='text-4xl' />} title={'USA Online Casinos'} /></Link>
-            <Link href="../bitcoin"><Casino icon={<SiBitcoinsv className='text-4xl' />} title={'Bitcoin USA Casinos'} /></Link>
+            <Link href="../bitcoincasinos"><Casino icon={<SiBitcoinsv className='text-4xl' />} title={'Bitcoin USA Casinos'} /></Link>
             <Link href="../nodeposit"><Casino icon={<RiGameFill className='text-4xl' />} title={'No Deposit Casinos'} /></Link>
             <Link href="../freespins"><Casino icon={<FaMedal className='text-4xl' />} title={'Free Spins Casinos'} /></Link>
             <Link href="../software"><Casino icon={<BiNotepad className='text-4xl' />} title={'Casinos by Software'} /></Link>
