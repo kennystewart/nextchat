@@ -68,8 +68,8 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const title = "Title";
   const content = "Content that relates to the title.";
   const pros = [
-    { title, content },
-    { title, content },
+    { title: "--", content },
+    { title: title, content },
     { title, content },
   ];
   const cons = pros;
