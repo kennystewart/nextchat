@@ -1,14 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
-import lapander from "../public/images/lapander.png";
 import { FaStar } from "react-icons/fa";
 import { FaCopyright } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 function CasinoNoDeposit(props) {
   const data = props.data;
-  console.log(props.data)
   return data.map((d) => (
     <div
       key={d.id}
