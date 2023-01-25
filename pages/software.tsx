@@ -55,14 +55,16 @@ export async function getStaticProps() {
       let img = a2.find((x) => x.id === id).image;
       let link = a2.find((x) => x.id === id).link;
       let games = g1.find((x) => x.id === id).coun;
-      a3.push({
-        id: id,
-        name: name,
-        img: img,
-        count: coun,
-        games: games,
-        link: link,
-      });
+      if (games && coun) {
+        a3.push({
+          id: id,
+          name: name,
+          img: img,
+          count: coun,
+          games: games,
+          link: link,
+        });
+      }
     });
     return a3;
   }

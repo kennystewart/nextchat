@@ -16,7 +16,7 @@ const SlotSoftware = (data) => {
         {dataS?.map(function (d, id) {
           let url = "../software/" + d.link;
           return (
-            <Link href={url}>
+            <Link key= {d.id} href={url}>
               <SoftBox
                 image = {d.img}
                 title= {d.name}
