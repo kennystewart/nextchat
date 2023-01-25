@@ -50,7 +50,7 @@ const Header = (props) => {
         </li>
         <li className="md:ml-8 text-xl md:my-0 my-7">
           <Link
-            href="/casino-software"
+            href="/software"
             className="font-medium hover:text-gray-400 duration-500"
           >
             Casino Softwares
