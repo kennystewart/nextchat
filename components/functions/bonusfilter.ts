@@ -25,6 +25,9 @@ const BonusFilter = (bdata) => {
 
       item.deposit = firstBonus.deposit;
       item.depositBonus = firstBonus.deposit_amount;
+      if(item.deposit && item.depositBonus){
+        firstBonus.percent = Math.round((item.depositBonus / item.deposit) * 100);
+      }
       item.depositPlaythough = firstBonus.playthrough;
       item.depositCode = firstBonus.code;
       item.depositPercent = firstBonus.percent;
@@ -43,6 +46,9 @@ const BonusFilter = (bdata) => {
     } else if (firstBonus) {
       item.deposit = firstBonus.deposit;
       item.depositBonus = firstBonus.deposit_amount;
+      if(item.deposit && item.depositBonus){
+        firstBonus.percent = Math.round((item.depositBonus / item.deposit) * 100);
+      }
       item.depositPlaythough = firstBonus.playthrough;
       item.depositCode = firstBonus.code;
       item.depositPercent = firstBonus.percent;
