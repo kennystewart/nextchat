@@ -12,10 +12,11 @@ const Faq = (props) => {
         Frequently asked questions
       </h3>
       {faq.map(function (d, id) {
+        const data = ({d,id});
         return (
           <>
             <hr className="border-sky-700 dark:border-white" />
-            <Collapse data={d} />
+            <Collapse data={data} />
           </>
         );
       })}

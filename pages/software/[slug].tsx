@@ -1,114 +1,76 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import SlotSoftware from "../components/SlotSoftware";
-import Link from "next/dist/client/link";
-import Faq from "../components/faq";
-import ProsCons from "../components/ProsCons";
-import LikeSlots from "../components/LikeSlots";
-import LikeCasinos from "../components/LikeCasinos";
-import { useState } from "react";
-import { FaAngleRight } from "react-icons/fa";
-import Head from "next/head";
-import { GrClose } from "react-icons/gr";
-import { InferGetStaticPropsType } from "next";
-import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
-import Author from "../components/AboutAuthor";
-import monthYear from "../components/functions/monthYear";
+import { InferGetStaticPropsType } from "next";
+import Link from "next/dist/client/link";
+import Head from "next/head";
+import { useState } from "react";
+import { CgMenuLeft } from "react-icons/cg";
+import { FaAngleRight } from "react-icons/fa";
+import { GrClose } from "react-icons/gr";
+import Author from "../../components/AboutAuthor";
+import Faq from "../../components/faq";
+import Footer from "../../components/Footer";
+import BonusFilter from "../../components/functions/bonusfilter";
+import monthYear from "../../components/functions/monthYear";
+import Header from "../../components/Header";
+import ProsCons from "../../components/ProsCons";
+
 const prisma = new PrismaClient();
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
+  const slug = params.slug;
   const data = await prisma.casino_p_software.findMany({
+    where: {
+      link: slug,
+    },
     select: {
-      id: true,
       software_name: true,
       image: true,
-      link: true,
     },
   });
-  // Get the number of Casinos for each software
-  const numdata: any[] = await prisma.$queryRawUnsafe(
-    `SELECT  m.id,CAST(sum(case when mp.casino is not null then 1 else 0 end) as INT) as coun FROM casino_p_software m
-    LEFT JOIN casino_p_software_link mp ON mp.software = m.id
-    GROUP BY m.id`
-  );
-  // get the number of games for each software
-  const numGames: any[] = await prisma.$queryRawUnsafe(
-    `SELECT m.id, CAST(sum(case when mp.game_software is not null then 1 else 0 end) as INT) as coun FROM casino_p_software m
-    LEFT JOIN casino_p_games mp ON mp.game_software = m.id
-    GROUP BY m.id`
-  );
-  function sortByKey(array, key) {
-    return array.sort(function (a, b) {
-      var x = a[key];
-      var y = b[key];
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-  }
-
-  function mergeOnId(a1, a2, g1) {
-    let a3 = Array();
-    a1.map(function (d) {
-      let coun = d.coun;
-      let id = d.id;
-      let name = a2.find((x) => x.id === id).software_name;
-      let img = a2.find((x) => x.id === id).image;
-      let link = a2.find((x) => x.id === id).link;
-      let games = g1.find((x) => x.id === id).coun;
-      if (games && coun) {
-        a3.push({
-          id: id,
-          name: name,
-          img: img,
-          count: coun,
-          games: games,
-          link: link,
-        });
-      }
-    });
-    return a3;
-  }
-
-  const newData = sortByKey(numdata, "coun");
-  const casSoft = newData.reverse();
-
-  const softFull = mergeOnId(casSoft, data, numGames);
-  //console.log(softFull);
-  return { props: { softFull } };
+ 
+  return { props: {data} };
+}
+export async function getStaticPaths() {
+  return { paths: [], fallback: "blocking" };
 }
 
 const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+  
   const author = "AFC Chris";
   const reviewDate = "";
   const authorText =
     "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
   const authorData = { author, authorText };
   const [show, setShow] = useState(true);
-  const casSoft = props.softFull;
-  // const likeCasinoData = props.bdata;
-  // const gameList = props.gamedata;
-  // const casinoname = likeCasinoData[0].casino;
-  // const casinoid = likeCasinoData[0].id;
-  // const casinoData = { casinoid, casinoname };
-  // const gameListData = { gameList, casinoData };
-  // const gameReview = { __html: data.review[0].description };
-
+  const data = props.data[0];
+  const pageDescription = "Allfreechips guide to " + data.software_name + " Casinos and Slot Machines";
+  const title = "Title";
+  const content = "Content that relates to the title.";
   const pros = [
-    { title: "Software", content: "Software is a def pro" },
-    { title: "Pro", content: "hell YHeah!!" },
-    { title: "title", content: "content" },
+    { title: "--", content },
+    { title: title, content },
+    { title, content },
   ];
   const cons = pros;
   const prosCons = { pros, cons };
-  const faq = [
-    { question: "What is Software?", answer: "Seriously your stupid" },
-  ];
+  const question = "Are Bitcoin casinos safe?";
+  const answer =
+    "The question really does not have a good answer.  Bitcoin is the new preferred way of financing casino transactions, this does not have any impact on whether the casino is actually safe or not.  This is why you should only play at bitcoin casinos like the ones reviewed her at Allfreechips.";
+  const faq = [{ question, answer }];
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
-
       <Head>
-        <title>Best casino software Providors</title>
-        <meta name="description" content="Description Of Page" />
+        <title>
+          {data.software_name} Casinos and {data.software_name} Slot Machines
+        </title>
+        <meta
+          name="description"
+          content={pageDescription}
+        />
+        <meta property="og:image" content={`https://www.allfreechips.com/image/software/${encodeURIComponent(data.image)}`} />
+
+        
+
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
@@ -118,7 +80,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span className="text-slate-500">Software</span>
+              <span>Casino Software</span>
             </div>
           </div>
         </div>
@@ -126,7 +88,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Best {monthYear()} Casino Software Providors
+              Best {data.software_name} Casinos and Slots For {monthYear()}
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -142,18 +104,22 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <div className="heading flex items-center border-b gap-7 pb-4">
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
-                    Why you can trust{" "}
-                    <span className="font-bold">allfreechips.com</span>
+                    Why you should play{" "}
+                    <span className="font-bold">Bitcoin Casinos</span>
                   </h2>
                   <a href="#">
                     <i className="bi bi-info-circle"></i>
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Allfreechips is dedicated to bringing the best and latest
-                  online casino bonus information. We rely on your input to
-                  insure the casinos listed here are both correct and on the
-                  level by leaving your reviews.
+                  Bitcoin Casinos are the future of online gambling without
+                  question. The speed and ease of using bitcoin is unmatched,
+                  and very secure if you use your own wallet. With all the
+                  negative news about Crypto Currency lately you should know all
+                  these losses are from exchanges where you should not keep your
+                  Bitcoin. Play safe online bitcoin casinos and store your
+                  bitcoin in a local or offline wallet where YOU control the
+                  keys.
                 </p>
               </div>
             </div>
@@ -230,7 +196,6 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
-            <SlotSoftware casSoft={casSoft} />
             <p className="py-4">AT A GLANCE</p>
 
             <div className="flex flex-col rounded-lg">

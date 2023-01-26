@@ -5,9 +5,9 @@ import { FaAngleDown } from "react-icons/fa";
 const Collapse = (props) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col">
+    <div key = {props.data.id} className="flex flex-col">
       <div className="flex p-4 font-medium text-lg items-center justify-between md:text-2xl">
-        {props.data.question}
+        {props.data.d.question}
         <FaAngleDown
           className="mx-4 text-lg font-thin"
           onClick={() => setOpen(!open)}
@@ -18,7 +18,7 @@ const Collapse = (props) => {
           open ? "flex" : "hidden"
         }`}
       >
-        {props.data.answer}
+        {props.data.d.answer}
       </div>
     </div>
   );
