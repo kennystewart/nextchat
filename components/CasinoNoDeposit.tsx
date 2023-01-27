@@ -10,7 +10,7 @@ function CasinoNoDeposit(props) {
   return data.map((d) => (
     <div
       key={d.id}
-      className="border items-center border-gray-300 p-6 rounded my-8 md:mx-80 md:p-12 md:rounded-xl md:flex md:justify-between"
+      className="border items-center border-gray-300 p-6 rounded my-8 md:mx-3 md:p-12 md:rounded-xl md:flex md:justify-between"
     >
       <div className="flex items-center md:flex-col">
         <Image
@@ -70,7 +70,7 @@ function CasinoNoDeposit(props) {
           On {d.casino}’s {d.casinoSiteText}
         </p>
         <h5 className="text-normal font-medium">
-          <Link href={`review/${encodeURIComponent(d.clean_name)}`}>
+          <Link href={`../review/${encodeURIComponent(d.clean_name)}`}>
             {d.casinoRevText}
           </Link>
         </h5>

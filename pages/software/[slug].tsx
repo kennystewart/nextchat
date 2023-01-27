@@ -7,11 +7,13 @@ import { CgMenuLeft } from "react-icons/cg";
 import { FaAngleRight } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 import Author from "../../components/AboutAuthor";
+import CasinoNoDeposit from "../../components/CasinoNoDeposit";
 import Faq from "../../components/faq";
 import Footer from "../../components/Footer";
 import BonusFilter from "../../components/functions/bonusfilter";
 import monthYear from "../../components/functions/monthYear";
 import Header from "../../components/Header";
+import LikeCasinos from "../../components/LikeCasinos";
 import ProsCons from "../../components/ProsCons";
 
 const prisma = new PrismaClient();
@@ -22,12 +24,65 @@ export async function getStaticProps({ params }) {
       link: slug,
     },
     select: {
+      id: true,
       software_name: true,
       image: true,
     },
   });
- 
-  return { props: {data} };
+  const swId = data[0].id;
+
+  const gamedata = await prisma.$queryRawUnsafe(
+    `SELECT s.software_name,g.game_name,g.game_clean_name,g.game_reels,g.game_lines,g.game_image FROM casino_p_games g
+    
+    LEFT JOIN casino_p_software s
+    ON g.game_software = s.id
+    LEFT JOIN casino_p_descriptions_games d
+    ON g.game_id = d.parent
+    WHERE game_software in (` +
+      swId +
+      `)
+    AND d.description != ''  
+    ORDER BY RANDOM ()
+    LIMIT 8`
+  );
+  // Find X casinos that share the same software as the Current SW
+  const casinodata: any[] = await prisma.$queryRawUnsafe(
+    `SELECT c.id FROM casino_p_casinos c
+    LEFT JOIN casino_p_software_link s 
+    on s.casino = c.id
+    WHERE s.software in (` +
+      swId +
+      `)
+      AND c.approved = 1
+      AND c.rogue = 0
+    ORDER BY RANDOM ()
+    LIMIT 8`
+  );
+
+  const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
+
+  const LikeCasinoData = await prisma.casino_p_casinos.findMany({
+    where: {
+      id: { in: likeCasinoIds },
+    },
+    select: {
+      id: true,
+      clean_name: true,
+      casino: true,
+      button: true,
+      homepageimage: true,
+      bonuses: {
+        orderBy: {
+          position: "desc",
+        },
+      },
+    },
+  });
+  const bdatav: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
+  const bdata = BonusFilter(bdatav);
+
+
+  return { props: {data , bdata , gamedata } };
 }
 export async function getStaticPaths() {
   return { paths: [], fallback: "blocking" };
@@ -196,12 +251,13 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
-            <p className="py-4">AT A GLANCE</p>
+            
 
             <div className="flex flex-col rounded-lg">
-              <p className="py-4 font-bold my-4 md:my-8">Slot Details of the</p>
+              <p className="py-4 font-bold my-4 md:my-8">Casinos on {data.software_name}</p>
+              <CasinoNoDeposit data={props.bdata} />
             </div>
-
+          
             <div>
               <h1 id="SlotReview" className="text-3xl font-semibold my-4">
                 Review

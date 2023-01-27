@@ -108,6 +108,8 @@ export async function getStaticProps({ params }) {
     WHERE s.software in (` +
       swId +
       `)
+      AND c.approved = 1
+      AND c.rogue = 0
     ORDER BY RANDOM ()
     LIMIT 5`
   );
