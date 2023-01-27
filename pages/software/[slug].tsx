@@ -14,6 +14,7 @@ import BonusFilter from "../../components/functions/bonusfilter";
 import monthYear from "../../components/functions/monthYear";
 import Header from "../../components/Header";
 import LikeCasinos from "../../components/LikeCasinos";
+import LikeSlots from "../../components/LikeSlots";
 import ProsCons from "../../components/ProsCons";
 
 const prisma = new PrismaClient();
@@ -98,6 +99,14 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [show, setShow] = useState(true);
   const data = props.data[0];
   const pageDescription = "Allfreechips guide to " + data.software_name + " Casinos and Slot Machines";
+
+  const likeCasinoData = props.bdata;
+  const gameList = props.gamedata;
+  const casinoname = likeCasinoData[0].casino;
+  const casinoid = likeCasinoData[0].id;
+  const casinoData = { casinoid, casinoname };
+  const gameListData = { gameList, casinoData };
+
   const title = "Title";
   const content = "Content that relates to the title.";
   const pros = [
@@ -259,27 +268,17 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
           
             <div>
-              <h1 id="SlotReview" className="text-3xl font-semibold my-4">
-                Review
-              </h1>
+              <h2 id="SlotReview" className="text-3xl font-semibold my-4">
+                Online SLots By {data.software_name}
+              </h2>
+              <LikeSlots data = {gameListData} />
               <div className="text-lg font-normal">Lots O Text HERE</div>
               <ProsCons data={prosCons} />
-              <div className="text-lg font-normal">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Find Online Casinos To Play
-                </h3>
-                <p id="LikeCasinos" className="my-4">
-                  Casinos You Can Play The Slot Machine At
-                </p>
-              </div>
               <Faq data={faq} />
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   Other slots you can play like slot
                 </h3>
-              </div>
-              <div id="LikeSlots">
-                <p className="text-center my-8">Show More</p>
               </div>
               <Author data={authorData} />
             </div>
