@@ -262,7 +262,7 @@ export default function Nodeposit(
           </ul>
         </div>
         <div className="flex flex-col m-4 bg-sky-100 dark:bg-gray-300 dark:text-black pt-4 pb-10 px-8 text-center rounded-xl md:mx-40">
-          <p className="font-medium md:text-2xl">WE'VE DONE THE HOMEWORK</p>
+          <p className="font-medium md:text-2xl">WE&apos;VE DONE THE HOMEWORK</p>
           <h4 className="text-2xl py-4 font-medium leading-8 md:text-4xl md:my-4">
             See our top player guides for online casinos
           </h4>
