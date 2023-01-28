@@ -96,7 +96,7 @@ export default function Nodeposit(
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>No Deoposit Casinos</span>
+              <span>No Deposit Casinos</span>
             </div>
           </div>
         </div>
@@ -165,19 +165,10 @@ export default function Nodeposit(
             </span>
 
             <span>
-              <Link href="#SlotReview"> Review</Link>
+              <Link href="#ProsCons"> No Deposit Pros and Cons</Link>
             </span>
             <span>
-              <Link href="#ProsCons"> Pros and Cons</Link>
-            </span>
-            <span>
-              <Link href="#LikeCasinos">Casinos With </Link>
-            </span>
-            <span>
-              <Link href="#LikeSlots">Slots Like </Link>
-            </span>
-            <span>
-              <Link href="#faq">FAQs</Link>
+              <Link href="#faq">No Deposit Bonus FAQs</Link>
             </span>
           </div>
         </div>
@@ -189,20 +180,12 @@ export default function Nodeposit(
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
+ 
               <span>
-                <Link href="#SlotReview">Review</Link>
+                <Link href="#ProsCons">No Deposit Pros and Cons</Link>
               </span>
               <span>
-                <Link href="#ProsCons">Pros and Cons</Link>
-              </span>
-              <span>
-                <Link href="#LikeCasinos">Casinos With</Link>
-              </span>
-              <span>
-                <Link href="#LikeSlots">Slots Like</Link>
-              </span>
-              <span>
-                <Link href="#faq"> FAQs</Link>
+                <Link href="#faq">No Deposit Bonus FAQs</Link>
               </span>
             </div>
           </div>
@@ -215,15 +198,9 @@ export default function Nodeposit(
             </div>
 
             <div>               
-              <div className="text-lg font-normal">Lots O Text HERE</div>
+              <div className="text-lg font-normal">No Deposit Casino Bonus information</div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />
-              <div className="text-lg font-normal">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Other slots you can play like slot
-                </h3>
-              </div>
-
               <Author data={authorData} />
             </div>
             
