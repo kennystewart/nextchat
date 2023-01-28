@@ -81,7 +81,7 @@ export default function Nodeposit(
     },
     {
       question: "Are free spins without deposit legal in all areas?",
-      answer: "NO, some locations like the UK feel players are too attracted to the word 'Free' so they do not allow any language with the word free in them.",
+      answer: "NO, some locations like the UK feel players are too attracted to the word Free so they do not allow any language with the word free in them.",
     },
     {
       question: "Do people ever cash out on free spin bonuses without Deposit?",
