@@ -4,7 +4,7 @@ const FaqJsonLD = (data) => {
     return;
   }
   let faqOut =
-    '@context":"https://schema.org","@type":"FAQPage","mainEntity":[';
+    '{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[';
 
   data.data.map(function (d) {
     let faqQ =
