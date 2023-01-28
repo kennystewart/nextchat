@@ -1,111 +1,59 @@
-import { PrismaClient } from "@prisma/client";
-import { InferGetStaticPropsType } from "next";
-import Link from "next/dist/client/link";
 import Head from "next/head";
+import React from "react";
+import Faq from "../components/faq";
+import Header from "../components/Header";
+import BonusFilter from "../components/functions/bonusfilter";
+import { InferGetStaticPropsType } from "next";
+import { FaBalanceScale, FaHandsWash, FaGifts, FaGift } from "react-icons/fa";
+import { TbBeach } from "react-icons/tb";
+import Footer from "../components/Footer";
+import { PrismaClient } from "@prisma/client";
+import CasinoNoDeposit from "../components/CasinoNoDeposit";
+import Link from "next/dist/client/link";
 import { useState } from "react";
 import { CgMenuLeft } from "react-icons/cg";
 import { FaAngleRight } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
-import Author from "../../components/AboutAuthor";
-import CasinoNoDeposit from "../../components/CasinoNoDeposit";
-import Faq from "../../components/faq";
-import Footer from "../../components/Footer";
-import BonusFilter from "../../components/functions/bonusfilter";
-import monthYear from "../../components/functions/monthYear";
-import Header from "../../components/Header";
-import LikeCasinos from "../../components/LikeCasinos";
-import LikeSlots from "../../components/LikeSlots";
-import ProsCons from "../../components/ProsCons";
-
+import monthYear from "../components/functions/monthYear";
+import Author from "../components/AboutAuthor";
+import ProsCons from "../components/ProsCons";
+import LikeSlots from "../components/LikeSlots";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
-  const slug = params.slug;
-  const data = await prisma.casino_p_software.findMany({
+  const data = await prisma.casino_p_casinos.findMany({
     where: {
-      link: slug,
-    },
-    select: {
-      id: true,
-      software_name: true,
-      image: true,
-    },
-  });
-  const swId = data[0].id;
-
-  const gamedata = await prisma.$queryRawUnsafe(
-    `SELECT s.software_name,g.game_name,g.game_clean_name,g.game_reels,g.game_lines,g.game_image FROM casino_p_games g
-    
-    LEFT JOIN casino_p_software s
-    ON g.game_software = s.id
-    LEFT JOIN casino_p_descriptions_games d
-    ON g.game_id = d.parent
-    WHERE game_software in (` +
-      swId +
-      `)
-    AND d.description != ''  
-    ORDER BY RANDOM ()
-    LIMIT 8`
-  );
-  // Find X casinos that share the same software as the Current SW
-  const casinodata: any[] = await prisma.$queryRawUnsafe(
-    `SELECT c.id FROM casino_p_casinos c
-    LEFT JOIN casino_p_software_link s 
-    on s.casino = c.id
-    WHERE s.software in (` +
-      swId +
-      `)
-      AND c.approved = 1
-      AND c.rogue = 0
-    ORDER BY RANDOM ()
-    LIMIT 8`
-  );
-
-  const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
-
-  const LikeCasinoData = await prisma.casino_p_casinos.findMany({
-    where: {
-      id: { in: likeCasinoIds },
+      approved: 1,
+      rogue: 0,
+      bonuses: {
+        some: {
+          nodeposit: { gt: 0 },
+          freespins: { lt: 1 },
+        },
+      },
     },
     select: {
       id: true,
       clean_name: true,
       casino: true,
+      hot: true,
+      new: true,
       button: true,
-      homepageimage: true,
       bonuses: {
-        orderBy: {
-          position: "desc",
-        },
+        orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
       },
     },
+    orderBy: [{ hot: "desc" }, { new: "desc" }],
+    take: 25,
   });
-  const bdatav: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
-  const bdata = BonusFilter(bdatav);
 
-
-  return { props: {data , bdata , gamedata } };
-}
-export async function getStaticPaths() {
-  return { paths: [], fallback: "blocking" };
+  const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
+  const bonus = BonusFilter(bdata);
+  return { props: { data: bonus } };
 }
 
-const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  
-  const author = "AFC Chris";
-  const reviewDate = "";
-  const authorText =
-    "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
-  const authorData = { author, authorText };
-  const [show, setShow] = useState(true);
-  const data = props.data[0];
-  const pageDescription = "Allfreechips guide to " + data.software_name + " Casinos and Slot Machines";
-
-  const likeCasinoData = props.bdata;
-  const gameList = props.gamedata;
-  const casinoname = likeCasinoData[0].casino;
-  const casinoid = likeCasinoData[0].id;
-  const casinoData = { casinoid, casinoname };
-  const gameListData = { gameList, casinoData };
+export default function Nodeposit(
+  props: InferGetStaticPropsType<typeof getStaticProps>
+) {
   const title = "Title";
   const content = "Content that relates to the title.";
   const pros = [
@@ -119,21 +67,26 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const answer =
     "The question really does not have a good answer.  Bitcoin is the new preferred way of financing casino transactions, this does not have any impact on whether the casino is actually safe or not.  This is why you should only play at bitcoin casinos like the ones reviewed her at Allfreechips.";
   const faq = [{ question, answer }];
+  const bdata = props.data;
+  const author = "AFC Chris";
+  const reviewDate = "";
+  const authorText =
+    "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
+  const authorData = { author, authorText };
+  const [show, setShow] = useState(true);
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
       <Head>
-        <title>
-          {data.software_name} Casinos and {data.software_name} Slot Machines
-        </title>
-        <meta
-          name="description"
-          content={pageDescription}
+        <title>No Deposit Casinos</title>
+        <meta name="description" content="No deposit casino bonuses" />
+        <link rel="icon" href="/favicon.ico" />
+       <meta
+      //    property="og:image"
+      //    content={`https://www.allfreechips.com/image/software/${encodeURIComponent(
+      //      data.image
+      //    )}`}
         />
-        <meta property="og:image" content={`https://www.allfreechips.com/image/software/${encodeURIComponent(data.image)}`} />
-
-        
-
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
@@ -143,7 +96,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>Casino Software</span>
+              <span>No Deoposit Casinos</span>
             </div>
           </div>
         </div>
@@ -151,7 +104,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Best {data.software_name} Casinos and Slots For {monthYear()}
+              Best No Deposit Casinos For {monthYear()}
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -168,21 +121,16 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
                     Why you should play{" "}
-                    <span className="font-bold">Bitcoin Casinos</span>
+                    <span className="font-bold">No Deposit Casinos</span>
                   </h2>
                   <a href="#">
                     <i className="bi bi-info-circle"></i>
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Bitcoin Casinos are the future of online gambling without
-                  question. The speed and ease of using bitcoin is unmatched,
-                  and very secure if you use your own wallet. With all the
-                  negative news about Crypto Currency lately you should know all
-                  these losses are from exchanges where you should not keep your
-                  Bitcoin. Play safe online bitcoin casinos and store your
-                  bitcoin in a local or offline wallet where YOU control the
-                  keys.
+                  Allfreechips is a top teir provider of exclusive no deposit
+                  casino bonuses allowing you to get the largest no deposit play
+                  with no deposit required.
                 </p>
               </div>
             </div>
@@ -259,18 +207,14 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
-            
-
             <div className="flex flex-col rounded-lg">
-              <p className="py-4 font-bold my-4 md:my-8">Casinos on {data.software_name}</p>
-              <CasinoNoDeposit data={props.bdata} />
+              <p className="py-4 font-bold my-4 md:my-8">
+                Full List of no deposit casino bonuses
+              </p>
+              <CasinoNoDeposit data={bdata} />
             </div>
-          
-            <div>
-              <h2 id="SlotReview" className="text-3xl font-semibold my-4">
-                Online SLots By {data.software_name}
-              </h2>
-              <LikeSlots data = {gameListData} />
+
+            <div>               
               <div className="text-lg font-normal">Lots O Text HERE</div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />
@@ -279,14 +223,62 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   Other slots you can play like slot
                 </h3>
               </div>
+
               <Author data={authorData} />
             </div>
+            
           </div>
         </section>
+        <div className="text-left p-4 mt-2 md:mx-24 md:text-2xl">
+          <h3 className="text-2xl font-semibold md:text-5xl">
+            Use our casino guide to get huge bonuses
+          </h3>
+          <p className="text-base font-medium my-6 text-justify md:text-2xl md:font-normal">
+            At Allfreechips, you will find everything from lists of no deposit
+            bonuses to free spin casino codes and money contests in one place.
+            The bonus value may range from $5 to hundreds of dollars, depending
+            on the casino you choose. For your convenience, we analyze the
+            offers of all online gambling sites and provide you with the
+            following:
+          </p>
+          <ul className="list-disc pl-4 font-normal">
+            <li>bonus value;</li>
+            <li>playthrough requirements;</li>
+            <li>type of software used;</li>
+            <li>comprehensive reviews and rates.</li>
+          </ul>
+        </div>
+        <div className="flex flex-col m-4 bg-sky-100 dark:bg-gray-300 dark:text-black pt-4 pb-10 px-8 text-center rounded-xl md:mx-40">
+          <p className="font-medium md:text-2xl">WE VE DONE THE HOMEWORK</p>
+          <h4 className="text-2xl py-4 font-medium leading-8 md:text-4xl md:my-4">
+            See our top player guides for online casinos
+          </h4>
+          <ul className="font-normal py-2 items-center text-lg md:flex md:justify-around md:text-2xl">
+            <li className="flex justify-center items-center">
+              <FaBalanceScale className="m-2" />
+              Online Casino Banking
+            </li>
+            <li className="flex justify-center items-center">
+              <FaHandsWash className="m-2" />
+              New Online Slots
+            </li>
+            <li className="flex justify-center items-center">
+              <TbBeach className="m-2" />
+              RTG Slots Machines
+            </li>
+            <li className="flex justify-center items-center">
+              <FaGifts className="m-2" />
+              Microgaming Slots
+            </li>
+            <li className="flex justify-center items-center">
+              <FaGift className="m-2" />
+              Betsoft Slots
+            </li>
+          </ul>
+        </div>
       </div>
+      
       <Footer />
     </div>
   );
-};
-
-export default PageOut;
+}
