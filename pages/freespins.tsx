@@ -17,7 +17,7 @@ import { GrClose } from "react-icons/gr";
 import monthYear from "../components/functions/monthYear";
 import Author from "../components/AboutAuthor";
 import ProsCons from "../components/ProsCons";
-import FaqJsonLD from "../components/faqJsonLD";
+import FaqJsonLD from "../components/FaqJsonLDX";
 const prisma = new PrismaClient();
 //added to synch
 export async function getStaticProps({ params }) {
