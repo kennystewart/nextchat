@@ -20,6 +20,8 @@ import Footer from "../components/Footer";
 import Collapse from "../components/Collapse";
 import { PrismaClient } from "@prisma/client";
 import CasinoNoDeposit from "../components/CasinoNoDeposit";
+
+
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({

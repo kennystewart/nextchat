@@ -17,7 +17,7 @@ import { GrClose } from "react-icons/gr";
 import monthYear from "../components/functions/monthYear";
 import Author from "../components/AboutAuthor";
 import ProsCons from "../components/ProsCons";
-import LikeSlots from "../components/LikeSlots";
+import FaqJsonLD from "../components/FaqJsonLD";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
@@ -103,6 +103,7 @@ export default function Nodeposit(
           name="description"
           content="Free Spin No deposit casino bonuses, over 100 online Free Spin bonuses"
         />
+        <FaqJsonLD />
         <link rel="icon" href="/favicon.ico" />
         <meta
         //    property="og:image"
