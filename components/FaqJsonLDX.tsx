@@ -3,7 +3,6 @@ const FaqJsonLD = (data) => {
   if (!data.data) {
     return;
   }
-  console.log(data);
   let faqOut =
     '@context":"https://schema.org","@type":"FAQPage","mainEntity":[';
 
@@ -16,9 +15,9 @@ const FaqJsonLD = (data) => {
       '"}},';
     faqOut = faqOut + faqQ;
   });
-
+  faqOut = faqOut.substring(0, faqOut.length - 1); // remove last comma
   faqOut = faqOut + "]}'};";
-
+  console.log (faqOut);
   const faq = {
     __html: faqOut,
   };
@@ -31,5 +30,4 @@ const FaqJsonLD = (data) => {
   );
 };
 
-//export
 export default FaqJsonLD;
