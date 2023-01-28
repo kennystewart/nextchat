@@ -19,6 +19,7 @@ import Author from "../components/AboutAuthor";
 import ProsCons from "../components/ProsCons";
 import FaqJsonLD from "../components/faqJsonLD";
 const prisma = new PrismaClient();
+//added to synch
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
     where: {
