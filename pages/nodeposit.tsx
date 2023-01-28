@@ -57,33 +57,33 @@ export default function Nodeposit(
   const prosCons = {
     pros: [
       {
-        title: "Legit?",
+        title: "Test drive many casinos",
         content:
-          "Yes the Free Spin bonus is legit but it's not 100% free as you need to complete wager requirements to cash out.",
+          "There are many casinos out there so why not test a few before finding the one you trust with real money deposits? You can play for fre with a real chance at cashing out with no deposit casinos.",
       },
       {
-        title: "No Risk",
+        title: "Risk free gambling",
         content:
-          "The best part of Free Spins with no deposit bonuses is the fact you do not need to stake your own cash to play.",
+          "The best part with no deposit bonuses is the fact you do not need to risk your own money to play yet can still win large sums to cash out.",
       },
     ],
     cons: [
       {
-        title: "High Wager Requirements",
+        title: "Hard to cash out",
         content:
-          "Like regular no deposit casino bonuses, the free spin bonuses have usually high play-through requirements up to 50X the bonus in many cases.",
+          "The biggest and really only issue when playing a no deposit casino bonus is the fact you will need to wager the bonus amount between 20-60X. This is quite a bit and the odds are not in your favor to win a lot but it is possible.",
       },
     ],
   };
 
   const faq = [
     {
-      question: "Q",
-      answer: "A",
+      question: "Do casinos really give away money for no deposit bonus play?",
+      answer: "Yes they do, but you need to wager the bonus amount as many times as the bonus states before you can cash it out. This means if you get a $20 no deposit bonus with a 40X wager requirement you will need to wager $800 before you can cash out.",
     },
     {
-      question: "Q",
-      answer: "A",
+      question: "What happens if I win 500,000 on a no deposit casino bonus?",
+      answer: "Most casinos do not limit the maximum withdraw on all bonuses, a lot of RTG based ones do though. Always read the terms and conditions of any bonus you take on to be sure your not suprised.",
     },
 
   ];
