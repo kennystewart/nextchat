@@ -17,7 +17,7 @@ import { GrClose } from "react-icons/gr";
 import monthYear from "../components/functions/monthYear";
 import Author from "../components/AboutAuthor";
 import ProsCons from "../components/ProsCons";
-import FaqJsonLD from "../components/FaqJsonLD";
+import FaqJsonLD from "../components/faqJsonLD";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
