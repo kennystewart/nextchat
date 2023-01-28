@@ -25,10 +25,7 @@ export async function getStaticProps({ params }) {
       approved: 1,
       rogue: 0,
       bonuses: {
-        some: {
-          nodeposit: { gt: 0 },
-          freespins: { lt: 1 },
-        },
+        some: { nodeposit: { gt: 0 }, freespins: { gt: 1 } },
       },
     },
     select: {
@@ -43,7 +40,7 @@ export async function getStaticProps({ params }) {
       },
     },
     orderBy: [{ hot: "desc" }, { new: "desc" }],
-    take: 25,
+    take: 100,
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
@@ -78,14 +75,17 @@ export default function Nodeposit(
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
       <Head>
-        <title>No Deposit Casinos</title>
-        <meta name="description" content="No deposit casino bonuses" />
+        <title>Free Spin No Deposit Casinos</title>
+        <meta
+          name="description"
+          content="Free Spin No deposit casino bonuses, over 100 online Free Spin bonuses"
+        />
         <link rel="icon" href="/favicon.ico" />
-       <meta
-      //    property="og:image"
-      //    content={`https://www.allfreechips.com/image/software/${encodeURIComponent(
-      //      data.image
-      //    )}`}
+        <meta
+        //    property="og:image"
+        //    content={`https://www.allfreechips.com/image/software/${encodeURIComponent(
+        //      data.image
+        //    )}`}
         />
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
@@ -96,7 +96,7 @@ export default function Nodeposit(
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>No Deoposit Casinos</span>
+              <span>No Deposit Free Spins</span>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default function Nodeposit(
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Best No Deposit Casinos For {monthYear()}
+              Best Free Spin No Deposit Casinos For {monthYear()}
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -121,16 +121,17 @@ export default function Nodeposit(
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
                     Why you should play{" "}
-                    <span className="font-bold">No Deposit Casinos</span>
+                    <span className="font-bold">Free Spin Casinos</span>
                   </h2>
                   <a href="#">
                     <i className="bi bi-info-circle"></i>
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Allfreechips is a top teir provider of exclusive no deposit
-                  casino bonuses allowing you to get the largest no deposit play
-                  with no deposit required.
+                  We have over 100 casinos offering Free Spin bonuses with no
+                  deposit required. Although we have many Free Spin bonuses when
+                  you make a deposit, these casinos offer promotions with Free
+                  Spins that do not require a deposit to play.
                 </p>
               </div>
             </div>
@@ -163,21 +164,12 @@ export default function Nodeposit(
             <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
               Our top picks
             </span>
+            <span>
+              <Link href="#ProsCons">Free Spin Pros and Cons</Link>
+            </span>
 
             <span>
-              <Link href="#SlotReview"> Review</Link>
-            </span>
-            <span>
-              <Link href="#ProsCons"> Pros and Cons</Link>
-            </span>
-            <span>
-              <Link href="#LikeCasinos">Casinos With </Link>
-            </span>
-            <span>
-              <Link href="#LikeSlots">Slots Like </Link>
-            </span>
-            <span>
-              <Link href="#faq">FAQs</Link>
+              <Link href="#faq">Free Spin FAQs</Link>
             </span>
           </div>
         </div>
@@ -190,43 +182,29 @@ export default function Nodeposit(
             </span>
             <div className="my-4 flex flex-col space-y-4">
               <span>
-                <Link href="#SlotReview">Review</Link>
+                <Link href="#ProsCons">Free Spin Pros and Cons</Link>
               </span>
               <span>
-                <Link href="#ProsCons">Pros and Cons</Link>
-              </span>
-              <span>
-                <Link href="#LikeCasinos">Casinos With</Link>
-              </span>
-              <span>
-                <Link href="#LikeSlots">Slots Like</Link>
-              </span>
-              <span>
-                <Link href="#faq"> FAQs</Link>
+                <Link href="#faq">Free Spin FAQs</Link>
               </span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
-                Full List of no deposit casino bonuses
+               Complete Free Spin Casino Bonus List
               </p>
               <CasinoNoDeposit data={bdata} />
             </div>
 
-            <div>               
+            <div>
               <div className="text-lg font-normal">Lots O Text HERE</div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />
-              <div className="text-lg font-normal">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Other slots you can play like slot
-                </h3>
-              </div>
+              
 
               <Author data={authorData} />
             </div>
-            
           </div>
         </section>
         <div className="text-left p-4 mt-2 md:mx-24 md:text-2xl">
@@ -277,7 +255,7 @@ export default function Nodeposit(
           </ul>
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

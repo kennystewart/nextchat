@@ -10,7 +10,7 @@ function CasinoNoDeposit(props) {
   return data.map((d) => (
     <div
       key={d.id}
-      className="border items-center border-gray-300 p-6 rounded my-8 md:mx-3 md:p-12 md:rounded-xl md:flex md:justify-between"
+      className="border items-center border-gray-300 p-6 rounded my-4 md:mx-3 md:p-3 md:rounded-xl md:flex md:justify-between"
     >
       <div className="flex items-center md:flex-col">
         <Image

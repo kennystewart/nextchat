@@ -7,7 +7,7 @@ const Faq = (props) => {
   }
   const faq = props.data;
   return (
-    <div id="faq" className="">
+    <div id="faq">
       <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
         Frequently asked questions
       </h3>
@@ -20,6 +20,7 @@ const Faq = (props) => {
           </>
         );
       })}
+      <hr className="border-sky-700 dark:border-white my-7"></hr>
     </div>
   );
 };
