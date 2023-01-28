@@ -104,7 +104,7 @@ export default function Nodeposit(
           name="description"
           content="Free Spin No deposit casino bonuses, over 100 online Free Spin bonuses"
         />
-        <FaqJsonLD />
+        <FaqJsonLD data={faq}/>
         <link rel="icon" href="/favicon.ico" />
         <meta
         //    property="og:image"

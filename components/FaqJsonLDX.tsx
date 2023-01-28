@@ -1,15 +1,35 @@
-
 import React from "react";
-const FaqJsonLD = () => {
-const faq = {__html:'{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"WHat is 1","acceptedAnswer":{"@type":"Answer","text":"Its less than 2"}},{"@type":"Question","name":"What is 3","acceptedAnswer":{"@type":"Answer","text":"Not 1"}}]}'};
-return (
+const FaqJsonLD = (data) => {
+  if (!data.data) {
+    return;
+  }
+  console.log(data);
+  let faqOut =
+    '@context":"https://schema.org","@type":"FAQPage","mainEntity":[';
+
+  data.data.map(function (d) {
+    let faqQ =
+      '{"@type":"Question","name":"' +
+      d.question +
+      '","acceptedAnswer":{"@type":"Answer","text":"' +
+      d.answer +
+      '"}},';
+    faqOut = faqOut + faqQ;
+  });
+
+  faqOut = faqOut + "]}'};";
+
+  const faq = {
+    __html: faqOut,
+  };
+  return (
     <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={faq}
-          key="faq-jsonld"
-        />
+      type="application/ld+json"
+      dangerouslySetInnerHTML={faq}
+      key="faq-jsonld"
+    />
+  );
+};
 
-)};
-
-//export 
-export default FaqJsonLD
+//export
+export default FaqJsonLD;
