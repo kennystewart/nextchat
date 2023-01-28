@@ -54,19 +54,39 @@ export async function getStaticProps({ params }) {
 export default function Nodeposit(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
-  const title = "Title";
-  const content = "Content that relates to the title.";
-  const pros = [
-    { title: "--", content },
-    { title: title, content },
-    { title, content },
+  const prosCons = {
+    pros: [
+      {
+        title: "Legit?",
+        content:
+          "Yes the Free Spin bonus is legit but it's not 100% free as you need to complete wager requirements to cash out.",
+      },
+      {
+        title: "No Risk",
+        content:
+          "The best part of Free Spins with no deposit bonuses is the fact you do not need to stake your own cash to play.",
+      },
+    ],
+    cons: [
+      {
+        title: "High Wager Requirements",
+        content:
+          "Like regular no deposit casino bonuses, the free spin bonuses have usually high play-through requirements up to 50X the bonus in many cases.",
+      },
+    ],
+  };
+
+  const faq = [
+    {
+      question: "Q",
+      answer: "A",
+    },
+    {
+      question: "Q",
+      answer: "A",
+    },
+
   ];
-  const cons = pros;
-  const prosCons = { pros, cons };
-  const question = "Are Bitcoin casinos safe?";
-  const answer =
-    "The question really does not have a good answer.  Bitcoin is the new preferred way of financing casino transactions, this does not have any impact on whether the casino is actually safe or not.  This is why you should only play at bitcoin casinos like the ones reviewed her at Allfreechips.";
-  const faq = [{ question, answer }];
   const bdata = props.data;
   const author = "AFC Chris";
   const reviewDate = "";
