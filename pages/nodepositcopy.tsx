@@ -17,16 +17,23 @@ import { GrClose } from "react-icons/gr";
 import monthYear from "../components/functions/monthYear";
 import Author from "../components/AboutAuthor";
 import ProsCons from "../components/ProsCons";
-import LikeSlots from "../components/LikeSlots";
+import FaqJsonLD from "../components/FaqJsonLDX";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
     where: {
       approved: 1,
       rogue: 0,
-      bonuses: {
-        some: { nodeposit: { gt: 0 }, freespins: { gt: 1 } },
-      },
+      bonuses: { some: { deposit: { gt: 0 } } },
+      OR: [
+        {
+          NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
+          casino_geo: { some: { allow: 0 } },
+        },
+        {
+          casino_geo: { some: { allow: 1, country: "US" } },
+        },
+      ],
     },
     select: {
       id: true,
@@ -40,7 +47,6 @@ export async function getStaticProps({ params }) {
       },
     },
     orderBy: [{ hot: "desc" }, { new: "desc" }],
-    take: 100,
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
@@ -48,22 +54,49 @@ export async function getStaticProps({ params }) {
   return { props: { data: bonus } };
 }
 
-export default function Nodeposit(
+export default function Page(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
-  const title = "Title";
-  const content = "Content that relates to the title.";
-  const pros = [
-    { title: "--", content },
-    { title: title, content },
-    { title, content },
+  const prosCons = {
+    pros: [
+      {
+        title:
+          "USA Online Casinos",
+        content:
+          "American should be free to play any casino they want, and online casinos allowing USA players may be the best route for Americans to gamble.",
+      },
+      {
+        title: "Game whenver you like",
+        content:
+          "If you feel like playing slots at 4AM you can easily play at an online casino from your home in the US. Also if you likke to gamble in your pajamas that cool as well.",
+      },
+    ],
+    cons: [
+      {
+        title: "Banking",
+        content:
+          "The cons for USA casinos is the banking sytem, they are not allowed to transfer funds for illegal online gambling yet nobody knows what illegal online gaming is so its a strange law.",
+      },
+    ],
+  };
+
+  const faq = [
+    {
+      question: "Are Online Casinos legal to play in the USA?",
+      answer:
+        "Yes and no, each state may have their own laws regulating online gaming and UIGEA act of 2006 stuck on the port security bill in states that banks may not transfer money from illegal online casinos. Not licensed casinos are not illegal but take this as you see fit and check with your local laws on playing any casino while in the USA.",
+    },
+    {
+      question: "Why should I play online when we have land based US Casinos?",
+      answer:
+        "Just like many brick and mortar business have discovered its much less overhead to have an online presence. This allows online casinos to offer better odds on slots, bigger bonuses than land based casinos can afford to offer.",
+    },
+    {
+      question: "Do casinos collect taxes for US players?",
+      answer:
+        "For the most part online casinos will not hold a tax for US taxes, this like other income is your responsibility to report and pay.  Note that federal tax on gambling is taxed at a lower rate than income, and all states vary on gambling earnings.",
+    },
   ];
-  const cons = pros;
-  const prosCons = { pros, cons };
-  const question = "Are Bitcoin casinos safe?";
-  const answer =
-    "The question really does not have a good answer.  Bitcoin is the new preferred way of financing casino transactions, this does not have any impact on whether the casino is actually safe or not.  This is why you should only play at bitcoin casinos like the ones reviewed her at Allfreechips.";
-  const faq = [{ question, answer }];
   const bdata = props.data;
   const author = "AFC Chris";
   const reviewDate = "";
@@ -75,11 +108,9 @@ export default function Nodeposit(
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
       <Head>
-        <title>Free Spin No Deposit Casinos</title>
-        <meta
-          name="description"
-          content="Free Spin No deposit casino bonuses, over 100 online Free Spin bonuses"
-        />
+        <title>USA Online Casinos</title>
+        <meta name="description" content="No deposit casino bonuses" />
+        <FaqJsonLD data={faq} />
         <link rel="icon" href="/favicon.ico" />
         <meta
         //    property="og:image"
@@ -96,7 +127,7 @@ export default function Nodeposit(
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>No Deposit Free Spins</span>
+              <span>USA Casinos</span>
             </div>
           </div>
         </div>
@@ -104,7 +135,7 @@ export default function Nodeposit(
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Best Free Spin No Deposit Casinos For {monthYear()}
+              Best USA Online Casinos {monthYear()}
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -121,17 +152,26 @@ export default function Nodeposit(
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
                     Why you should play{" "}
-                    <span className="font-bold">Free Spin Casinos</span>
+                    <span className="font-bold">USA Casinos</span>
                   </h2>
                   <a href="#">
                     <i className="bi bi-info-circle"></i>
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  We have over 100 casinos offering Free Spin bonuses with no
-                  deposit required. Although we have many Free Spin bonuses when
-                  you make a deposit, these casinos offer promotions with Free
-                  Spins that do not require a deposit to play.
+                  At Allfreechips.com, we provide access to various Online
+                  Casinos for American players who believe they have the right
+                  to spend their money the way they want. We offer a secure and
+                  safe environment to play, great casino promotions, excellent
+                  customer service, and a wide selection of online games. If you
+                  are looking for the best online casino in the USA, we are sure
+                  you will find it on our website. We thoroughly vet all casinos
+                  available on our site to make sure they have a good history,
+                  fast payouts, and quality customer support. Moreover, you can
+                  also check out their reviews to know what other players say
+                  about them. We regularly add new USA online casinos to our
+                  list. So, visit our website not to miss Exclusive bonuses and
+                  promotions.
                 </p>
               </div>
             </div>
@@ -164,12 +204,12 @@ export default function Nodeposit(
             <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
               Our top picks
             </span>
-            <span>
-              <Link href="#ProsCons">Free Spin Pros and Cons</Link>
-            </span>
 
             <span>
-              <Link href="#faq">Free Spin FAQs</Link>
+              <Link href="#ProsCons"> USA Casino Pros and Cons</Link>
+            </span>
+            <span>
+              <Link href="#faq">USA Casino FAQs</Link>
             </span>
           </div>
         </div>
@@ -182,34 +222,34 @@ export default function Nodeposit(
             </span>
             <div className="my-4 flex flex-col space-y-4">
               <span>
-                <Link href="#ProsCons">Free Spin Pros and Cons</Link>
+                <Link href="#ProsCons">USA Casino Pros and Cons</Link>
               </span>
               <span>
-                <Link href="#faq">Free Spin FAQs</Link>
+                <Link href="#faq">USA Casino FAQs</Link>
               </span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
-               Complete Free Spin Casino Bonus List
+                Complete USA Casino guide
               </p>
               <CasinoNoDeposit data={bdata} />
             </div>
 
             <div>
-              <div className="text-lg font-normal">Lots O Text HERE</div>
+              <div className="text-lg font-normal">
+                More about playing at USA Casinos
+              </div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />
-              
-
               <Author data={authorData} />
             </div>
           </div>
         </section>
         <div className="text-left p-4 mt-2 md:mx-24 md:text-2xl">
           <h3 className="text-2xl font-semibold md:text-5xl">
-            Use our casino guide to get huge bonuses
+            Use our USA casino guide to get huge bonuses
           </h3>
           <p className="text-base font-medium my-6 text-justify md:text-2xl md:font-normal">
             At Allfreechips, you will find everything from lists of no deposit
@@ -220,16 +260,16 @@ export default function Nodeposit(
             following:
           </p>
           <ul className="list-disc pl-4 font-normal">
-            <li>bonus value;</li>
+            <li>US bonus value;</li>
             <li>playthrough requirements;</li>
             <li>type of software used;</li>
-            <li>comprehensive reviews and rates.</li>
+            <li>comprehensive USA reviews and rates.</li>
           </ul>
         </div>
         <div className="flex flex-col m-4 bg-sky-100 dark:bg-gray-300 dark:text-black pt-4 pb-10 px-8 text-center rounded-xl md:mx-40">
-          <p className="font-medium md:text-2xl">WE VE DONE THE HOMEWORK</p>
+          <p className="font-medium md:text-2xl">WE&amp;VE DONE THE HOMEWORK</p>
           <h4 className="text-2xl py-4 font-medium leading-8 md:text-4xl md:my-4">
-            See our top player guides for online casinos
+            See our top player guides for USA online casinos
           </h4>
           <ul className="font-normal py-2 items-center text-lg md:flex md:justify-around md:text-2xl">
             <li className="flex justify-center items-center">
