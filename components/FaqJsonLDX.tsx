@@ -17,7 +17,7 @@ const FaqJsonLD = (data) => {
   });
   faqOut = faqOut.substring(0, faqOut.length - 1); // remove last comma
   faqOut = faqOut + "]}'};";
-  console.log (faqOut);
+  // console.log (faqOut);
   const faq = {
     __html: faqOut,
   };

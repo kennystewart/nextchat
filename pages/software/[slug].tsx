@@ -82,15 +82,13 @@ export async function getStaticProps({ params }) {
   const bdatav: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
   const bdata = BonusFilter(bdatav);
 
-
-  return { props: {data , bdata , gamedata } };
+  return { props: { data, bdata, gamedata } };
 }
 export async function getStaticPaths() {
   return { paths: [], fallback: "blocking" };
 }
 
 const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  
   const author = "AFC Chris";
   const reviewDate = "";
   const authorText =
@@ -98,7 +96,10 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const authorData = { author, authorText };
   const [show, setShow] = useState(true);
   const data = props.data[0];
-  const pageDescription = "Allfreechips guide to " + data.software_name + " Casinos and Slot Machines";
+  const pageDescription =
+    "Allfreechips guide to " +
+    data.software_name +
+    " Casinos and Slot Machines";
 
   const likeCasinoData = props.bdata;
   const gameList = props.gamedata;
@@ -106,12 +107,12 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const casinoid = likeCasinoData[0].id;
   const casinoData = { casinoid, casinoname };
   const gameListData = { gameList, casinoData };
-  const title = "Title";
+  const titlex = "Title";
   const content = "Content that relates to the title.";
   const pros = [
     { title: "--", content },
-    { title: title, content },
-    { title, content },
+    { title: titlex, content },
+    { title: titlex, content },
   ];
   const cons = pros;
   const prosCons = { pros, cons };
@@ -124,16 +125,15 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       <Header />
       <Head>
         <title>
-          {data.software_name} Casinos and {data.software_name} Slot Machines
+          {`${data.software_name} Casinos and ${data.software_name} Slot Machines`}
         </title>
+        <meta name="description" content={pageDescription} />
         <meta
-          name="description"
-          content={pageDescription}
+          property="og:image"
+          content={`https://www.allfreechips.com/image/software/${encodeURIComponent(
+            data.image
+          )}`}
         />
-        <meta property="og:image" content={`https://www.allfreechips.com/image/software/${encodeURIComponent(data.image)}`} />
-
-        
-
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
         <div className="py-6 px-1 mt-28">
@@ -259,18 +259,18 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
-            
-
             <div className="flex flex-col rounded-lg">
-              <p className="py-4 font-bold my-4 md:my-8">Casinos on {data.software_name}</p>
+              <p className="py-4 font-bold my-4 md:my-8">
+                Casinos on {data.software_name}
+              </p>
               <CasinoNoDeposit data={props.bdata} />
             </div>
-          
+
             <div>
               <h2 id="SlotReview" className="text-3xl font-semibold my-4">
                 Online SLots By {data.software_name}
               </h2>
-              <LikeSlots data = {gameListData} />
+              <LikeSlots data={gameListData} />
               <div className="text-lg font-normal">Lots O Text HERE</div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />

@@ -12,12 +12,12 @@ const Faq = (props) => {
         Frequently asked questions
       </h3>
       {faq.map(function (d, id) {
-        const data = ({d,id});
+        const data = { d, id };
         return (
-          <>
+          <React.Fragment key={id}>
             <hr className="border-sky-700 dark:border-white" />
             <Collapse data={data} />
-          </>
+          </React.Fragment>
         );
       })}
       <hr className="border-sky-700 dark:border-white my-7"></hr>
