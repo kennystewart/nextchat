@@ -57,7 +57,7 @@ export async function getStaticProps({ params }) {
       AND c.approved = 1
       AND c.rogue = 0
     ORDER BY RANDOM ()
-    LIMIT 8`
+    LIMIT 20`
   );
 
   const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
@@ -107,19 +107,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const casinoid = likeCasinoData[0].id;
   const casinoData = { casinoid, casinoname };
   const gameListData = { gameList, casinoData };
-  const titlex = "Title";
-  const content = "Content that relates to the title.";
-  const pros = [
-    { title: "--", content },
-    { title: titlex, content },
-    { title: titlex, content },
-  ];
-  const cons = pros;
-  const prosCons = { pros, cons };
-  const question = "Are Bitcoin casinos safe?";
-  const answer =
-    "The question really does not have a good answer.  Bitcoin is the new preferred way of financing casino transactions, this does not have any impact on whether the casino is actually safe or not.  This is why you should only play at bitcoin casinos like the ones reviewed her at Allfreechips.";
-  const faq = [{ question, answer }];
+
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
@@ -143,7 +131,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>Casino Software</span>
+              <span>{data.software_name} Software</span>
             </div>
           </div>
         </div>
@@ -156,7 +144,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <div className="flex flex-col py-4">
               <span className="">
                 Author:{" "}
-                <a href="" className="font-medium ">
+                <a href="#author" className="font-medium ">
                   {author}
                 </a>
               </span>
@@ -167,22 +155,15 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <div className="heading flex items-center border-b gap-7 pb-4">
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
-                    Why you should play{" "}
-                    <span className="font-bold">Bitcoin Casinos</span>
+                    Pick a Casino From {" "}
+                    <span className="font-bold">{data.software_name}</span>
                   </h2>
                   <a href="#">
                     <i className="bi bi-info-circle"></i>
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Bitcoin Casinos are the future of online gambling without
-                  question. The speed and ease of using bitcoin is unmatched,
-                  and very secure if you use your own wallet. With all the
-                  negative news about Crypto Currency lately you should know all
-                  these losses are from exchanges where you should not keep your
-                  Bitcoin. Play safe online bitcoin casinos and store your
-                  bitcoin in a local or offline wallet where YOU control the
-                  keys.
+                  Finding your favotite casino or even a new casino for a fresh approach is easier when you know the software you like.  These pages sort the casinos and games by software like the current {data.software_name} pages.
                 </p>
               </div>
             </div>
@@ -215,22 +196,14 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
               Our top picks
             </span>
+            <span>
+                <Link href="#casino">Casinos With {data.software_name}</Link>
+              </span>
+              <span>
+                <Link href="#slots">Slots from {data.software_name}</Link>
+              </span>
 
-            <span>
-              <Link href="#SlotReview"> Review</Link>
-            </span>
-            <span>
-              <Link href="#ProsCons"> Pros and Cons</Link>
-            </span>
-            <span>
-              <Link href="#LikeCasinos">Casinos With </Link>
-            </span>
-            <span>
-              <Link href="#LikeSlots">Slots Like </Link>
-            </span>
-            <span>
-              <Link href="#faq">FAQs</Link>
-            </span>
+           
           </div>
         </div>
         <section className="flex flex-col mx-4 md:flex-row">
@@ -241,24 +214,17 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
+            
               <span>
-                <Link href="#SlotReview">Review</Link>
+                <Link href="#casino">Casinos With {data.software_name}</Link>
               </span>
               <span>
-                <Link href="#ProsCons">Pros and Cons</Link>
+                <Link href="#slots">Slots from {data.software_name}</Link>
               </span>
-              <span>
-                <Link href="#LikeCasinos">Casinos With</Link>
-              </span>
-              <span>
-                <Link href="#LikeSlots">Slots Like</Link>
-              </span>
-              <span>
-                <Link href="#faq"> FAQs</Link>
-              </span>
+              
             </div>
           </div>
-          <div className="md:w-3/4  text-lg md:text-xl font-medium">
+          <div id ="casino" className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
                 Casinos on {data.software_name}
@@ -267,19 +233,14 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
 
             <div>
-              <h2 id="SlotReview" className="text-3xl font-semibold my-4">
-                Online SLots By {data.software_name}
+              <h2 id="slots" className="text-3xl font-semibold my-4">
+                Online Slots By {data.software_name}
               </h2>
               <LikeSlots data={gameListData} />
-              <div className="text-lg font-normal">Lots O Text HERE</div>
-              <ProsCons data={prosCons} />
-              <Faq data={faq} />
-              <div className="text-lg font-normal">
-                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Other slots you can play like slot
-                </h3>
-              </div>
+              <div id="author">
               <Author data={authorData} />
+              </div>
+              
             </div>
           </div>
         </section>
