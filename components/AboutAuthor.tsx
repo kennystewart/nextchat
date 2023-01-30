@@ -5,7 +5,7 @@ import { AiFillLinkedin } from "react-icons/ai";
 const Author = (props) => {
   
   return (
-    <div className="flex flex-col border border-gray-200 p-3 rounded-lg">
+    <div id="author" className="flex flex-col border border-gray-200 p-3 rounded-lg">
       <h5 className="text-base">ABOUT THE AUTHOR</h5>
       <div className="flex items-center">
         <div>

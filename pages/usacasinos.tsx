@@ -140,7 +140,7 @@ export default function Page(
             <div className="flex flex-col py-4">
               <span className="">
                 Author:{" "}
-                <a href="" className="font-medium ">
+                <a href="#author" className="font-medium ">
                   {author}
                 </a>
               </span>

@@ -155,7 +155,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <div className="heading flex items-center border-b gap-7 pb-4">
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
-                    Pick a Casino From {" "}
+                    Pick a Casino From{" "}
                     <span className="font-bold">{data.software_name}</span>
                   </h2>
                   <a href="#">
@@ -163,7 +163,10 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Finding your favotite casino or even a new casino for a fresh approach is easier when you know the software you like.  These pages sort the casinos and games by software like the current {data.software_name} pages.
+                  Finding your favotite casino or even a new casino for a fresh
+                  approach is easier when you know the software you like. These
+                  pages sort the casinos and games by software like the current{" "}
+                  {data.software_name} pages.
                 </p>
               </div>
             </div>
@@ -197,13 +200,11 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <span>
-                <Link href="#casino">Casinos With {data.software_name}</Link>
-              </span>
-              <span>
-                <Link href="#slots">Slots from {data.software_name}</Link>
-              </span>
-
-           
+              <Link href="#casino">Casinos With {data.software_name}</Link>
+            </span>
+            <span>
+              <Link href="#slots">Slots from {data.software_name}</Link>
+            </span>
           </div>
         </div>
         <section className="flex flex-col mx-4 md:flex-row">
@@ -214,17 +215,15 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
-            
               <span>
                 <Link href="#casino">Casinos With {data.software_name}</Link>
               </span>
               <span>
                 <Link href="#slots">Slots from {data.software_name}</Link>
               </span>
-              
             </div>
           </div>
-          <div id ="casino" className="md:w-3/4  text-lg md:text-xl font-medium">
+          <div id="casino" className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
                 Casinos on {data.software_name}
@@ -237,10 +236,8 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 Online Slots By {data.software_name}
               </h2>
               <LikeSlots data={gameListData} />
-              <div id="author">
+
               <Author data={authorData} />
-              </div>
-              
             </div>
           </div>
         </section>

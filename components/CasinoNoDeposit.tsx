@@ -21,7 +21,6 @@ function CasinoNoDeposit(props) {
           src={`https://www.allfreechips.com/image/casinoiconscut/${encodeURIComponent(
             d.button
           )}`}
-          
         />
 
         <div className="flex flex-col items-end md:flex-row md:items-center space-x-6">
@@ -44,7 +43,10 @@ function CasinoNoDeposit(props) {
           <div className="flex items-center">
             <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
               {d.depositPercent}%{" "}
-              <span className="md:text-lg">up to {d.currency}{d.depositBonus}</span>
+              <span className="md:text-lg">
+                up to {d.currency}
+                {d.depositBonus}
+              </span>
             </p>
           </div>
         </div>
@@ -55,14 +57,24 @@ function CasinoNoDeposit(props) {
         <div className="flex flex-col">
           <div className="flex items-center">
             <p className="text-lg font-medium pr-3 md:flex flex-col md:text-4xl">
-              {d.ndcurrency}{d.nodeposit}{d.fstext} <span className="md:text-lg">{d.ndCodeDisp}</span>
+              {d.ndcurrency}
+              {d.nodeposit}
+              {d.fstext} <span className="md:text-lg">{d.ndCodeDisp}</span>
             </p>
           </div>
         </div>
       </div>
       <hr className="border-sky-700 dark:border-white" />
       <div className="flex flex-col">
-        <Link rel = "nofollow" target="_blank" href={`https://allfreechips.com/play_casino${encodeURIComponent(d.id)}.html`}  type="button" className="flex rounded bg-sky-700 text-white dark:bg-white dark:text-black py-3 my-4 justify-center items-center font-bold md:px-8">
+        <Link
+          rel="nofollow"
+          target="_blank"
+          href={`https://allfreechips.com/play_casino${encodeURIComponent(
+            d.id
+          )}.html`}
+          type="button"
+          className="flex rounded bg-sky-700 text-white dark:bg-white dark:text-black py-3 my-4 justify-center items-center font-bold md:px-8"
+        >
           Play Now
           <FaArrowCircleRight className="mx-2" />
         </Link>
