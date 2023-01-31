@@ -294,7 +294,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   Bitcoin somewhere. This is very affordable, especially if you
                   transfer a lot of funds. With higher amounts, Bitcoin is
                   absolutely the cheapest way to move money, as the transaction
-                  fee is fixed and doesn'&apos;t depend on the amount you send.
+                  fee is fixed and doesn&apos;t depend on the amount you send.
                   Some casinos even pay the fee on your behalf and therefore let
                   you withdraw your Bitcoin absolutely free, though the usual
                   $1.50-2.50 fee per transaction isn&apos;t much either. Pay
