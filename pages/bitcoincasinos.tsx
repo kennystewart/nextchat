@@ -13,7 +13,7 @@ import BonusFilter from "../components/functions/bonusfilter";
 import monthYear from "../components/functions/monthYear";
 import Header from "../components/Header";
 import ProsCons from "../components/ProsCons";
-
+import FaqJsonLD from "../components/FaqJsonLDX";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
@@ -122,6 +122,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           name="description"
           content="The new preferred way to play online casinos is with the use of Bitcoin or other mainstream crypto currencies.  Allfreechips has reviewed may Bitcoin casinos here."
         />
+        <FaqJsonLD data={faq} />
         <meta property="og:image" content={data.game_image} />
       </Head>
       <div className="md:container mx-auto text-sky-700 dark:text-white">
