@@ -61,28 +61,38 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const prosCons = {
     pros: [
       {
-        title: "USA Online Casinos",
+        title: "Bitcoin is decentralized",
         content:
-          "American should be free to play any casino they want, and online casinos allowing USA players may be the best route for Americans to gamble.",
+          "The great thing about playing with Bitcoin is that its nearly instant, and secure if your using it from your own wallet, see the Bitcoin guide if you do not understand that part.",
       },
       {
-        title: "Game whenver you like",
+        title: "Avoid any banking concerns",
         content:
-          "If you feel like playing slots at 4AM you can easily play at an online casino from your home in the US. Also if you likke to gamble in your pajamas that cool as well.",
+          "We have seen issue with US casinos processing Visa and Mastercard charges, as well as transferring large winnings through bank wires. Bitcoin eliminates the central banking system putting the power to spend your funds as you wish.",
+      },
+      {
+        title: "Bitcoin appears to be a great investment",
+        content:
+          "So far since inception Bitcoin has outperformed the Dollar and stock markets by far, some diversity in this currency can be of great benefit in the future.",
       },
     ],
     cons: [
       {
-        title: "Banking",
+        title: "Unstable values",
         content:
-          "The cons for USA casinos is the banking sytem, they are not allowed to transfer funds for illegal online gambling yet nobody knows what illegal online gaming is so its a strange law.",
+          "Although Bitcoin has outperformed most other investments it is volatile. If you are not confident in the future of Bitcoin and other crypto currencies this may be hard to stomach having funds in there.",
+      },
+      {
+        title: "Scary when new to crypto",
+        content:
+          "If you have not used crypto currencies yet it may seem very difficult, yet it really is not. See out guide to using bitcoin and crypto currencies. We believe this is the future, but we also realize it's scary at first.",
       },
     ],
   };
 
   const faq = [
     {
-      question: "Are Bitcoin casinos legal in th USA?",
+      question: "Are Bitcoin casinos legal in the USA?",
       answer:
         "There is nothing illegal about Bitcoin in the US, you can freely buy it, sell it, and gamble with it. The conversion of Bitcoin to fiat currency (US dollars) is somewhat of a grey area. In the worst-case scenario, capital gains tax would apply.",
     },
@@ -97,12 +107,12 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         "The main advantage of Bitcoin gambling in USA is that deposits and withdrawals can't be blocked by a bank, which is often the case with fiat deposits as US banks block deposits to known gambling sites. This is not the case in Bitcoin, it bypasses the banks and the central authority.",
     },
     {
-      question: "What do I need to start gambing with Bitcoin?",
+      question: "What do I need to start gambling with Bitcoin?",
       answer:
         "To start gambling in Bitcoin, you first need to buy some Bitcoin via an exchange such as Coinbase. When you have BTC in your wallet, you can send it to any.",
     },
     {
-      question: "Can I deposit with a debit card and cashout via Bitcoin?",
+      question: "Can I deposit with a debit card and cash out via Bitcoin?",
       answer:
         "Not directly, since almost all casinos require you to deposit and withdraw using the same method. However, you may deposit US dollars via credit or debit card to a crypto exchange such as Coinbase, buy Bitcoin there, send it to a casino, and then withdraw your BTC back to Coinbase.",
     },
@@ -167,7 +177,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   deposits and withdrawals are easier and faster than with any
                   other method available to US residents. Also, apart from
                   winning in the casino you can benefit from the Bitcoin price
-                  rise and therefore grow your crypto portfolio! So choose a
+                  rise and therefore grow your crypto portfolio! So, choose a
                   bitcoin casino from the comprehensive list below. All of them
                   have some welcome offer you&apos;ll want to take advantage of,
                   and you&apos;ll double your Bitcoin in no time if you claim
@@ -264,7 +274,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   off the grid, the transactions are done on the decentralized
                   blockchain, and that&apos;s the safest way to move funds. Most
                   casinos will instantly convert your Bitcoin deposit to USD,
-                  therefore Bitcoin is only a vessel for transfering money, and
+                  therefore Bitcoin is only a vessel for transferring money, and
                   you&apos;ll still be gambling in dollars. Some casinos allow
                   gambling directly in Bitcoin.
                 </p>{" "}
