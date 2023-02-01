@@ -10,11 +10,11 @@ const Currency = (string) => {
     } else if (i == "3") {
       t = "\u00A3";
     } else if (i == "4") {
-      t = "\u20BF";
+      t = "\u20BF"; // BTC
     } else if (i == "5") {
-      t = "R";
+      t = "R";  // Rand
     } else if (i == "6") {
-      t = "m\u20BF";
+      t = "m\u20BF"; // mBTC
     } else if (i == "7") {
       t = "FUN";
     }

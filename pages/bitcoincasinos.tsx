@@ -14,22 +14,21 @@ import monthYear from "../components/functions/monthYear";
 import Header from "../components/Header";
 import ProsCons from "../components/ProsCons";
 import FaqJsonLD from "../components/FaqJsonLDX";
+import CasinoNoDeposit from "../components/CasinoNoDeposit";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
     where: {
       approved: 1,
       rogue: 0,
-      bonuses: { some: { deposit: { gt: 0 } } },
       OR: [
         {
-          NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
-          casino_geo: { some: { allow: 0 } },
+          bonuses: { some: {  multi_currency: { contains:  '4' }, } },
         },
-        {
-          casino_geo: { some: { allow: 1, country: "US" } },
-        },
-      ],
+        {  bonuses: { some: {  multi_currency: { contains:  '6' }, } },  },
+      ]
+
+      // bonuses: { some: {  multi_currency: { contains:  '4' }, } },  // BTC IS #4
     },
     select: {
       id: true,
@@ -42,7 +41,7 @@ export async function getStaticProps({ params }) {
         orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
       },
     },
-    orderBy: [{ hot: "desc" }, { new: "desc" }],
+    orderBy: [{ hot: "desc" }, { new: "desc" } ],
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
@@ -58,7 +57,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const authorData = { author, authorText };
   const [show, setShow] = useState(true);
   const data = props.data;
-
+  const bdata = props.data;
   const prosCons = {
     pros: [
       {
@@ -157,7 +156,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <div className="heading flex items-center border-b gap-7 pb-4">
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
-                    Why you should play{" "}
+                    All About USA {" "}
                     <span className="font-bold">Bitcoin Casinos</span>
                   </h2>
                   <a href="#">
@@ -257,7 +256,15 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">Slot Details of the</p>
             </div>
-
+            <div className="text-lg font-normal">
+                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
+                  Find Online Casinos To Play
+                </h3>
+                <p id="LikeCasinos" className="my-4">
+                  Casinos You Can Play The Slot Machine At
+                  <CasinoNoDeposit data={bdata} />
+                </p>
+              </div>
             <div>
               <h1 id="SlotReview" className="text-3xl font-semibold my-4">
                 Playing Bitcoin USA Casinos Review
@@ -306,18 +313,21 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 </p>
               </div>
               <ProsCons data={prosCons} />
+              {/*
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   Find Online Casinos To Play
                 </h3>
                 <p id="LikeCasinos" className="my-4">
                   Casinos You Can Play The Slot Machine At
+                  <CasinoNoDeposit data={bdata} />
                 </p>
               </div>
+              */}
               <Faq data={faq} />
               <div className="text-lg font-normal">
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                  Other slots you can play like slot
+                  Slots that are on Bitcoin Casinos
                 </h3>
               </div>
               <div id="LikeSlots">

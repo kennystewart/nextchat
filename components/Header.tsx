@@ -75,7 +75,7 @@ const Header = (props) => {
                 className="mx-8 font-medium hover:text-gray-400 duration-500 hover:cursor-pointer"
                 onClick={() => signOut()}
               >
-                SignOut
+                Sign Out
               </span>
             </div>
           ) : (
@@ -83,7 +83,7 @@ const Header = (props) => {
               className="font-medium hover:text-gray-400 duration-500 hover:cursor-pointer"
               onClick={() => signIn()}
             >
-              SignIn
+              Sign In
             </span>
           )}
         </div>
