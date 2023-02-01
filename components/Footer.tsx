@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="flex flex-col p-4 md:flex-row md:justify-between md:container mx-auto">
       <span className="text-4xl font-medium">
-        <Link href="/">
+        <Link href="../">
           <Image
             alt={"Allfreechips Casino Guide"}
             width={250}
@@ -22,11 +22,11 @@ const Footer = () => {
             <hr className="w-84 text-gray-600" />
           </div>
           <ul className="text-base font-medium">
-            <li className="my-6">Best Online Casinos</li>
-            <li className="my-6">New Online Casinos</li>
-            <li className="my-6">US Casinos</li>
-            <li className="my-6">RTG Casinos</li>
-            <li className="my-6">Bitcoin USA Casinos</li>
+            <li className="my-6"><Link href = "../bestcasinos">Best Online Casinos</Link></li>
+            <li className="my-6"><Link href = "../new">New Online Casinos</Link></li>
+            <li className="my-6"><Link href = "../usacasinos">US Casinos</Link></li>
+            <li className="my-6"><Link href = "../software/rtg">RTG Casinos</Link></li>
+            <li className="my-6"><Link href = "../bitcoincasinos">Bitcoin USA Casinos</Link></li>
           </ul>
         </div>
         <div className="flex flex-col">

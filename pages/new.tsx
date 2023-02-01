@@ -21,13 +21,6 @@ export async function getStaticProps({ params }) {
     where: {
       approved: 1,
       rogue: 0,
-      OR: [
-        {
-          bonuses: { some: { multi_currency: { contains: "4" } } },
-        },
-        { bonuses: { some: { multi_currency: { contains: "6" } } } },
-      ],
-
       // bonuses: { some: {  multi_currency: { contains:  '4' }, } },  // BTC IS #4
     },
     select: {
@@ -41,7 +34,8 @@ export async function getStaticProps({ params }) {
         orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
       },
     },
-    orderBy: [{ hot: "desc" }, { new: "desc" }],
+    orderBy: [{ id: "desc" }],
+    take: 30,
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
@@ -61,7 +55,8 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const prosCons = {
     pros: [
       {
-        title: "USA Online Casinos",
+        title:
+          "{New Onlione Casinos : Latest ${monthYear} new casinos added to Allfreechips}",
         content:
           "American should be free to play any casino they want, and online casinos allowing USA players may be the best route for Americans to gamble.",
       },
@@ -113,12 +108,11 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       <Header />
       <Head>
         <title>
-          Bitcoin Casinos :: Complete guide to playing online casinos that offer
-          Bitcoin or other Crypto Currencies
+          {`New Online Casinos : ${monthYear} New Casinos on Allfreechips`}
         </title>
         <meta
           name="description"
-          content="The new preferred way to play online casinos is with the use of Bitcoin or other mainstream crypto currencies.  Allfreechips has reviewed may Bitcoin casinos here."
+          content={`See the latest online casinos here as we add every new casino in order, new ${monthYear} online casinos`}
         />
         <FaqJsonLD data={faq} />
         <meta property="og:image" content={data.game_image} />
@@ -131,7 +125,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>Bitcoin Casinos</span>
+              <span>New Casinos</span>
             </div>
           </div>
         </div>
@@ -139,7 +133,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Best Bitcoin USA Casinos For {monthYear()}
+              {monthYear()} new online casinos
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -155,28 +149,19 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <div className="heading flex items-center border-b gap-7 pb-4">
                   <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
-                    All About USA {" "}
-                    <span className="font-bold">Bitcoin Casinos</span>
+                    See the latest{" "}
+                    <span className="font-bold">New Casinos</span>
                   </h2>
                   <a href="#">
                     <i className="bi bi-info-circle"></i>
                   </a>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Bitcoin gambling is a fantastic way to gamble in the US as the
-                  deposits and withdrawals are easier and faster than with any
-                  other method available to US residents. Also, apart from
-                  winning in the casino you can benefit from the Bitcoin price
-                  rise and therefore grow your crypto portfolio! So choose a
-                  bitcoin casino from the comprehensive list below. All of them
-                  have some welcome offer you&apos;ll want to take advantage of,
-                  and you&apos;ll double your Bitcoin in no time if you claim
-                  one of those offers. There are casinos that give out Bitcoin
-                  no deposit bonuses and Bitcoin free spins, so you can start
-                  gambling in Bitcoin even if you don&apos;t currently have any
-                  crypto. Of course, you&apos;ll get the most bang for your buck
-                  if you take advantage one of the Bitcoin welcome bonuses as
-                  they are the most rewarding.
+                  Showing the latest new online casinos here is a great way to
+                  show you what is of course new! The lkist is always updated
+                  showing casinos we recently added to Allfreechips, we also try
+                  to only show you casinos that you can play based on your
+                  location.
                 </p>
               </div>
             </div>
@@ -209,18 +194,15 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
               Our top picks
             </span>
-
             <span>
-              <Link href="#SlotReview">Bitcoin Review</Link>
+              <Link href="#LikeCasinos">New Casinos</Link>
             </span>
             <span>
-              <Link href="#ProsCons"> Pros and Cons</Link>
+              <Link href="#ProsCons"> New Casino Pros and Cons</Link>
             </span>
+  
             <span>
-              <Link href="#LikeCasinos">Bitcoin Casinos</Link>
-            </span>
-            <span>
-              <Link href="#faq">FAQs</Link>
+              <Link href="#faq">New Casino FAQs</Link>
             </span>
           </div>
         </div>
@@ -232,30 +214,31 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               Our top picks
             </span>
             <div className="my-4 flex flex-col space-y-4">
-              <span>
-                <Link href="#SlotReview">Bitcoin Review</Link>
-              </span>
-              <span>
-                <Link href="#ProsCons"> Pros and Cons</Link>
-              </span>
-              <span>
-                <Link href="#LikeCasinos">Bitcoin Casinos</Link>
-              </span>
+            <span>
+              <Link href="#LikeCasinos">New Casinos</Link>
+            </span>
+            <span>
+              <Link href="#ProsCons"> New Casino Pros and Cons</Link>
+            </span>
+  
+            <span>
+              <Link href="#faq">New Casino FAQs</Link>
+            </span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="text-lg font-normal">
               <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                Bitcoin online casinos
+                List Of Newest Casinos
               </h3>
               <p id="LikeCasinos" className="my-4">
                 <CasinoNoDeposit data={bdata} />
               </p>
             </div>
             <div>
-              <h3 id="SlotReview" className="text-3xl font-semibold my-4">
+              <h1 id="SlotReview" className="text-3xl font-semibold my-4">
                 Playing Bitcoin USA Casinos Review
-              </h3>
+              </h1>
               <div className="text-lg font-normal">
                 <b>Why gamble in Bitcoin?</b>{" "}
                 <p>
@@ -301,6 +284,14 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />
+              <div className="text-lg font-normal">
+                <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
+                  Slots that are on Bitcoin Casinos
+                </h3>
+              </div>
+              <div id="LikeSlots">
+                <p className="text-center my-8">Show More</p>
+              </div>
               <Author data={authorData} />
             </div>
           </div>
