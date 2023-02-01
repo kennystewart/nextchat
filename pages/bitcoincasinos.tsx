@@ -263,9 +263,9 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </p>
             </div>
             <div>
-              <h4 id="SlotReview" className="text-3xl font-semibold my-4">
+              <h3 id="SlotReview" className="text-3xl font-semibold my-4">
                 Playing Bitcoin USA Casinos Review
-              </h4>
+              </h3>
               <div className="text-lg font-normal">
                 <b>Why gamble in Bitcoin?</b>{" "}
                 <p>
