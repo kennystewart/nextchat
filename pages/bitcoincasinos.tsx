@@ -163,7 +163,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
               <div className="card p-4">
                 <div className="heading flex items-center border-b gap-7 pb-4">
-                  <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
+                  <button name = "show or hide section" className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
                   <h2 className="text-lg">
                     All About USA {" "}
                     <span className="font-bold">Bitcoin Casinos</span>
