@@ -168,9 +168,9 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                     All About USA {" "}
                     <span className="font-bold">Bitcoin Casinos</span>
                   </h2>
-                  <a href="#">
+                 
                     <i className="bi bi-info-circle"></i>
-                  </a>
+                  
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
                   Bitcoin gambling is a fantastic way to gamble in the US as the
@@ -263,9 +263,9 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </p>
             </div>
             <div>
-              <h3 id="SlotReview" className="text-3xl font-semibold my-4">
+              <h4 id="SlotReview" className="text-3xl font-semibold my-4">
                 Playing Bitcoin USA Casinos Review
-              </h3>
+              </h4>
               <div className="text-lg font-normal">
                 <b>Why gamble in Bitcoin?</b>{" "}
                 <p>

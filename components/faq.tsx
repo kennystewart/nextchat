@@ -8,9 +8,9 @@ const Faq = (props) => {
   const faq = props.data;
   return (
     <div id="faq">
-      <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
+      <h5 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
         Frequently asked questions
-      </h3>
+      </h5>
       {faq.map(function (d, id) {
         const data = { d, id };
         return (
