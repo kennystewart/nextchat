@@ -22,11 +22,11 @@ const Footer = () => {
             <hr className="w-84 text-gray-600" />
           </div>
           <ul className="text-base font-medium">
-            <li className="my-6"><Link href = "../bestcasinos">Best Online Casinos</Link></li>
-            <li className="my-6"><Link href = "../new">New Online Casinos</Link></li>
-            <li className="my-6"><Link href = "../usacasinos">US Casinos</Link></li>
+            <li className="my-6"><Link href = "../best-casinos">Best Online Casinos</Link></li>
+            <li className="my-6"><Link href = "../new-casinos">New Online Casinos</Link></li>
+            <li className="my-6"><Link href = "../usa-casinos">US Casinos</Link></li>
             <li className="my-6"><Link href = "../software/rtg">RTG Casinos</Link></li>
-            <li className="my-6"><Link href = "../bitcoincasinos">Bitcoin USA Casinos</Link></li>
+            <li className="my-6"><Link href = "../bitcoin-casinos">Bitcoin USA Casinos</Link></li>
           </ul>
         </div>
         <div className="flex flex-col">

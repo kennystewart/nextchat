@@ -168,6 +168,7 @@ model casino_p_software {
   show          Int?
   games         casino_p_games[]
   softwarelist  casino_p_software_link[]
+  subcontent    casino_p_subcontent[]
 }
 
 model casino_p_software_link {
@@ -380,4 +381,12 @@ model casino_p_casino_faq {
   question   String
   answer     String
   casino_faq   casino_p_casinos @relation(fields: [casino], references: [id])
+}
+
+model casino_p_subcontent {
+  id          Int              @id @default(autoincrement())
+  type        Int
+  content_id  Int
+  content     String
+  subcontent  casino_p_software @relation(fields: [id], references: [content_id])
 }
