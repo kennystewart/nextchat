@@ -104,6 +104,7 @@ model casino_p_casinos {
   currencies    String?
   datialsupdate Int?
   currency_val  Int?
+  review_overall Int?
   banklist      casino_p_bank_connect[]
   bonuses       casino_p_bonus[]
   review        casino_p_descriptions_casinos[]

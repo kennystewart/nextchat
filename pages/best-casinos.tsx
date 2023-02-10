@@ -21,14 +21,6 @@ export async function getStaticProps({ params }) {
     where: {
       approved: 1,
       rogue: 0,
-      OR: [
-        {
-          bonuses: { some: { multi_currency: { contains: "4" } } },
-        },
-        { bonuses: { some: { multi_currency: { contains: "6" } } } },
-      ],
-
-      // bonuses: { some: {  multi_currency: { contains:  '4' }, } },  // BTC IS #4
     },
     select: {
       id: true,
@@ -37,11 +29,13 @@ export async function getStaticProps({ params }) {
       hot: true,
       new: true,
       button: true,
+      review_overall: true,
       bonuses: {
         orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
       },
     },
-    orderBy: [{ hot: "desc" }, { new: "desc" }],
+    orderBy: [{ review_overall: "desc" }, { hot: "desc" }, { new: "desc" }],
+    take: 20,
   });
 
   const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
@@ -61,60 +55,35 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const prosCons = {
     pros: [
       {
-        title: "Bitcoin is decentralized",
+        title: "Voted best by users",
         content:
-          "The great thing about playing with Bitcoin is that its nearly instant, and secure if your using it from your own wallet, see the Bitcoin guide if you do not understand that part.",
+          "Other users at Allfreechips.com have created the rankings, this shows real user input in deciding what online casino is really the best.",
       },
       {
-        title: "Avoid any banking concerns",
+        title: "If its the best...",
         content:
-          "We have seen issue with US casinos processing Visa and Mastercard charges, as well as transferring large winnings through bank wires. Bitcoin eliminates the central banking system putting the power to spend your funds as you wish.",
-      },
-      {
-        title: "Bitcoin appears to be a great investment",
-        content:
-          "So far since inception Bitcoin has outperformed the Dollar and stock markets by far, some diversity in this currency can be of great benefit in the future.",
+          "I can't really say what a great Pro it is to be voted the best online casinos other than obviously its a giant Pro.",
       },
     ],
     cons: [
       {
-        title: "Unstable values",
+        title: "None Here",
         content:
-          "Although Bitcoin has outperformed most other investments it is volatile. If you are not confident in the future of Bitcoin and other crypto currencies this may be hard to stomach having funds in there.",
-      },
-      {
-        title: "Scary when new to crypto",
-        content:
-          "If you have not used crypto currencies yet it may seem very difficult, yet it really is not. See out guide to using bitcoin and crypto currencies. We believe this is the future, but we also realize it's scary at first.",
+          "If we are literally speaking of the best casinos then how can we create a con to that?",
       },
     ],
   };
 
   const faq = [
     {
-      question: "Are Bitcoin casinos legal in the USA?",
+      question: "How do you rate the best casinos?",
       answer:
-        "There is nothing illegal about Bitcoin in the US, you can freely buy it, sell it, and gamble with it. The conversion of Bitcoin to fiat currency (US dollars) is somewhat of a grey area. In the worst-case scenario, capital gains tax would apply.",
+        "We at Allfreechips do not rank the casinos, all rankings are completed by actual users. We encourage you to also rate these great casinos with your own experience good or bad to assist others in identifying the very best online casinos.",
     },
     {
-      question: "Is Bitcoin safe to use?",
+      question: "What if I don't agree the casino here is the best?",
       answer:
-        "Yes, cryptocurrencies are very safe as blockchain removes the need for a centralized entity. The only thing left to do is to pick a good online casino from the list above. Here on AllFreechips.com we're listing only reputable casinos, so you're safe if you pick one of those.",
-    },
-    {
-      question: "What are the advantages to Bitcoin Gambling?",
-      answer:
-        "The main advantage of Bitcoin gambling in USA is that deposits and withdrawals can't be blocked by a bank, which is often the case with fiat deposits as US banks block deposits to known gambling sites. This is not the case in Bitcoin, it bypasses the banks and the central authority.",
-    },
-    {
-      question: "What do I need to start gambling with Bitcoin?",
-      answer:
-        "To start gambling in Bitcoin, you first need to buy some Bitcoin via an exchange such as Coinbase. When you have BTC in your wallet, you can send it to any.",
-    },
-    {
-      question: "Can I deposit with a debit card and cash out via Bitcoin?",
-      answer:
-        "Not directly, since almost all casinos require you to deposit and withdraw using the same method. However, you may deposit US dollars via credit or debit card to a crypto exchange such as Coinbase, buy Bitcoin there, send it to a casino, and then withdraw your BTC back to Coinbase.",
+        "We love this question, if you do not agree please let us know why and leave your own feedback to assist the community on the best casinos out there.",
     },
   ];
 
@@ -122,13 +91,10 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
       <Head>
-        <title>
-          Bitcoin Casinos :: Complete guide to playing online casinos that offer
-          Bitcoin or other Crypto Currencies
-        </title>
+        <title>{`Best Online Casinos voted by users ${monthYear()}`}</title>
         <meta
           name="description"
-          content="The new preferred way to play online casinos is with the use of Bitcoin or other mainstream crypto currencies.  Allfreechips has reviewed may Bitcoin casinos here."
+          content="Allfreechips delivers the best online casinos with pride knowing we rely on actual user input to decide what casinos are actually the best."
         />
         <FaqJsonLD data={faq} />
         <meta property="og:image" content={data.game_image} />
@@ -141,7 +107,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <Link href="../">AFC Home</Link>
               </span>
               <FaAngleRight />
-              <span>Bitcoin Casinos</span>
+              <span>Best Casinos</span>
             </div>
           </div>
         </div>
@@ -149,7 +115,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-              Best Bitcoin USA Casinos For {monthYear()}
+              Best Online Casinos For {monthYear()}
             </h1>
             <div className="flex flex-col py-4">
               <span className="">
@@ -163,30 +129,34 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
               <div className="card p-4">
                 <div className="heading flex items-center border-b gap-7 pb-4">
-                  <button name = "show or hide section" className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
+                  <button
+                    name="show or hide section"
+                    className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"
+                  ></button>
                   <h2 className="text-lg">
-                    All About USA {" "}
-                    <span className="font-bold">Bitcoin Casinos</span>
+                    All About The{" "}
+                    <span className="font-bold">Best Online Casinos</span>
                   </h2>
-                 
-                    <i className="bi bi-info-circle"></i>
-                  
+
+                  <i className="bi bi-info-circle"></i>
                 </div>
                 <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                  Bitcoin gambling is a fantastic way to gamble in the US as the
-                  deposits and withdrawals are easier and faster than with any
-                  other method available to US residents. Also, apart from
-                  winning in the casino you can benefit from the Bitcoin price
-                  rise and therefore grow your crypto portfolio! So, choose a
-                  bitcoin casino from the comprehensive list below. All of them
-                  have some welcome offer you&apos;ll want to take advantage of,
-                  and you&apos;ll double your Bitcoin in no time if you claim
-                  one of those offers. There are casinos that give out Bitcoin
-                  no deposit bonuses and Bitcoin free spins, so you can start
-                  gambling in Bitcoin even if you don&apos;t currently have any
-                  crypto. Of course, you&apos;ll get the most bang for your buck
-                  if you take advantage one of the Bitcoin welcome bonuses as
-                  they are the most rewarding.
+                  Ever since Allfreechips was started in 2004, we have been
+                  trying our best to bring players the best online casinos and
+                  to organize them in a way that makes the most sense. We found
+                  that the best online casino for some players is not the best
+                  casino for others. We developed the ability for our gambling
+                  forum members to review and rate casinos to assist other
+                  gamblers in deciding just exactly what is the best online
+                  casino after all. Here we list the casinos by not only the
+                  highest-ranking value, but we also look at the number of votes
+                  as well to try and be sure the results are meaningful. Please
+                  enjoy our best casino list and be sure to join the casino
+                  forum and add your opinion as well for casinos. 2022 is a new
+                  year with many new online casinos, what will the best online
+                  casino of 2022 be? Well you need to vote and add your own
+                  comments on the casino reviews to help others at Allfreechips
+                  decide on the very best casinos.
                 </p>
               </div>
             </div>
@@ -221,16 +191,16 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </span>
 
             <span>
-              <Link href="#SlotReview">Bitcoin Review</Link>
+              <Link href="#SlotReview">About the Best Casinos</Link>
             </span>
             <span>
-              <Link href="#ProsCons"> Pros and Cons</Link>
+              <Link href="#ProsCons">Pros and Cons</Link>
             </span>
             <span>
-              <Link href="#LikeCasinos">Bitcoin Casinos</Link>
+              <Link href="#LikeCasinos">Best Casino List</Link>
             </span>
             <span>
-              <Link href="#faq">FAQs</Link>
+              <Link href="#faq">Best Casino FAQs</Link>
             </span>
           </div>
         </div>
@@ -243,20 +213,23 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </span>
             <div className="my-4 flex flex-col space-y-4">
               <span>
-                <Link href="#SlotReview">Bitcoin Review</Link>
+                <Link href="#SlotReview">About the Best Casinos</Link>
               </span>
               <span>
-                <Link href="#ProsCons"> Pros and Cons</Link>
+                <Link href="#ProsCons">Pros and Cons</Link>
               </span>
               <span>
-                <Link href="#LikeCasinos">Bitcoin Casinos</Link>
+                <Link href="#LikeCasinos">Best Casino List</Link>
+              </span>
+              <span>
+                <Link href="#faq">Best Casino FAQs</Link>
               </span>
             </div>
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="text-lg font-normal">
               <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
-                Bitcoin online casinos
+                Best online casino list
               </h3>
               <p id="LikeCasinos" className="my-4">
                 <CasinoNoDeposit data={bdata} />
@@ -264,49 +237,43 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
             <div>
               <h3 id="SlotReview" className="text-3xl font-semibold my-4">
-                Playing Bitcoin USA Casinos Review
+                All About The Best Online Casinos
               </h3>
               <div className="text-lg font-normal">
-                <b>Why gamble in Bitcoin?</b>{" "}
+                <b>Why are new online casinos popular?</b>{" "}
                 <p>
-                  When you&apos;re gambling in Bitcoin you never have to worry
-                  about your deposit or withdrawal being blocked. You&apos;re
-                  off the grid, the transactions are done on the decentralized
-                  blockchain, and that&apos;s the safest way to move funds. Most
-                  casinos will instantly convert your Bitcoin deposit to USD,
-                  therefore Bitcoin is only a vessel for transferring money, and
-                  you&apos;ll still be gambling in dollars. Some casinos allow
-                  gambling directly in Bitcoin.
+                  Online casinos have become a popular form of entertainment in
+                  recent years, and new online casinos are popping up all the
+                  time. One of the most interesting things about new online
+                  casinos is that they often offer a fresh take on the
+                  traditional casino experience. For example, many new online
+                  casinos offer a more immersive and interactive experience with
+                  high-quality graphics, animations, and sound effects.
+                  Additionally, many new online casinos offer a wider range of
+                  games, including live dealer games and virtual reality games,
+                  which provide a more interactive and realistic experience.
                 </p>{" "}
-                <b>How to buy Bitcoin</b>{" "}
+                <b>Bonuses in New online casinos</b>{" "}
                 <p>
-                  The easiest way to buy Bitcoin is to head over to one of the
-                  crypto exchanges such as Coinbase, Crypto.com or Gemini. You
-                  deposit USD and buy any cryptocurrency you like, including
-                  Bitcoin. After you do that, Bitcoin will be in your wallet and
-                  you can freely send it to an online casino that accepts
-                  Bitcoin deposits, and then bring it back from the casino to
-                  your wallet when you want.{" "}
+                  Another interesting aspect of new online casinos is that they
+                  often offer more generous bonuses and promotions than
+                  established casinos. This is because new online casinos are
+                  trying to attract players and build a customer base, and they
+                  know that bonuses and promotions can be a powerful tool in
+                  achieving this goal. As a result, players can often find some
+                  great deals and offers at new online casinos that they may not
+                  find at more established casinos..{" "}
                 </p>
-                <b>Bitcoin casino payouts, deposits and fees</b>
+                <b>Latest tech and slots on new casinos</b>
                 <p>
-                  Bitcoin deposits and withdrawals are faster than with any
-                  other payment method. The only waiting time is when the casino
-                  is verifying the transaction. Over the past year or so,
-                  Bitcoin transaction fees were steady at around $2. Most of the
-                  time the fee per transaction is between $1.50 and $2.50 so
-                  that&apos;s what you can expect to pay whenever you send
-                  Bitcoin somewhere. This is very affordable, especially if you
-                  transfer a lot of funds. With higher amounts, Bitcoin is
-                  absolutely the cheapest way to move money, as the transaction
-                  fee is fixed and doesn&apos;t depend on the amount you send.
-                  Some casinos even pay the fee on your behalf and therefore let
-                  you withdraw your Bitcoin absolutely free, though the usual
-                  $1.50-2.50 fee per transaction isn&apos;t much either. Pay
-                  attention to the exchange rate and any applicable fees when
-                  you&apos;re buying and selling Bitcoin at an exchange, though.
-                  Fees will also apply when you&apos;ve converted your Bitcoin
-                  to USD and are withdrawing USD to your bank account.
+                  Finally, it's worth mentioning that new online casinos are
+                  often at the forefront of technology, and they often adopt new
+                  technologies and trends more quickly than established casinos.
+                  For example, many new online casinos offer mobile gaming
+                  options, which allow players to play their favorite games on
+                  their smartphones or tablets. This provides a more convenient
+                  and flexible gaming experience, and is one of the reasons why
+                  mobile gaming has become so popular in recent years.
                 </p>
               </div>
               <ProsCons data={prosCons} />
