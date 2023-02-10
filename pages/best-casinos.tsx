@@ -29,12 +29,12 @@ export async function getStaticProps({ params }) {
       hot: true,
       new: true,
       button: true,
-      review_overall: true,
+      
       bonuses: {
         orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
       },
     },
-    orderBy: [{ review_overall: "desc" }, { hot: "desc" }, { new: "desc" }],
+    orderBy: [ { hot: "desc" }, { new: "desc" }],
     take: 20,
   });
 
