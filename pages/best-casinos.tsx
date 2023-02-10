@@ -266,7 +266,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 </p>
                 <b>Latest tech and slots on new casinos</b>
                 <p>
-                  Finally, it's worth mentioning that new online casinos are
+                  Finally, it&apos;s worth mentioning that new online casinos are
                   often at the forefront of technology, and they often adopt new
                   technologies and trends more quickly than established casinos.
                   For example, many new online casinos offer mobile gaming
