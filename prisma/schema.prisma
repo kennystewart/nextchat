@@ -388,5 +388,5 @@ model casino_p_subcontent {
   type        Int
   content_id  Int
   content     String
-  subcontent  casino_p_software @relation(fields: [id], references: [content_id])
+  subcontent  casino_p_software @relation(fields: [content_id], references: [id])
 }

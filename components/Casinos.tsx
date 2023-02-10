@@ -35,13 +35,13 @@ const Casinos = () => {
             title={"Bitcoin USA Casinos"}
           />
         </Link>
-        <Link href="../nodeposit">
+        <Link href="../no-deposit-casinos">
           <Casino
             icon={<RiGameFill className="text-4xl" />}
             title={"No Deposit Casinos"}
           />
         </Link>
-        <Link href="../freespins">
+        <Link href="../free-spin-casinos">
           <Casino
             icon={<FaMedal className="text-4xl" />}
             title={"Free Spins Casinos"}
