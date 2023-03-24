@@ -267,8 +267,9 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 Playing Bitcoin USA Casinos Review
               </h3>
               <div className="text-lg font-normal">
+                
+                <p className="p-4">
                 <b>Why gamble in Bitcoin?</b>{" "}
-                <p>
                   When you&apos;re gambling in Bitcoin you never have to worry
                   about your deposit or withdrawal being blocked. You&apos;re
                   off the grid, the transactions are done on the decentralized
@@ -278,8 +279,9 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   you&apos;ll still be gambling in dollars. Some casinos allow
                   gambling directly in Bitcoin.
                 </p>{" "}
+                
+                <p className="p-4">
                 <b>How to buy Bitcoin</b>{" "}
-                <p>
                   The easiest way to buy Bitcoin is to head over to one of the
                   crypto exchanges such as Coinbase, Crypto.com or Gemini. You
                   deposit USD and buy any cryptocurrency you like, including
@@ -288,8 +290,8 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   Bitcoin deposits, and then bring it back from the casino to
                   your wallet when you want.{" "}
                 </p>
-                <b>Bitcoin casino payouts, deposits and fees</b>
-                <p>
+                <p className="p-4"><b>Bitcoin casino payouts, deposits and fees.{" "}</b>
+                
                   Bitcoin deposits and withdrawals are faster than with any
                   other payment method. The only waiting time is when the casino
                   is verifying the transaction. Over the past year or so,
