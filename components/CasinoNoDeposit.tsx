@@ -8,9 +8,8 @@ import { FaArrowCircleRight } from "react-icons/fa";
 function CasinoNoDeposit(props) {
   const data = props.data;
   return data.map((d) => (
-    <div className="border items-center border-gray-300 p-6 rounded my-4">
+    <div key={d.id} className="border items-center border-gray-300 p-6 rounded my-4">
       <div
-        key={d.id}
         className="md:flex md:justify-between"
       >
         <div className="flex items-center md:flex-col">
