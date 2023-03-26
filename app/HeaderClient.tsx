@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+"use client";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { signIn, signOut } from "next-auth/react";
 import { CgMenuLeft } from "react-icons/cg";
-import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/dist/client/image";
 
-const Header = (props) => {
+const HeaderClient = ({ session }) => {
   const [open, setOpen] = useState(false);
-  const { data: session } = useSession();
   return (
     <div className="flex w-full fixed top-0 left-0 justify-between px-12 md:px-32 py-6 z-20 bg-white text-sky-700 dark:bg-zinc-800 dark:text-white border-b-2">
       <div className="md:flex items-center justify-between py-4 md:px-10 px-7">
@@ -97,4 +97,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default HeaderClient;

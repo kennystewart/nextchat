@@ -3,7 +3,7 @@ import Collapse from "./Collapse";
 
 const Faq = (props) => {
   if (!props.data) {
-    return;
+    return null;
   }
   const faq = props.data;
   return (

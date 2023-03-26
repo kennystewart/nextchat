@@ -1,7 +1,7 @@
 import React from "react";
 const FaqJsonLD = (data) => {
   if (!data.data) {
-    return;
+    return null;
   }
   let faqOut =
     '{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[';

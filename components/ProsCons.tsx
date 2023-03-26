@@ -3,7 +3,7 @@ import ProsConsItem from "./ProsConsItem";
 const ProsCons = (props) => {
   const pro = props.data;
   if (!pro?.pros?.length) {
-    return;
+    return null;
   }
   return (
     <div
