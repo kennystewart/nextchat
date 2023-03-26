@@ -87,7 +87,7 @@ function CasinoDisplayList(props) {
         </div>
         <div className="w-[178px]">
           <h5 className="text-normal font-medium">
-            <Link href={`../review/${encodeURIComponent(d.clean_name)}`}>
+            <Link href={`/review/${encodeURIComponent(d.clean_name)}`}>
               {d.casinoRevText}
             </Link>
           </h5>
