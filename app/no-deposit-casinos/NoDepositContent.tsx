@@ -1,8 +1,5 @@
-"use client";
-import Link from "next/link";
 import Head from "next/head";
-import { useState } from "react";
-import { CgMenuLeft } from "react-icons/cg";
+import Link from "next/link";
 import {
   FaAngleRight,
   FaBalanceScale,
@@ -10,13 +7,15 @@ import {
   FaGifts,
   FaHandsWash,
 } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
 import { TbBeach } from "react-icons/tb";
 import Author from "../../components/AboutAuthor";
 import Faq from "../../components/faq";
 import FaqJsonLD from "../../components/FaqJsonLDX";
 import monthYear from "../../components/functions/monthYear";
 import ProsCons from "../../components/ProsCons";
+import MobileJump from "./MobileJump";
+import { CgMenuLeft } from "react-icons/cg";
+import { GrClose } from "react-icons/gr";
 
 export default function NoDepositContent({ children }) {
   const prosCons = {
@@ -58,7 +57,6 @@ export default function NoDepositContent({ children }) {
   const authorText =
     "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
   const authorData = { author, authorText };
-  const [show, setShow] = useState(true);
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
       <Head>
@@ -117,42 +115,12 @@ export default function NoDepositContent({ children }) {
           </div>
         </div>
       </section>
-
-      <div className="flex md:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
-        <span className="font-medium">ON THIS PAGE</span>
-        <span
-          onClick={() => setShow(!show)}
-          className="border-2 border-white dark:border-black p-2 flex items-center rounded px-4"
-        >
-          Jump to{" "}
+      <MobileJump
+        left={
           <CgMenuLeft className="text-white dark:text-black mx-2 text-xl" />
-        </span>
-      </div>
-      <div
-        className={`flex md:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-zinc-800  text-2xl font-medium ${
-          show ? "bottom-[-490px]" : "bottom-0"
-        }`}
-      >
-        <div className="flex justify-between w-full items-center">
-          <div>ON THIS PAGE</div>
-          <div onClick={() => setShow(!show)} className="">
-            <GrClose className="dark:bg-white" />
-          </div>
-        </div>
-        <hr className="border-1 my-4 border-sky-700 dark:border-white" />
-        <div className="flex flex-col font-normal text-lg space-x-2 space-y-4">
-          <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
-            Our top picks
-          </span>
-
-          <span>
-            <a href="#ProsCons">No Deposit Pros and Cons</a>
-          </span>
-          <span>
-            <a href="#faq">No Deposit Bonus FAQs</a>
-          </span>
-        </div>
-      </div>
+        }
+        close={<GrClose className="dark:bg-white" />}
+      />
       <section className="flex flex-col mx-4 md:flex-row">
         <div className="hidden md:w-1/4 md:flex md:flex-col md:">
           <span className="text-lg font-medium p-4">ON THIS PAGE</span>
