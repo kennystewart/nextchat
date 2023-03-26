@@ -132,9 +132,9 @@ export async function getStaticProps({ params }) {
         },
       },
     },
-    take : 3
+    take: 3,
   });
- 
+
   const bdatav: any[] = LikeCasinoData.filter((p) => p.bonuses.length > 0);
 
   const bdata = BonusFilter(bdatav);
@@ -175,10 +175,10 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const bonuslist = data.bonuses;
   const casinoname = data.casino;
   const casinoid = data.id;
-  const casinoData = {casinoid, casinoname};
-  const gameListData = {gameList , casinoData};
+  const casinoData = { casinoid, casinoname };
+  const gameListData = { gameList, casinoData };
   const bankListItems = data.banklist;
-  const bankListData = {bankListItems, casinoData};
+  const bankListData = { bankListItems, casinoData };
   const softwares = data.softwares;
   const softwaredata = { casinoname, softwares };
   const author = "AFC Chris";
@@ -187,14 +187,10 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
     "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
   const authorData = { author, authorText };
 
-
-
-
   const casinoLink =
-          "https://www.allfreechips.com/play_casino" + data.id + ".html";
+    "https://www.allfreechips.com/play_casino" + data.id + ".html";
   const bonusdata = { buttondata, bonuslist, casinoname };
   const Homepage =
-
     "https://www.allfreechips.com/image/games/" + data.homepageimage;
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
@@ -236,9 +232,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   {author}
                 </a>
               </span>
-              <span className="text-sky-600 dark:text-white">
-                {reviewDate}
-              </span>
+              <span className="text-sky-600 dark:text-white">{reviewDate}</span>
             </div>
             <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
               <div className="card p-4">
@@ -411,12 +405,17 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                       <span className="text-sm">details</span>
                     </div>
                   </div>
-                  
-                  <Link  rel="noreferrer" target ="_blank" href = {casinoLink} type="button" className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14">
+
+                  <Link
+                    rel="noreferrer"
+                    target="_blank"
+                    href={casinoLink}
+                    type="button"
+                    className="bg-sky-700 text-white dark:text-white dark:bg-zinc-800 flex w-full justify-center rounded-lg items-center h-14"
+                  >
                     Claim Now
                     <BsArrowRightCircleFill className="mx-4" />
                   </Link>
-                  
                 </div>
               </div>
             </div>
@@ -432,7 +431,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
             <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
               <SoftwareProv data={softwaredata} />
-              <BankOptions data= {bankListData} />
+              <BankOptions data={bankListData} />
             </div>
             <div>
               <h1 id="CasinoReview" className="text-3xl font-semibold my-4">

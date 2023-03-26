@@ -70,7 +70,7 @@ const Header = (props) => {
         <div>
           {session ? (
             <div>
-              <span>{session.user.name}</span>
+              <span>{session.user?.name ?? "Unknown"}</span>
               <span
                 className="mx-8 font-medium hover:text-gray-400 duration-500 hover:cursor-pointer"
                 onClick={() => signOut()}
