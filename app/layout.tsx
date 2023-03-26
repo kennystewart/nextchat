@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import AuthContext from "./AuthContext";
 import Header from "./Header";
 import Footer from "../components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "AllFreeChips",
@@ -28,6 +29,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   );
