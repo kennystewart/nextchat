@@ -5,13 +5,14 @@ import { FaStar } from "react-icons/fa";
 import { FaCopyright } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 
-function CasinoNoDeposit(props) {
+function CasinoDisplayList(props) {
   const data = props.data;
   return data.map((d) => (
-    <div key={d.id} className="border items-center border-gray-300 p-6 rounded my-4">
-      <div
-        className="md:flex md:justify-between"
-      >
+    <div
+      key={d.id}
+      className="border items-center border-gray-300 p-6 rounded my-4"
+    >
+      <div className="md:flex md:justify-between">
         <div className="flex items-center md:flex-col">
           <Image
             unoptimized // avoids getting charged
@@ -92,8 +93,7 @@ function CasinoNoDeposit(props) {
           </h5>
         </div>
       </div>
-
     </div>
   ));
 }
-export default CasinoNoDeposit;
+export default CasinoDisplayList;

@@ -7,7 +7,7 @@ import { CgMenuLeft } from "react-icons/cg";
 import { FaAngleRight } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 import Author from "../../components/AboutAuthor";
-import CasinoNoDeposit from "../../components/CasinoNoDeposit";
+import CasinoDisplayList from "../../components/CasinoDisplayList";
 import Faq from "../../components/faq";
 import Footer from "../../components/Footer";
 import BonusFilter from "../../components/functions/bonusfilter";
@@ -228,7 +228,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <p className="py-4 font-bold my-4 md:my-8">
                 Casinos on {data.software_name}
               </p>
-              <CasinoNoDeposit data={props.bdata} />
+              <CasinoDisplayList data={props.bdata} />
             </div>
 
             <div>

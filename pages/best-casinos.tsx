@@ -14,7 +14,7 @@ import monthYear from "../components/functions/monthYear";
 import Header from "../components/Header";
 import ProsCons from "../components/ProsCons";
 import FaqJsonLD from "../components/FaqJsonLDX";
-import CasinoNoDeposit from "../components/CasinoNoDeposit";
+import CasinoDisplayList from "../components/CasinoDisplayList";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
@@ -232,7 +232,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 Best online casino list
               </h3>
               <p className="my-4">
-                <CasinoNoDeposit data={bdata} />
+                <CasinoDisplayList data={bdata} />
               </p>
             </div>
             <div>

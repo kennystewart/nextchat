@@ -8,7 +8,7 @@ import { FaBalanceScale, FaHandsWash, FaGifts, FaGift } from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
 import { PrismaClient } from "@prisma/client";
-import CasinoNoDeposit from "../components/CasinoNoDeposit";
+import CasinoDisplayList from "../components/CasinoDisplayList";
 import Link from "next/dist/client/link";
 import { useState } from "react";
 import { CgMenuLeft } from "react-icons/cg";
@@ -230,7 +230,7 @@ export default function Nodeposit(
               <p className="py-4 font-bold my-4 md:my-8">
                 Complete Free Spin Casino Bonus List
               </p>
-              <CasinoNoDeposit data={bdata} />
+              <CasinoDisplayList data={bdata} />
             </div>
 
             <div>

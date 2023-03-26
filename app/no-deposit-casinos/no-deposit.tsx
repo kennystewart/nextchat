@@ -13,7 +13,7 @@ import {
 import { GrClose } from "react-icons/gr";
 import { TbBeach } from "react-icons/tb";
 import Author from "../../components/AboutAuthor";
-import CasinoNoDeposit from "../../components/CasinoNoDeposit";
+import CasinoDisplayList from "../../components/CasinoDisplayList";
 import Faq from "../../components/faq";
 import FaqJsonLD from "../../components/FaqJsonLDX";
 import monthYear from "../../components/functions/monthYear";
@@ -176,7 +176,7 @@ export default function NoDeposit(props: { data: any }) {
             <p className="py-4 font-bold my-4 md:my-8">
               Full List of no deposit casino bonuses
             </p>
-            <CasinoNoDeposit data={bdata} />
+            <CasinoDisplayList data={bdata} />
           </div>
 
           <div>
