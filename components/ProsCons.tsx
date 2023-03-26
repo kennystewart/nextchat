@@ -8,7 +8,7 @@ const ProsCons = (props) => {
   return (
     <div
       id="ProsCons"
-      className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal"
+      className="flex flex-col bg-slate-100 dark:text-black m-2 p-6 rounded-2xl md:flex-row md:justify-start font-normal scroll-mt-40"
     >
       <div className="md:mx-10">
         <h4 className="text-3xl font-semibold my-4">Pros</h4>

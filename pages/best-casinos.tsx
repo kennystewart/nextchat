@@ -228,7 +228,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="text-lg font-normal">
-              <h3 id="LikeCasinos" className="text-3xl font-semibold my-6 md:text-4xl md:my-10 scroll-mt-12">
+              <h3 id="LikeCasinos" className="text-3xl font-semibold my-6 md:text-4xl md:my-10 scroll-mt-40">
                 Best online casino list
               </h3>
               <p className="my-4">
@@ -236,7 +236,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </p>
             </div>
             <div>
-              <h3 id="SlotReview" className="text-3xl font-semibold my-4 scroll-mt-12">
+              <h3 id="SlotReview" className="text-3xl font-semibold my-4 scroll-mt-40 ">
                 All About The Best Online Casinos
               </h3>
               <div className="text-lg font-normal">
@@ -276,8 +276,8 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   mobile gaming has become so popular in recent years.
                 </p>
               </div>
-              <ProsCons data={prosCons} className="scroll-mt-12" />
-              <Faq data={faq} className="scroll-mt-12" />
+              <ProsCons data={prosCons} className="" />
+              <Faq data={faq} className="scroll-mt-40" />
               <Author data={authorData} />
             </div>
           </div>
