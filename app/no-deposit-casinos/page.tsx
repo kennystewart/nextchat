@@ -1,43 +1,13 @@
-import { PrismaClient } from "@prisma/client";
-import BonusFilter from "../../components/functions/bonusfilter";
-import NoDeposit from "./no-deposit";
-
-const prisma = new PrismaClient();
-async function getCasinos() {
-  const data = await prisma.casino_p_casinos.findMany({
-    where: {
-      approved: 1,
-      rogue: 0,
-      bonuses: {
-        some: {
-          nodeposit: { gt: 0 },
-          freespins: { lt: 1 },
-        },
-      },
-    },
-    select: {
-      id: true,
-      clean_name: true,
-      casino: true,
-      hot: true,
-      new: true,
-      button: true,
-      bonuses: {
-        orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
-      },
-    },
-    orderBy: [{ hot: "desc" }, { new: "desc" }],
-    take: 25,
-  });
-
-  const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
-  const bonus = BonusFilter(bdata);
-  return bonus;
-}
+import NoDepositContent from "./NoDepositContent";
+import { NoDepositCasinoList } from "./NoDepositCasinoList";
 
 export default async function Nodeposit() {
-  const casinos = await getCasinos();
-  return <NoDeposit data={casinos} />;
+  return (
+    <NoDepositContent>
+      {/* @ts-expect-error Async Server Component */}
+      <NoDepositCasinoList />
+    </NoDepositContent>
+  );
 }
 
 export const metadata = {

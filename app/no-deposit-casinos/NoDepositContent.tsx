@@ -13,13 +13,12 @@ import {
 import { GrClose } from "react-icons/gr";
 import { TbBeach } from "react-icons/tb";
 import Author from "../../components/AboutAuthor";
-import CasinoDisplayList from "../../components/CasinoDisplayList";
 import Faq from "../../components/faq";
 import FaqJsonLD from "../../components/FaqJsonLDX";
 import monthYear from "../../components/functions/monthYear";
 import ProsCons from "../../components/ProsCons";
 
-export default function NoDeposit(props: { data: any }) {
+export default function NoDepositContent({ children }) {
   const prosCons = {
     pros: [
       {
@@ -54,7 +53,6 @@ export default function NoDeposit(props: { data: any }) {
         "Most casinos do not limit the maximum withdraw on all bonuses, a lot of RTG based ones do though. Always read the terms and conditions of any bonus you take on to be sure your not suprised.",
     },
   ];
-  const bdata = props.data;
   const author = "AFC Chris";
   const reviewDate = "";
   const authorText =
@@ -148,10 +146,10 @@ export default function NoDeposit(props: { data: any }) {
           </span>
 
           <span>
-            <Link href="#ProsCons"> No Deposit Pros and Cons</Link>
+            <a href="#ProsCons">No Deposit Pros and Cons</a>
           </span>
           <span>
-            <Link href="#faq">No Deposit Bonus FAQs</Link>
+            <a href="#faq">No Deposit Bonus FAQs</a>
           </span>
         </div>
       </div>
@@ -164,10 +162,10 @@ export default function NoDeposit(props: { data: any }) {
           </span>
           <div className="my-4 flex flex-col space-y-4">
             <span>
-              <Link href="#ProsCons">No Deposit Pros and Cons</Link>
+              <a href="#ProsCons">No Deposit Pros and Cons</a>
             </span>
             <span>
-              <Link href="#faq">No Deposit Bonus FAQs</Link>
+              <a href="#faq">No Deposit Bonus FAQs</a>
             </span>
           </div>
         </div>
@@ -176,7 +174,7 @@ export default function NoDeposit(props: { data: any }) {
             <p className="py-4 font-bold my-4 md:my-8">
               Full List of no deposit casino bonuses
             </p>
-            <CasinoDisplayList data={bdata} />
+            {children}
           </div>
 
           <div>
