@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { signIn, signOut } from "next-auth/react";
 import { CgMenuLeft } from "react-icons/cg";
+import { useSession } from "next-auth/react";
 
-const HeaderClient = ({ session }) => {
+const HeaderClient = () => {
+  const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   return (
     <div className="flex w-full fixed top-0 left-0 justify-between px-12 md:px-32 py-6 z-20 bg-white text-sky-700 dark:bg-zinc-800 dark:text-white border-b-2">
@@ -28,7 +30,7 @@ const HeaderClient = ({ session }) => {
         </div>
       </div>
       <ul
-        className={`md:flex md:items-center md:pb-0 pb-12 bg-white dark:bg-zinc-800 absolute md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-1000 md:transition-none ease-in ${
+        className={`md:flex md:items-center md:pb-0 pb-12 bg-white dark:bg-zinc-800 absolute md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-100 md:transition-none ease-in ${
           open ? "top-20" : "top-[-490px]"
         }`}
       >

@@ -9,7 +9,7 @@ import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
 import { PrismaClient } from "@prisma/client";
 import CasinoDisplayList from "../components/CasinoDisplayList";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import { useState } from "react";
 import { CgMenuLeft } from "react-icons/cg";
 import { FaAngleRight } from "react-icons/fa";
@@ -124,7 +124,7 @@ export default function Page(
           <div className="container mx-auto">
             <div className="flex text-sm gap-1 font-medium  items-center md:gap-4">
               <span>
-                <Link href="../">AFC Home</Link>
+                <Link href="/">AFC Home</Link>
               </span>
               <FaAngleRight />
               <span>USA Casinos</span>

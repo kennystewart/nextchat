@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { InferGetStaticPropsType } from "next";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import Head from "next/head";
 import { useState } from "react";
 import { CgMenuLeft } from "react-icons/cg";
@@ -104,7 +104,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           <div className="container mx-auto">
             <div className="flex text-sm gap-1 font-medium  items-center md:gap-4">
               <span>
-                <Link href="../">AFC Home</Link>
+                <Link href="/">AFC Home</Link>
               </span>
               <FaAngleRight />
               <span>Best Casinos</span>

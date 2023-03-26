@@ -72,7 +72,7 @@ export default function NoDepositContent({ children }) {
         <div className="container mx-auto">
           <div className="flex text-sm gap-1 font-medium  items-center md:gap-4">
             <span>
-              <Link href="../">AFC Home</Link>
+              <Link href="/">AFC Home</Link>
             </span>
             <FaAngleRight />
             <span>No Deposit Casinos</span>

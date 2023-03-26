@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import Faq from "../../components/faq";
 import ProsCons from "../../components/ProsCons";
 import LikeSlots from "../../components/LikeSlots";
@@ -208,11 +208,11 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           <div className="container mx-auto">
             <div className="flex text-sm gap-1 font-medium  items-center md:gap-4">
               <span>
-                <Link href="../">Online Casinos</Link>
+                <Link href="/">Online Casinos</Link>
               </span>
               <FaAngleRight />
               <span>
-                <Link href="../review">Reviews</Link>
+                <Link href="/review">Reviews</Link>
               </span>
               <FaAngleRight />
               <span className="text-slate-500">{data.casino}</span>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { CgMenuLeft } from "react-icons/cg";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/dist/client/image";
+import Image from "next/image";
 
 const Header = (props) => {
   const [open, setOpen] = useState(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import Image from "next/legacy/image";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import Currency from "./functions/currency";
