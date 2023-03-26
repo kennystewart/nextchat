@@ -84,14 +84,15 @@ function CasinoNoDeposit(props) {
             <FaCopyright />
           </div>
         </div>
+        <div className="w-[178px]">
+          <h5 className="text-normal font-medium">
+            <Link href={`../review/${encodeURIComponent(d.clean_name)}`}>
+              {d.casinoRevText}
+            </Link>
+          </h5>
+        </div>
       </div>
-      <div className="w-[195px]">
-        <h5 className="text-normal font-medium">
-          <Link href={`../review/${encodeURIComponent(d.clean_name)}`}>
-            {d.casinoRevText}
-          </Link>
-        </h5>
-      </div>
+
     </div>
   ));
 }
