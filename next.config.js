@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en", // default lang fr
-  },
   reactStrictMode: false,
   images: {
     domains: [
