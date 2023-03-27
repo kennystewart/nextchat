@@ -7,6 +7,7 @@ import LikeSlots from "../../components/LikeSlots";
 import LikeCasinos from "../../components/LikeCasinos";
 import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
+import RatingComponent from "../../components/RatingComponent";
 import { useState } from "react";
 import cheerio from "cheerio";
 import {
@@ -284,7 +285,8 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
           </div>
         </section>
-
+        <div>Rate This game!</div>
+        <div><RatingComponent type="slot" id="2" /></div>
         <div className="flex md:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
           <span className="font-medium">ON THIS PAGE</span>
           <span

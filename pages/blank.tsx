@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Casinos from "../components/Casinos";
 import HighRoller from "../components/HighRoller";
 import Faq from "../components/faq";
+
 import {
   FaAngleDown,
   FaBalanceScale,
@@ -28,7 +29,7 @@ export default function Home() {
       <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
         <Header />
         <Casinos />
-   
+  
         <div className="text-left p-4 md:container mx-auto">
           <h3 className="text-2xl font-semibold md:text-5xl md:my-12">
             Allfreechips - Your source of casino codes and exclusive offers

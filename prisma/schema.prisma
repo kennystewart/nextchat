@@ -56,6 +56,7 @@ model User {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   user_lvl     String?
+  isAdmin       Boolean  @default(false)
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
@@ -79,6 +80,22 @@ model casino_p_bonus_lang {
   deny    Int?
 }
 
+model Chat {
+  id        String   @id @default(cuid())
+  title     String
+  users     User[]   @relation("usersInChat", references: [id])
+  messages  Message[] @relation("messagesInChat", references: [id])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  sender    User     @relation("senderOfMessage", fields: [senderId], references: [id])
+  senderId  String
+  chat      Chat     @relation("messagesInChat", fields: [chatId], references: [id])
+  chatId    String
+  createdAt DateTime @default(now())
+}
 model casino_p_casinos {
   id            Int                             @id @default(autoincrement())
   aff_id        Int?
