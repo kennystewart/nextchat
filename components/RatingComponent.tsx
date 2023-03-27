@@ -18,13 +18,34 @@ function RatingComponent({ type, id }) {
     setComment(event.target.value);
   };
 
-  const handleSubmit = () => {
-    Cookies.set(`${type}-${id}-ratingSubmitted`, true, { expires: 365 });
-    setSubmitted(true);
-    // Here, you can send the rating and comment to your server using a fetch or axios request
-    // The request should include the type, id, rating, and comment as parameters
+  const handleSubmit = async () => {
+    try {
+      Cookies.set(`${type}-${id}-ratingSubmitted`, true, { expires: 365 });
+      setSubmitted(true);
+      const response = await fetch('/api/ratings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: type,
+          id: id,
+          rating: rating,
+          comment: comment,
+        }),
+      });
+      if (response.status === 200) {
+        // Rating submitted successfully
+        console.log(response);
+      } else {
+        throw new Error('Error submitting rating');
+      }
+    } catch (error) {
+      console.error(error);
+      // Display error message to the user
+    }
   };
-
+  
   const starIcons = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= rating) {
