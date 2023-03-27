@@ -103,7 +103,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
     { question: "What is Software?", answer: "Seriously your stupid" },
   ];
   return (
-    <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
+    <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white relative">
       <Header />
 
       <Head>
@@ -238,7 +238,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>
 
             <div>
-              <h1 id="SlotReview" className="text-3xl font-semibold my-4">
+              <h1 id="SlotReview" className="text-3xl font-semibold my-4 scroll-mt-40">
                 Review
               </h1>
               <div className="text-lg font-normal">Lots O Text HERE</div>
@@ -247,7 +247,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   Find Online Casinos To Play
                 </h3>
-                <p id="LikeCasinos" className="my-4">
+                <p id="LikeCasinos" className="my-4 scroll-mt-40">
                   Casinos You Can Play The Slot Machine At
                 </p>
               </div>
@@ -257,7 +257,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   Other slots you can play like slot
                 </h3>
               </div>
-              <div id="LikeSlots">
+              <div id="LikeSlots" className="scroll-mt-40">
                 <p className="text-center my-8">Show More</p>
               </div>
               <Author data={authorData} />

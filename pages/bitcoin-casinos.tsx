@@ -119,7 +119,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   ];
 
   return (
-    <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
+    <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white relative">
       <Header />
       <Head>
         <title>
@@ -255,15 +255,15 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
           <div className="md:w-3/4  text-lg md:text-xl font-medium">
             <div className="text-lg font-normal">
-              <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
+              <h3 id="LikeCasinos" className="text-3xl font-semibold my-6 md:text-4xl md:my-10 scroll-mt-40">
                 Bitcoin online casinos
               </h3>
-              <p id="LikeCasinos" className="my-4">
+              <p className="my-4">
                 <CasinoDisplayList data={bdata} />
               </p>
             </div>
             <div>
-              <h3 id="SlotReview" className="text-3xl font-semibold my-4">
+              <h3 id="SlotReview" className="text-3xl font-semibold my-4 scroll-mt-40">
                 Playing Bitcoin USA Casinos Review
               </h3>
               <div className="text-lg font-normal">

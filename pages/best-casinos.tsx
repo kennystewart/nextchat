@@ -276,8 +276,8 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   mobile gaming has become so popular in recent years.
                 </p>
               </div>
-              <ProsCons data={prosCons} className="" />
-              <Faq data={faq} className="scroll-mt-40" />
+              <ProsCons data={prosCons} />
+              <Faq data={faq} />
               <Author data={authorData} />
             </div>
           </div>

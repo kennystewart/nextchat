@@ -219,7 +219,7 @@ const faq = [{question,answer}];
             </div>
 
             <div>
-              <h1 id="SlotReview" className="text-3xl font-semibold my-4">
+              <h1 id="SlotReview" className="text-3xl font-semibold my-4 scroll-mt-40">
                  Review
               </h1>
               <div
@@ -231,7 +231,7 @@ const faq = [{question,answer}];
                 <h3 className="text-3xl font-semibold my-6 md:text-4xl md:my-10">
                   Find Online Casinos To Play 
                 </h3>
-                <p id="LikeCasinos" className="my-4">
+                <p id="LikeCasinos" className="my-4 scroll-mt-40">
                   Casinos You Can Play The  Slot Machine At
                 </p>
                 
@@ -242,8 +242,7 @@ const faq = [{question,answer}];
                   Other slots you can play like  slot
                 </h3>
               </div>
-              <div id="LikeSlots">
-                
+              <div id="LikeSlots" className="scroll-mt-40">
                 <p className="text-center my-8">Show More</p>
               </div>
               <Author data={authorData} />
