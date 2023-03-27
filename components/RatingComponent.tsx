@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
-import StarIcon from '../icons/star.svg';
-import FilledStarIcon from '../icons/filled-star.svg';
+import { BsFillStarFill} from "react-icons/bs";
+import { VscStarEmpty } from "react-icons/vsc";
 
 function RatingComponent({ type, id }) {
   const [rating, setRating] = useState(0);
@@ -28,9 +28,9 @@ function RatingComponent({ type, id }) {
   const starIcons = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= rating) {
-      starIcons.push(<FilledStarIcon key={i} />);
+      starIcons.push(<BsFillStarFill key={i} />);
     } else {
-      starIcons.push(<StarIcon key={i} />);
+      starIcons.push(<VscStarEmpty key={i} />);
     }
   }
 
