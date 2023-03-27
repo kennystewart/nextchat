@@ -30,7 +30,6 @@ export default function MobileJump({ left, close }) {
           <span className="font-medium border-l-2 px-4 border-sky-700 dark:border-white">
             Our top picks
           </span>
-
           <span>
             <a href="#ProsCons">No Deposit Pros and Cons</a>
           </span>
