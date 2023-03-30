@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Image from "next/image";
 interface UserIconProps {
   image: string;
   size?: number;
@@ -8,7 +8,7 @@ interface UserIconProps {
 
 const UserIcon: React.FC<UserIconProps> = ({ image, size = 32, className }) => {
   return (
-    <img
+    <Image
       src={image}
       alt="User profile"
       className={`rounded-full ${className}`}
