@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 interface LayoutProps {
   title?: string;
+  children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
