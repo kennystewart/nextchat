@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Casinos from "../components/Casinos";
 import HighRoller from "../components/HighRoller";
 import Faq from "../components/faq";
-
 import {
   FaAngleDown,
   FaBalanceScale,
@@ -17,6 +16,7 @@ import {
 import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
 import Collapse from "../components/Collapse";
+import Layout from "../components/Layout";
 
 export default function Home() {
   return (
@@ -28,6 +28,7 @@ export default function Home() {
       </Head>
       <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
         <Header />
+        <Layout />
         <Casinos />
   
         <div className="text-left p-4 md:container mx-auto">

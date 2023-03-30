@@ -51,17 +51,61 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
+  messages   Message[]    @relation("Author")
   emailVerified DateTime? @map("email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   user_lvl     String?
   isAdmin       Boolean  @default(false)
+  role          Int?
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
-
+  UserChats  UserChat[]
+  MessageLikes MessageLike[]
   @@map("users")
+}
+
+model Chat {
+  id         String       @id @default(cuid())
+  title      String
+  disabled   Boolean      @default(false)
+  messages   Message[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  UserChats  UserChat[]
+}
+
+model UserChat {
+  user   User @relation(fields: [userId], references: [id])
+  userId String
+  chat   Chat @relation(fields: [chatId], references: [id])
+  chatId String
+
+  @@id([userId, chatId])
+}
+
+model Message {
+  id         String       @id @default(cuid())
+  content    String
+  html       Boolean      @default(false)
+  author     User         @relation("Author", fields: [authorId], references: [id])
+  authorId   String
+  chat       Chat         @relation(fields: [chatId], references: [id])
+  chatId     String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  MessageLikes MessageLike[]
+}
+
+model MessageLike {
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  message  Message @relation(fields: [messageId], references: [id])
+  messageId String
+
+  @@id([userId, messageId])
 }
 
 model VerificationToken {
@@ -80,22 +124,7 @@ model casino_p_bonus_lang {
   deny    Int?
 }
 
-model Chat {
-  id        String   @id @default(cuid())
-  title     String
-  users     User[]   @relation("usersInChat", references: [id])
-  messages  Message[] @relation("messagesInChat", references: [id])
-}
 
-model Message {
-  id        String   @id @default(cuid())
-  content   String
-  sender    User     @relation("senderOfMessage", fields: [senderId], references: [id])
-  senderId  String
-  chat      Chat     @relation("messagesInChat", fields: [chatId], references: [id])
-  chatId    String
-  createdAt DateTime @default(now())
-}
 model casino_p_casinos {
   id            Int                             @id @default(autoincrement())
   aff_id        Int?
