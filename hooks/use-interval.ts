@@ -16,4 +16,5 @@ export function useInterval(callback: Function, delay: number) {
     }
   }, [delay]);
   return intervalRef;
+  
 }
