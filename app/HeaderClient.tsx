@@ -10,11 +10,11 @@ const HeaderClient = () => {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex w-full fixed top-0 left-0 justify-between px-12 md:px-32 py-6 z-20 bg-white text-sky-700 dark:bg-zinc-800 dark:text-white border-b-2">
-      <div className="md:flex items-center justify-between py-4 md:px-10 px-7">
+    <div className="flex w-full fixed top-0 left-0 justify-between px-12 lg:px-32 py-6 z-20 bg-white text-sky-700 dark:bg-zinc-800 dark:text-white border-b-2">
+      <div className="lg:min-w-fit lg:flex items-center justify-between py-4 lg:px-10 px-7">
         <div
           onClick={() => setOpen(!open)}
-          className="text-4xl absolute left-4 top-10 md:hidden"
+          className="text-4xl absolute left-4 top-10 lg:hidden"
         >
           <CgMenuLeft name={open ? "close" : "menu"} />
         </div>
@@ -30,11 +30,11 @@ const HeaderClient = () => {
         </div>
       </div>
       <ul
-        className={`md:flex md:items-center md:pb-0 pb-12 bg-white dark:bg-zinc-800 absolute md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-100 md:transition-none ease-in ${
+        className={`lg:grow lg:flex lg:items-center lg:pb-0 pb-12 bg-white dark:bg-zinc-800 absolute lg:static lg:z-auto z-[-1] left-0 w-full lg:w-auto lg:pl-0 pl-9 transition-all duration-100 lg:transition-none ease-in ${
           open ? "top-20" : "top-[-490px]"
         }`}
       >
-        <li className="md:ml-8 text-xl md:my-0 my-7">
+        <li className="lg:ml-8 text-xl lg:my-0 my-7">
           <Link
             href="/review"
             className="font-medium hover:text-gray-400 duration-500"
@@ -42,7 +42,7 @@ const HeaderClient = () => {
             Casino Reviews
           </Link>
         </li>
-        <li className="md:ml-8 text-xl md:my-0 my-7">
+        <li className="lg:ml-8 text-xl lg:my-0 my-7">
           <Link
             href="/casino-bonuses"
             className="font-medium hover:text-gray-400 duration-500"
@@ -50,7 +50,7 @@ const HeaderClient = () => {
             Casino Bonuses
           </Link>
         </li>
-        <li className="md:ml-8 text-xl md:my-0 my-7">
+        <li className="lg:ml-8 text-xl lg:my-0 my-7">
           <Link
             href="/software"
             className="font-medium hover:text-gray-400 duration-500"
@@ -58,7 +58,7 @@ const HeaderClient = () => {
             Casino Softwares
           </Link>
         </li>
-        <li className="md:ml-8 text-xl md:my-0 my-7">
+        <li className="lg:ml-8 text-xl lg:my-0 my-7">
           <Link
             href="/guides"
             className="font-medium hover:text-gray-400 duration-500"
@@ -66,9 +66,9 @@ const HeaderClient = () => {
             Guides
           </Link>
         </li>
-        <li className="md:ml-8 text-xl md:my-0 my-7"></li>
+        <li className="lg:ml-8 text-xl lg:my-0 my-7"></li>
       </ul>
-      <div className="flex items-center space-x-4 ml-2">
+      <div className="basis-1/4 flex items-center justify-end space-x-4 ml-2">
         <div>
           {session ? (
             <div>
@@ -90,9 +90,9 @@ const HeaderClient = () => {
           )}
         </div>
         {/* <button aria-label="Toggle Dark Mode" type="button" className="mx-4 bg-sky-700 text-white dark:bg-white dark:text-black p-4 rounded" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? 'L' : 'D'}</button>        
-          <label htmlFor='check' className='bg-gray-700 dark:bg-white cursor-pointer relative w-10 h-5 md:w-20 md:h-10 rounded-full'>
+          <label htmlFor='check' className='bg-gray-700 dark:bg-white cursor-pointer relative w-10 h-5 lg:w-20 lg:h-10 rounded-full'>
             <input type='checkbox' name='' id='check' className='sr-only peer' onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} />
-            <span className='w-2/5 h-4/5 bg-black absolute rounded-full left-0.5 top-0.5 md:left-1 md:top-1 peer-checked:bg-black peer-checked:left-5 md:peer-checked:left-11 transition-all  duration-500'></span>
+            <span className='w-2/5 h-4/5 bg-black absolute rounded-full left-0.5 top-0.5 lg:left-1 lg:top-1 peer-checked:bg-black peer-checked:left-5 lg:peer-checked:left-11 transition-all  duration-500'></span>
           </label> */}
       </div>
     </div>
