@@ -71,12 +71,16 @@ const HeaderClient = () => {
         <li className="lg:ml-8 text-xl lg:my-0 my-7"></li>
       </ul>
       <div className="basis-1/4 flex items-center justify-end space-x-4 ml-2">
-        <div>
+        <div
+          className={`${
+            isMounted && status !== "loading" ? "opacity-100" : "opacity-0"
+          } transition-opacity duration-500`}
+        >
           {isMounted && session ? (
             <div>
               <span>{session.user.name}</span>
               <span
-                className="mx-8 font-medium hover:text-gray-400 duration-500 hover:cursor-pointer"
+                className="mx-8 font-medium hover:text-gray-400 hover:cursor-pointer"
                 onClick={() => signOut()}
               >
                 Sign Out
@@ -84,9 +88,7 @@ const HeaderClient = () => {
             </div>
           ) : (
             <span
-              className={`${
-                isMounted && status === "loading" ? "opacity-0" : "opacity-100"
-              } transition-opacity font-medium hover:text-gray-400 duration-500 hover:cursor-pointer`}
+              className="font-medium hover:text-gray-400 hover:cursor-pointer"
               onClick={() => signIn()}
             >
               Sign In
