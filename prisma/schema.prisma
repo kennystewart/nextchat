@@ -51,7 +51,6 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  messages   Message[]    @relation("Author")
   emailVerified DateTime? @map("email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map("created_at")
@@ -62,50 +61,7 @@ model User {
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
-  UserChats  UserChat[]
-  MessageLikes MessageLike[]
   @@map("users")
-}
-
-model Chat {
-  id         String       @id @default(cuid())
-  title      String
-  disabled   Boolean      @default(false)
-  messages   Message[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  UserChats  UserChat[]
-}
-
-model UserChat {
-  user   User @relation(fields: [userId], references: [id])
-  userId String
-  chat   Chat @relation(fields: [chatId], references: [id])
-  chatId String
-
-  @@id([userId, chatId])
-}
-
-model Message {
-  id         String       @id @default(cuid())
-  content    String
-  html       Boolean      @default(false)
-  author     User         @relation("Author", fields: [authorId], references: [id])
-  authorId   String
-  chat       Chat         @relation(fields: [chatId], references: [id])
-  chatId     String
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  MessageLikes MessageLike[]
-}
-
-model MessageLike {
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
-  message  Message @relation(fields: [messageId], references: [id])
-  messageId String
-
-  @@id([userId, messageId])
 }
 
 model VerificationToken {
