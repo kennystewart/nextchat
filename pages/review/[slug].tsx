@@ -1,6 +1,8 @@
+"use client";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Link from "next/link";
+import axios from "axios";
 import Faq from "../../components/faq";
 import ProsCons from "../../components/ProsCons";
 import LikeSlots from "../../components/LikeSlots";
@@ -8,7 +10,7 @@ import LikeCasinos from "../../components/LikeCasinos";
 import BankOptions from "../../components/BankOptions";
 import Image from "next/legacy/image";
 import Slider from "../../components/Slider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cheerio from "cheerio";
 import BonusFilter from "../../components/functions/bonusfilter";
 import {
@@ -39,6 +41,7 @@ import { PrismaClient } from "@prisma/client";
 import SoftwareProv from "../../components/SoftwareProv";
 import Author from "../../components/AboutAuthor";
 import { GiConsoleController } from "react-icons/gi";
+import { useRouter } from "next/router";
 const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
@@ -86,7 +89,7 @@ export async function getStaticProps({ params }) {
     .filter((x) => x.softwarelist.id > 0)
     .map((x) => x.softwarelist.id);
 
-  const gamedata = await prisma.$queryRawUnsafe(
+  const gamedata: any[] = await prisma.$queryRawUnsafe(
     `SELECT s.software_name,g.game_name,g.game_clean_name,g.game_reels,g.game_lines,g.game_image FROM casino_p_games g
       
       LEFT JOIN casino_p_software s
@@ -97,8 +100,8 @@ export async function getStaticProps({ params }) {
       swId +
       `)
       AND d.description != ''  
-      ORDER BY RANDOM ()
       LIMIT 5`
+    // ORDER BY RANDOM ()
   );
   // Find 3 casinos that share the same software as the reviewd casino
   const casinodata: any[] = await prisma.$queryRawUnsafe(
@@ -110,8 +113,8 @@ export async function getStaticProps({ params }) {
       `)
       AND c.approved = 1
       AND c.rogue = 0
-    ORDER BY RANDOM ()
-    LIMIT 5`
+      LIMIT 5`
+    // ORDER BY RANDOM ()
   );
 
   const likeCasinoIds = casinodata.map((x) => x.id); // make a list of casinos that matched software
@@ -163,24 +166,60 @@ export async function getStaticPaths() {
 }
 
 const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const firstBonus = props.data.bonuses.find((v) => v.deposit > 0);
-  const faq = props.faq;
-  const prosCons = props.prosCons;
+  // const params = URLSearchParams();
+  const router = useRouter();
+  const [params, setParams] = useState(router.query);
   const [show, setShow] = useState(true);
-  const data = props.data;
-  const likeCasinoData = props.bdata;
-  const gameList = props.gamedata;
-  const casinoReview = { __html: data.review[0].description };
-  const buttondata = data.button;
-  const bonuslist = data.bonuses;
-  const casinoname = data.casino;
-  const casinoid = data.id;
-  const casinoData = { casinoid, casinoname };
-  const gameListData = { gameList, casinoData };
-  const bankListItems = data.banklist;
-  const bankListData = { bankListItems, casinoData };
-  const softwares = data.softwares;
-  const softwaredata = { casinoname, softwares };
+  const [bonusPageNumber, setBonusPageNumber] = useState<number>(1);
+  const [slotPageNumber, setSlotPageNumber] = useState<number>(1);
+  // const firstBonus = props.data.bonuses.find((v) => v.deposit > 0);
+  // const faq = props.faq;
+  // const prosCons = props.prosCons;
+  // const data = props.data;
+  // const likeCasinoData = props.bdata;
+  // const gameList = props.gamedata;
+  // const casinoReview = { __html: data.review[0].description };
+  // const buttondata = data.button;
+  // const bonuslist = data.bonuses;
+  // const casinoname = data.casino;
+  // const casinoid = data.id;
+  // const casinoData = { casinoid, casinoname };
+  // const gameListData = { gameList, casinoData };
+  // const bankListItems = data.banklist;
+  // const bankListData = { bankListItems, casinoData };
+  // const softwares = data.softwares;
+  // const softwaredata = { casinoname, softwares };
+  const [firstBonus, setFirstBonus] = useState(
+    props.data.bonuses.find((v) => v.deposit > 0)
+  );
+  const [faq, setFaq] = useState(props.faq);
+  const [prosCons, setProCons] = useState(props.prosCons);
+  const [data, setData] = useState(props.data);
+  const [likeCasinoData, setLikeCasinoData] = useState(props.bdata);
+  const [gameList, setGameList] = useState(
+    props?.gamedata ? props?.gamedata : []
+  );
+  const [casinoReview, setCasinoReview] = useState({
+    __html: data.review[0]?.description,
+  });
+  const [buttondata, setButtonData] = useState(data.button);
+  const [bonuslist, setBonusList] = useState(props.data.bonuses);
+  const [casinoname, setCasinoName] = useState(data.casino);
+  const [casinoid, setCasinoId] = useState(data.id);
+  const [casinoData, setCasinoData] = useState({ casinoid, casinoname });
+  const [gameListData, setGameListData] = useState({ gameList, casinoData });
+  const [bankListItems, setBankListItems] = useState(data.banklist);
+  const [bankListData, setBankListData] = useState({
+    bankListItems,
+    casinoData,
+  });
+  const [softwares, setSoftwares] = useState(data.softwares);
+  const [softwaredata, setSoftwareData] = useState({ casinoname, softwares });
+  const [bonusdata, setBonusData] = useState({
+    buttondata,
+    bonuslist,
+    casinoname,
+  });
   const author = "AFC Chris";
   const reviewDate = "";
   const authorText =
@@ -189,9 +228,51 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const casinoLink =
     "https://www.allfreechips.com/play_casino" + data.id + ".html";
-  const bonusdata = { buttondata, bonuslist, casinoname };
   const Homepage =
     "https://www.allfreechips.com/image/games/" + data.homepageimage;
+
+  useEffect(() => {
+    slotPageNumber > 1 &&
+      axios
+        .get(
+          `/api/review/?slug=${params.slug}&bp=${bonusPageNumber}&sp=${slotPageNumber}`
+        )
+        .then((res) => {
+          setData(res.data.doc.data);
+          setProCons(res.data.doc.proCons);
+          setFaq(res.data.doc.faq);
+
+          setCasinoName(res.data.doc.data.casino);
+          setCasinoId(res.data.doc.data._id);
+          setCasinoData({ casinoid, casinoname });
+
+          setBonusList(res.data.doc.bonuses);
+          setButtonData(res.data.doc.data.button);
+          setLikeCasinoData(res.data.doc.bdata);
+          setSoftwares(res.data.doc.data.softwares);
+          setSoftwareData({ casinoname, softwares });
+          setBankListItems(res.data.doc.data.banklist);
+          setBankListData({
+            bankListItems: res.data.doc.data.banklist,
+            casinoData,
+          });
+          setGameListData({
+            gameList: [...gameList, ...res.data.doc.gamedata],
+            casinoData,
+          });
+          setGameList([...gameList, ...res.data.doc.gamedata]);
+          setFirstBonus(res.data.doc.data.bonuses.find((v) => v.deposit > 0));
+          setCasinoReview({
+            __html: res.data.doc.data.review[0].description,
+          });
+          setBonusData({
+            buttondata: res.data.doc.data.button,
+            bonuslist: res.data.doc.data.bonuses,
+            casinoname: res.data.doc.data.casino,
+          });
+        });
+  }, [bonusPageNumber, slotPageNumber]); //eslint-disable-line
+  console.log(gameList);
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
       <Header />
@@ -263,7 +344,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
             onClick={() => setShow(!show)}
             className="border-2 border-white dark:border-black p-2 flex items-center rounded px-4"
           >
-            Jump to{" "}
+            Jump to
             <CgMenuLeft className="text-white dark:text-black mx-2 text-xl" />
           </span>
         </div>
@@ -425,12 +506,20 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </p>
 
               <BonusItem data={bonusdata} />
-              <span className="text-2xl text-center py-2 md:py-6">
+              {/* <div
+                className="flex justify-center items-center text-xl font-medium md:text-3xl py-2 md:py-6 cursor-pointer"
+                onClick={() => {
+                  setBonusPageNumber(bonusPageNumber + 1);
+                }}
+              >
                 Show more
-              </span>
+                <FaAngleDown className="mx-4 text-lg font-thin md:text-4xl" />
+              </div> */}
             </div>
             <div className=" bg-sky-100 dark:bg-gray-200 dark:text-black">
               <SoftwareProv data={softwaredata} />
+              <hr className="" />
+
               <BankOptions data={bankListData} />
             </div>
             <div>
@@ -459,7 +548,15 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </div>
               <div id="LikeSlots">
                 <LikeSlots data={gameListData} />
-                <p className="text-center my-8">Show More</p>
+                <div
+                  className="flex justify-center items-center text-xl font-medium md:text-3xl py-2 md:py-6 cursor-pointer"
+                  onClick={() => {
+                    setSlotPageNumber(slotPageNumber + 1);
+                  }}
+                >
+                  Show more
+                  <FaAngleDown className="mx-4 text-lg font-thin md:text-4xl" />
+                </div>
               </div>
               <Author data={authorData} />
             </div>

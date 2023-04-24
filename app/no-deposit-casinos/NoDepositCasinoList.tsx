@@ -1,41 +1,53 @@
-import { PrismaClient } from "@prisma/client";
+"use client";
 import BonusFilter from "../../components/functions/bonusfilter";
 import CasinoDisplayList from "../../components/CasinoDisplayList";
+import { FaAngleDown } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const prisma = new PrismaClient();
-async function getCasinos() {
-  const data = await prisma.casino_p_casinos.findMany({
-    where: {
-      approved: 1,
-      rogue: 0,
-      bonuses: {
-        some: {
-          nodeposit: { gt: 0 },
-          freespins: { lt: 1 },
-        },
-      },
-    },
-    select: {
-      id: true,
-      clean_name: true,
-      casino: true,
-      hot: true,
-      new: true,
-      button: true,
-      bonuses: {
-        orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
-      },
-    },
-    orderBy: [{ hot: "desc" }, { new: "desc" }],
-    take: 25,
-  });
+const NoDepositCasinoList = (props: NoDepositCasinoList) =>
+  //
+  //
+  {
+    const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const bdata: any[] = data.filter((p) => p.bonuses.length > 0);
-  const bonus = BonusFilter(bdata);
-  return bonus;
+    const [casinoData, setCasinoData] = useState<string[]>(props.bonus);
+    useEffect(() => {
+      pageNumber > 1 &&
+        axios
+          .get(`/api/noDeposit/?pageNumber=${pageNumber}`)
+          .then((res) => {
+            res.status === 200 &&
+              setCasinoData([...casinoData, ...res.data.bonus]);
+          })
+          .catch((err) => {});
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageNumber]);
+
+    useEffect(() => {
+      axios
+        .get(`/api/noDeposit/?pageNumber=${pageNumber}`)
+        .then((res) => {
+          res.status === 200 && setCasinoData(res.data.bonus);
+        })
+        .catch((err) => {});
+    }, []);
+    return (
+      <div>
+        <CasinoDisplayList data={casinoData} />
+        <div
+          className="flex justify-center items-center text-xl font-medium md:text-3xl py-2 md:py-6 cursor-pointer"
+          onClick={() => {
+            setPageNumber(pageNumber + 1);
+          }}
+        >
+          Show more
+          <FaAngleDown className="mx-4 text-lg font-thin md:text-4xl" />
+        </div>
+      </div>
+    );
+  };
+interface NoDepositCasinoList {
+  bonus: any;
 }
-
-export async function NoDepositCasinoList() {
-  const casinos = await getCasinos();
-  return <CasinoDisplayList data={casinos} />;
-}
+export default NoDepositCasinoList;

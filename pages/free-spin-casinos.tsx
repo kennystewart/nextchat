@@ -174,7 +174,7 @@ export default function Nodeposit(
           </div>
         </section>
 
-        <div className="flex md:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
+        <div className="flex lg:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
           <span className="font-medium">ON THIS PAGE</span>
           <span
             onClick={() => setShow(!show)}
@@ -185,7 +185,7 @@ export default function Nodeposit(
           </span>
         </div>
         <div
-          className={`flex md:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-zinc-800  text-2xl font-medium ${
+          className={`flex lg:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-zinc-800  text-2xl font-medium ${
             show ? "bottom-[-490px]" : "bottom-0"
           }`}
         >
@@ -210,7 +210,7 @@ export default function Nodeposit(
           </div>
         </div>
         <section className="flex flex-col mx-4 md:flex-row">
-          <div className="hidden md:w-1/4 md:flex md:flex-col md:">
+          <div className="hidden lg:w-1/4 lg:flex lg:flex-col lg:">
             <span className="text-lg font-medium p-4">ON THIS PAGE</span>
             <hr className="border-sky-700 dark:border-white w-60" />
             <span className="my-4 px-4 border-l-4 font-medium border-sky-700 dark:border-white">
@@ -225,7 +225,7 @@ export default function Nodeposit(
               </span>
             </div>
           </div>
-          <div className="md:w-3/4  text-lg md:text-xl font-medium">
+          <div className="lg:w-3/4  text-lg md:text-xl font-medium">
             <div className="flex flex-col rounded-lg">
               <p className="py-4 font-bold my-4 md:my-8">
                 Complete Free Spin Casino Bonus List

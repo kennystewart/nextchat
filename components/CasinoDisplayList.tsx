@@ -1,11 +1,20 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import { FaStar } from "react-icons/fa";
-import { FaCopyright } from "react-icons/fa";
+import {
+  FaCopyright,
+  FaChevronCircleDown,
+  FaChevronCircleUp,
+} from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 function CasinoDisplayList(props) {
+  const [showTerms, setShowTerms] = useState<boolean>(false);
+  const bonusTerms =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat elit vel tellus eleifend imperdiet. Donec consectetur urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a ex dignissim, scelerisque malesuada odio. Sed vestibulum dictum eleifend.";
+
   const data = props.data;
   return data.map((d) => (
     <div
@@ -85,6 +94,13 @@ function CasinoDisplayList(props) {
             <FaCopyright />
           </div>
         </div>
+        <div
+          className="flex items-center cursor-pointer"
+          onClick={() => setShowTerms(showTerms === d.id ? "" : d.id)}
+        >
+          <p className="mr-2 select-none">Bonus Details </p>
+          {showTerms === d.id ? <FaChevronCircleUp /> : <FaChevronCircleDown />}
+        </div>
         <div className="w-[178px]">
           <h5 className="text-normal font-medium">
             <Link href={`/review/${encodeURIComponent(d.clean_name)}`}>
@@ -93,6 +109,11 @@ function CasinoDisplayList(props) {
           </h5>
         </div>
       </div>
+      {showTerms === d.id && (
+        <div className="flex pt-3 text-sm">
+          <h6>{bonusTerms}</h6>
+        </div>
+      )}
     </div>
   ));
 }

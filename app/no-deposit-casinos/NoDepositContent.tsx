@@ -16,7 +16,9 @@ import ProsCons from "../../components/ProsCons";
 import MobileJump from "./MobileJump";
 import { CgMenuLeft } from "react-icons/cg";
 import { GrClose } from "react-icons/gr";
-
+import NoDepositCasinoList from "./NoDepositCasinoList";
+// import { FaAngleDown } from "react-icons/fa";
+// import { useState, useEffect } from "react";
 export default function NoDepositContent({ children }) {
   const prosCons = {
     pros: [
@@ -57,6 +59,8 @@ export default function NoDepositContent({ children }) {
   const authorText =
     "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
   const authorData = { author, authorText };
+  // const [pageNumber, setPageNumber] = useState<number>(1);
+
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
       <Head>
@@ -122,7 +126,7 @@ export default function NoDepositContent({ children }) {
         close={<GrClose className="dark:bg-white" />}
       />
       <section className="flex flex-col mx-4 md:flex-row">
-        <div className="hidden md:w-1/4 md:flex md:flex-col md:">
+        <div className="hidden lg:w-1/4 lg:flex lg:flex-col lg:">
           <span className="text-lg font-medium p-4">ON THIS PAGE</span>
           <hr className="border-sky-700 dark:border-white w-60" />
           <span className="my-4 px-4 border-l-4 font-medium border-sky-700 dark:border-white">
@@ -137,12 +141,22 @@ export default function NoDepositContent({ children }) {
             </span>
           </div>
         </div>
-        <div className="md:w-3/4  text-lg md:text-xl font-medium">
+        <div className="lg:w-3/4  text-lg md:text-xl font-medium">
           <div className="flex flex-col rounded-lg">
             <p className="py-4 font-bold my-4 md:my-8">
               Full List of no deposit casino bonuses
             </p>
             {children}
+
+            {/* <div
+              className="flex justify-center items-center text-xl font-medium md:text-3xl py-2 md:py-6 cursor-pointer"
+              // onClick={() => {
+              //   setPageNumber(pageNumber + 1);
+              // }}
+            >
+              Show more
+              <FaAngleDown className="mx-4 text-lg font-thin md:text-4xl" />
+            </div> */}
           </div>
 
           <div>

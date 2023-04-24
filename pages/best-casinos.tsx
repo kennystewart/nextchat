@@ -163,7 +163,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
         </section>
 
-        <div className="flex md:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
+        <div className="flex lg:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
           <span className="font-medium">ON THIS PAGE</span>
           <span
             onClick={() => setShow(!show)}
@@ -174,7 +174,7 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </span>
         </div>
         <div
-          className={`flex md:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-zinc-800  text-2xl font-medium ${
+          className={`flex lg:hidden flex-col w-full fixed p-4 rounded-t-2xl justify-between z-20 bg-white dark:bg-zinc-800  text-2xl font-medium ${
             show ? "bottom-[-490px]" : "bottom-0"
           }`}
         >
