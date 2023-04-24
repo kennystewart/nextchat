@@ -39,7 +39,6 @@ import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
 import Author from "../../components/AboutAuthor";
-import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 const prisma = new PrismaClient();
 
@@ -311,27 +310,32 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   useEffect(() => {
     slotPageNumber > 1 &&
-      axios
-        .get(`/api/slot/?slug=${params.slug}&sp=${slotPageNumber}`)
+      fetch(`/api/slot/?slug=${params.slug}&sp=${slotPageNumber}`)
         .then((res) => {
-          setData(res.data.doc.data);
-          setProsCons(res.data.doc.proCons);
-          setFaq(res.data.doc.faq);
-          setLikeCasinoData(res.data.doc.bdata);
+          if (!res.ok) {
+            throw res;
+          }
+          return res.json();
+        })
+        .then((res) => {
+          setData(res.doc.data);
+          setProsCons(res.doc.proCons);
+          setFaq(res.doc.faq);
+          setLikeCasinoData(res.doc.bdata);
 
-          setCasinoName(res.data.doc.bdata[0].casino);
-          setCasinoId(res.data.doc.bdata[0].id);
+          setCasinoName(res.doc.bdata[0].casino);
+          setCasinoId(res.doc.bdata[0].id);
           setCasinoData({
-            casinoid: res.data.doc.bdata[0].id,
-            casinoname: res.data.doc.bdata[0].casino,
+            casinoid: res.doc.bdata[0].id,
+            casinoname: res.doc.bdata[0].casino,
           });
           setGameListData({
-            gameList: [...gameList, ...res.data.doc.gamedata],
+            gameList: [...gameList, ...res.doc.gamedata],
             casinoData: casinoData,
           });
-          setGameList([...gameList, ...res.data.doc.gamedata]);
+          setGameList([...gameList, ...res.doc.gamedata]);
         });
-  }, [slotPageNumber]); //eslint-disable-line
+  }, [slotPageNumber]);
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       // Do something when the Escape key is pressed

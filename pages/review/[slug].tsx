@@ -2,7 +2,6 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Link from "next/link";
-import axios from "axios";
 import Faq from "../../components/faq";
 import ProsCons from "../../components/ProsCons";
 import LikeSlots from "../../components/LikeSlots";
@@ -233,45 +232,50 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   useEffect(() => {
     slotPageNumber > 1 &&
-      axios
-        .get(
-          `/api/review/?slug=${params.slug}&bp=${bonusPageNumber}&sp=${slotPageNumber}`
-        )
+      fetch(
+        `/api/review/?slug=${params.slug}&bp=${bonusPageNumber}&sp=${slotPageNumber}`
+      )
         .then((res) => {
-          setData(res.data.doc.data);
-          setProCons(res.data.doc.proCons);
-          setFaq(res.data.doc.faq);
+          if (!res.ok) {
+            throw res;
+          }
+          return res.json();
+        })
+        .then((res) => {
+          setData(res.doc.data);
+          setProCons(res.doc.proCons);
+          setFaq(res.doc.faq);
 
-          setCasinoName(res.data.doc.data.casino);
-          setCasinoId(res.data.doc.data._id);
+          setCasinoName(res.doc.data.casino);
+          setCasinoId(res.doc.data._id);
           setCasinoData({ casinoid, casinoname });
 
-          setBonusList(res.data.doc.bonuses);
-          setButtonData(res.data.doc.data.button);
-          setLikeCasinoData(res.data.doc.bdata);
-          setSoftwares(res.data.doc.data.softwares);
+          setBonusList(res.doc.bonuses);
+          setButtonData(res.doc.data.button);
+          setLikeCasinoData(res.doc.bdata);
+          setSoftwares(res.doc.data.softwares);
           setSoftwareData({ casinoname, softwares });
-          setBankListItems(res.data.doc.data.banklist);
+          setBankListItems(res.doc.data.banklist);
           setBankListData({
-            bankListItems: res.data.doc.data.banklist,
+            bankListItems: res.doc.data.banklist,
             casinoData,
           });
           setGameListData({
-            gameList: [...gameList, ...res.data.doc.gamedata],
+            gameList: [...gameList, ...res.doc.gamedata],
             casinoData,
           });
-          setGameList([...gameList, ...res.data.doc.gamedata]);
-          setFirstBonus(res.data.doc.data.bonuses.find((v) => v.deposit > 0));
+          setGameList([...gameList, ...res.doc.gamedata]);
+          setFirstBonus(res.doc.data.bonuses.find((v) => v.deposit > 0));
           setCasinoReview({
-            __html: res.data.doc.data.review[0].description,
+            __html: res.doc.data.review[0].description,
           });
           setBonusData({
-            buttondata: res.data.doc.data.button,
-            bonuslist: res.data.doc.data.bonuses,
-            casinoname: res.data.doc.data.casino,
+            buttondata: res.doc.data.button,
+            bonuslist: res.doc.data.bonuses,
+            casinoname: res.doc.data.casino,
           });
         });
-  }, [bonusPageNumber, slotPageNumber]); //eslint-disable-line
+  }, [bonusPageNumber, slotPageNumber]);
   console.log(gameList);
   return (
     <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
