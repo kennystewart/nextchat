@@ -20,7 +20,6 @@ export default function DiscussionContent() {
   
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
-      <FaqJsonLD data={faq} />
    
       <div className="py-6 px-1 mt-28">
         <div className="container mx-auto">
@@ -29,46 +28,10 @@ export default function DiscussionContent() {
               <Link href="/">AFC Home</Link>
             </span>
             <FaAngleRight />
-            <span>No Deposit Casinos</span>
+            <span>Allfreechips Discussions</span>
           </div>
         </div>
       </div>
-
-      <section className="py-8  px-6">
-        <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
-            Best No Deposit Casinos For {monthYear()}
-          </h1>
-          <div className="flex flex-col py-4">
-            <span className="">
-              Author:{" "}
-              <a href="#author" className="font-medium ">
-                {author}
-              </a>
-            </span>
-            <span className="text-sky-600 dark:text-white">{reviewDate}</span>
-          </div>
-          <div className="bg-slate-100 dark:bg-gray-200 dark:text-black rounded-xl mt-3">
-            <div className="card p-4">
-              <div className="heading flex items-center border-b gap-7 pb-4">
-                <button className="w-10 h-7 rounded bg-sky-700 dark:bg-zinc-800"></button>
-                <h2 className="text-lg">
-                  Why you should play{" "}
-                  <span className="font-bold">No Deposit Casinos</span>
-                </h2>
-                <a href="#">
-                  <i className="bi bi-info-circle"></i>
-                </a>
-              </div>
-              <p className="font-normal pt-4 pb-2 text-justify md:text-xl md:p-6">
-                Allfreechips is a top teir provider of exclusive no deposit
-                casino bonuses allowing you to get the largest no deposit play
-                with no deposit required.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
       <MobileJump
         left={
           <CgMenuLeft className="text-white dark:text-black mx-2 text-xl" />
@@ -91,19 +54,8 @@ export default function DiscussionContent() {
             </span>
           </div>
         </div>
-        <div className="lg:w-3/4  text-lg md:text-xl font-medium">
-          <div className="flex flex-col rounded-lg">
-            <p className="py-4 font-bold my-4 md:my-8">
-              Full List of no deposit casino bonuses
-            </p>
-            {children}
-          </div>
-
-          <div>
-            <div className="text-lg font-normal">
-              No Deposit Casino Bonus information
-            </div>
-          </div>
+        <div>
+          DISCUSS
         </div>
       </section>
       <div className="text-left p-4 mt-2 md:mx-24 md:text-2xl">

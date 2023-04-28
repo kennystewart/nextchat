@@ -1,4 +1,4 @@
-import DiscussionContent from './discussionContent'
+import DiscussionContent from './DiscussionContent'
 
 export default async function Nodeposit() {
   return (
