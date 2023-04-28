@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import {
   FaAngleRight,
@@ -17,61 +16,12 @@ import MobileJump from "./MobileJump";
 import { CgMenuLeft } from "react-icons/cg";
 import { GrClose } from "react-icons/gr";
 
-// import { FaAngleDown } from "react-icons/fa";
-// import { useState, useEffect } from "react";
-export default function NoDepositContent({ children }) {
-  const prosCons = {
-    pros: [
-      {
-        title: "Test drive many casinos",
-        content:
-          "There are many casinos out there so why not test a few before finding the one you trust with real money deposits? You can play for fre with a real chance at cashing out with no deposit casinos.",
-      },
-      {
-        title: "Risk free gambling",
-        content:
-          "The best part with no deposit bonuses is the fact you do not need to risk your own money to play yet can still win large sums to cash out.",
-      },
-    ],
-    cons: [
-      {
-        title: "Hard to cash out",
-        content:
-          "The biggest and really only issue when playing a no deposit casino bonus is the fact you will need to wager the bonus amount between 20-60X. This is quite a bit and the odds are not in your favor to win a lot but it is possible.",
-      },
-    ],
-  };
-
-  const faq = [
-    {
-      question: "Do casinos really give away money for no deposit bonus play?",
-      answer:
-        "Yes they do, but you need to wager the bonus amount as many times as the bonus states before you can cash it out. This means if you get a $20 no deposit bonus with a 40X wager requirement you will need to wager $800 before you can cash out.",
-    },
-    {
-      question: "What happens if I win 500,000 on a no deposit casino bonus?",
-      answer:
-        "Most casinos do not limit the maximum withdraw on all bonuses, a lot of RTG based ones do though. Always read the terms and conditions of any bonus you take on to be sure your not suprised.",
-    },
-  ];
-  const author = "AFC Chris";
-  const reviewDate = "";
-  const authorText =
-    "Chris Started working on Allfreechips in July of 2004, After many frustraiting years of learning how to make a webpage we now have the current site!  Chris started by being a player first, and loved online gaming so much he created the Allfreechips Community.";
-  const authorData = { author, authorText };
-  // const [pageNumber, setPageNumber] = useState<number>(1);
-
+export default function DiscussionContent() {
+  
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
-      <Head>
-        <FaqJsonLD data={faq} />
-        <meta
-        //    property="og:image"
-        //    content={`https://www.allfreechips.com/image/software/${encodeURIComponent(
-        //      data.image
-        //    )}`}
-        />
-      </Head>
+      <FaqJsonLD data={faq} />
+   
       <div className="py-6 px-1 mt-28">
         <div className="container mx-auto">
           <div className="flex text-sm gap-1 font-medium  items-center md:gap-4">
@@ -147,25 +97,12 @@ export default function NoDepositContent({ children }) {
               Full List of no deposit casino bonuses
             </p>
             {children}
-
-            {/* <div
-              className="flex justify-center items-center text-xl font-medium md:text-3xl py-2 md:py-6 cursor-pointer"
-              // onClick={() => {
-              //   setPageNumber(pageNumber + 1);
-              // }}
-            >
-              Show more
-              <FaAngleDown className="mx-4 text-lg font-thin md:text-4xl" />
-            </div> */}
           </div>
 
           <div>
             <div className="text-lg font-normal">
               No Deposit Casino Bonus information
             </div>
-            <ProsCons data={prosCons} />
-            <Faq data={faq} />
-            <Author data={authorData} />
           </div>
         </div>
       </section>

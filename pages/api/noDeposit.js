@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../client";
 import BonusFilter from "../../components/functions/bonusfilter";
-const prisma = new PrismaClient();
+
 
 export default async function handler(req, res) {
   console.log(req.query, "\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
@@ -40,6 +40,6 @@ export default async function handler(req, res) {
   } catch (err) {
     console.log(err);
   } finally {
-    await prisma.$disconnect();
+    //await prisma.$disconnect(); We now use one connections
   }
 }
