@@ -64,10 +64,18 @@ model User {
   user_lvl     String?
   isAdmin       Boolean  @default(false)
   role          Int?
+  afcRewards    Int?
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
   @@map("users")
+}
+
+model AfcDetails {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique  
+  adcRewards    Int?
 }
 
 model VerificationToken {
@@ -78,6 +86,7 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationtokens")
 }
+
 
 model casino_p_bonus_lang {
   id      Int    @id @default(autoincrement())

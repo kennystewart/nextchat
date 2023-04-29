@@ -18,7 +18,7 @@ const Post = (post) => {
       <Info author={post}/>
         <h1 className={style.postTite}>{post.title}</h1>
         <p className={style.postContent}>{post.content}</p>
-        <p className={style.postContent}>{post.author.name}</p>
+        <p className={style.postContent}>{post.author?.name}</p>
         <Actions/>
       </div>
     </div>

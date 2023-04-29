@@ -12,15 +12,15 @@ const Info = ( {author} ) => {
       <div className={style.profilePicContainer}>
       <img
           className={style.profilePic}
-          src={author.author.image}
+          src={author.author?.image}
         />
       </div>
-      <div className={style.tag}>{author.name}</div>
+      <div className={style.tag}>{author?.name}</div>
       <div>•</div>
       <div className={style.postedBy}>
-        <span>Posted By {author.author.name}</span>
+        <span>Posted By {author.author?.name}</span>
         <span>•</span>
-        <span>{author.createdAt}</span>
+        <span>{author?.createdAt}</span>
       </div>
     </div>
   );

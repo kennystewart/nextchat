@@ -23,6 +23,7 @@ const HeaderClient = () => {
         <div className="font-medium text-3xl cursor-pointer flex items-center">
           <Link href="/">
             <Image
+              priority
               alt={"Allfreechips Casino Guide"}
               width={250}
               height={57}

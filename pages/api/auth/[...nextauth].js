@@ -1,4 +1,6 @@
 import NextAuth from "next-auth";
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from "../../../client";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import EmailProvider from "next-auth/providers/email";
@@ -8,6 +10,7 @@ export const authOptions = {
   secret: process.env.JWT_SECRET,
   providers: [
     // OAuth authentication providers
+    /*
     CredentialProvider({
       name: "Email",
       credentials: {
@@ -32,6 +35,20 @@ export const authOptions = {
         return null;
       },
     }),
+    */
+    
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD
+        }
+      },
+      from: process.env.EMAIL_FROM
+    }),
+   
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
@@ -41,11 +58,7 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-  database: {
-    type: "sqlite",
-    database: ":memory:",
-    synchronize: true,
-  },
+  adapter: PrismaAdapter(prisma),
   secret: process.env.JWT_SECRET,
   theme: {
     logo: "https://afc-redux.vercel.app/logo.png", // Absolute URL to image

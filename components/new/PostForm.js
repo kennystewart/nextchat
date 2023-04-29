@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-
+import Loading from '../Loading'
 
 const style = {
   input:
@@ -22,21 +22,28 @@ const PostForm = () => {
     try {
       setIsLoading(true);
       await fetch('api/post', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+        })
     });
       
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
-      router.push("/discuss");
+      router.push("/discussions");
     }
   };
 
   return (
     <div className={style.wrapper}>
+      {1isLoading && <Loading/>}
       <h1 className={style.title}>Create a post</h1>
       <div className="flex flex-col space-y-2 rounded bg-[#1A1A1B] p-4">
         <input
