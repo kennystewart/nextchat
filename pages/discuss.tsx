@@ -14,7 +14,8 @@ const style = {
 const Home: NextPage = () => {
   const [myPosts, setMyPosts] = useState([])
   //const fetcher = (url) => fetch(url).then((res) => res.json());
-  const fetcher = (...args) =>   fetch(...args).then(res => res.json())
+  //const fetcher = (...args) =>   fetch(...args).then(res => res.json())
+  const fetcher = url => fetch(url).then(r => r.json())
   const {data, error, isLoading } = useSWR('api/get-post', fetcher ,{refreshInterval: 200})
   
   //if (error) return "An error has occurred.";

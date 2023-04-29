@@ -1,3 +1,4 @@
+import Image from "next/image";
 const style = {
   profilePic: "h4 w-4 rounded-full",
   wrapper: "flex items-center space-x-1 text-xs text-[#818384]",
@@ -9,7 +10,7 @@ const Info = ( {author} ) => {
   return (
     <div className={style.wrapper}>
       <div className={style.profilePicContainer}>
-        <img
+      <Image
           className={style.profilePic}
           src={author.author.image}
         />
