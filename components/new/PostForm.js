@@ -43,7 +43,7 @@ const PostForm = () => {
 
   return (
     <div className={style.wrapper}>
-      {1isLoading && <Loading/>}
+      {isLoading && <Loading/>}
       <h1 className={style.title}>Create a post</h1>
       <div className="flex flex-col space-y-2 rounded bg-[#1A1A1B] p-4">
         <input
