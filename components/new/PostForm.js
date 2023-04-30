@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Loading from '../Loading'
+import Loading from "../Loading";
 
 const style = {
   input:
@@ -21,18 +21,17 @@ const PostForm = () => {
     event.preventDefault();
     try {
       setIsLoading(true);
-      await fetch('api/post', {
+      await fetch("api/post", {
         method: "post",
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           title: title,
           content: content,
-        })
-    });
-      
+        }),
+      });
     } catch (error) {
       console.error(error);
     } finally {
@@ -43,7 +42,7 @@ const PostForm = () => {
 
   return (
     <div className={style.wrapper}>
-      {isLoading && <Loading/>}
+      {isLoading && <Loading />}
       <h1 className={style.title}>Create a post</h1>
       <div className="flex flex-col space-y-2 rounded bg-[#1A1A1B] p-4">
         <input
@@ -64,9 +63,9 @@ const PostForm = () => {
           onChange={(event) => setContent(event.currentTarget.value)}
         />
         <div className={style.postBtnContainer}>
-          <button 
-          onClick={creatPost}
-          className={style.postBtn}>Post</button>
+          <button onClick={creatPost} className={style.postBtn}>
+            Post
+          </button>
         </div>
       </div>
     </div>
