@@ -1,6 +1,6 @@
-import Vote from '../feed/Vote'
-import Actions from '../feed/Actions'
-import Info from '../feed/Info'
+import Vote from "../feed/Vote";
+import Actions from "../feed/Actions";
+import Info from "../feed/Info";
 const style = {
   post: "flex flex-col space-y-1",
   postTitle: "text-lg font-medium text-[#D7DADC]",
@@ -9,17 +9,16 @@ const style = {
 };
 
 const Post = (post) => {
-    
   return (
     <div className={style.wrapper}>
-        <Vote count = {post.vote_up - post.vote_down}/>
-        
+      <Vote count={post.vote_up - post.vote_down} />
+
       <div className={style.post}>
-      <Info author={post}/>
+        <Info author={post} />
         <h1 className={style.postTite}>{post.title}</h1>
         <p className={style.postContent}>{post.content}</p>
         <p className={style.postContent}>{post.author?.name}</p>
-        <Actions/>
+        <Actions />
       </div>
     </div>
   );

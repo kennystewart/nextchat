@@ -12,7 +12,11 @@ const NoDepositCasinoList = (props: NoDepositCasinoList) => {
       <div
         className="flex justify-center items-center text-xl font-medium md:text-3xl py-2 md:py-6 cursor-pointer"
         onClick={() => {
-          fetch(`/api/noDeposit/?pageNumber=${pageNumber.current + 1}`)
+          fetch(`/api/noDeposit/?pageNumber=${pageNumber.current + 1}`, {
+            next: {
+              revalidate: 3,
+            },
+          })
             .then((res) => {
               if (!res.ok) {
                 throw res;

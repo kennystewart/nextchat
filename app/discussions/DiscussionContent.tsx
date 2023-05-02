@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import {
   FaAngleRight,
@@ -7,11 +6,10 @@ import {
   FaGifts,
   FaHandsWash,
 } from "react-icons/fa";
-import CreatePost from "../../components/feed/CreatePost";
-import Feed from "../../components/feed";
 import { TbBeach } from "react-icons/tb";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import Feed from "../../components/feed";
+import CreatePost from "../../components/feed/CreatePost";
+
 const style = {
   wrapper: `flex min-h-screen flex-col bg-black text-white`,
   main: `mx-auto flex w-full max-w-5xl flex-1 space-x-6 py-5 px-6`,
@@ -19,21 +17,7 @@ const style = {
   infoContainer: `hidden w-1/3 lg:block`,
 };
 
-export default function DiscussionContent() {
-  const [myPosts, setMyPosts] = useState([]);
-  const fetcher = (url) => fetch(url).then((res) => res.json());
-  //const fetcher = (...args) =>   fetch(...args).then(res => res.json())
-  const { data, error, isLoading } = useSWR("api/get-post", fetcher, {
-    refreshInterval: 200,
-  });
-
-  //if (error) return "An error has occurred.";
-  //if (isLoading) return "Loading...";
-  useEffect(() => {
-    if (!data) return;
-    setMyPosts(data.data);
-  }, [data]);
-
+export default function DiscussionContent({ myPosts }) {
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
       <div className="py-6 px-1 mt-28">
