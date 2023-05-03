@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Post from "../../../../components/common/Post";
+import prisma from "../../../../client";
 import {
   FaAngleRight,
   FaBalanceScale,
@@ -8,7 +9,16 @@ import {
   FaHandsWash,
 } from "react-icons/fa";
 
-export default function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: string } }) {
+  const post = await prisma.post.findFirst({
+    where: {
+      id: params.id,
+    },
+    include: {
+      author: true,
+    },
+   
+  });
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
       <div className="py-6 px-1 mt-28">
@@ -27,7 +37,7 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
       <h1>POST ID:{params.id}</h1>
-      <div><Post/></div>
+      <div><Post {...post} /></div>
      
     </div>
   );

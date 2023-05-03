@@ -68,7 +68,18 @@ model User {
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
+  scratchCard   ScratchCardGame[]
   @@map("users")
+}
+
+model ScratchCardGame {
+   id            Int    @id @default(autoincrement())
+   user_id       String
+   outcome       String[]
+   prize         String?
+   user          User  @relation(fields: [user_id], references: [id])
+   createdAt     DateTime  @default(now()) @map("created_at")
+   updatedAt     DateTime  @updatedAt @map("updated_at")
 }
 
 model AfcDetails {

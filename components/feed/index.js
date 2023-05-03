@@ -7,6 +7,7 @@ const Feed = ({ post }) => {
   return (
     <div className={style.wrapper}>
       {post.map((post, id) => (
+        
         <Post {...post} key={id} />
       ))}
     </div>

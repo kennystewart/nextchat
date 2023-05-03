@@ -20,7 +20,7 @@ const Info = ( {author} ) => {
       <div className={style.postedBy}>
         <span>Posted By {author.author?.name}</span>
         <span>•</span>
-        <span>{author?.createdAt}</span>
+        <span>Feb 23</span>
       </div>
     </div>
   );
