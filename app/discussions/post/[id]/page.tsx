@@ -1,13 +1,11 @@
+
 import Link from "next/link";
 import Post from "../../../../components/common/Post";
 import prisma from "../../../../client";
 import {
   FaAngleRight,
-  FaBalanceScale,
-  FaGift,
-  FaGifts,
-  FaHandsWash,
 } from "react-icons/fa";
+import Comments from "../../../../components/CommentsSection/Comments";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const post = await prisma.post.findFirst({
@@ -15,10 +13,33 @@ export default async function Page({ params }: { params: { id: string } }) {
       id: params.id,
     },
     include: {
+      comments: {
+        include : {
+          author: {
+            select : {
+              name : true,
+              image : true,
+            }
+          }
+        },
+      },
       author: true,
+      
     },
    
   });
+  console.log(post.comments);
+  /* useEffect(() => {
+    if (post === null) {
+      router.push('/')
+    }
+    }, [])
+    */
+
+  const style={
+    containerWrapper : 'w-full space-y-4 lg:w-2/3',
+    container:'mx-auto flex w-full max-w-5xl flex-1 space-x-6 py-[5rem] px-6',
+  }
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
       <div className="py-6 px-1 mt-28">
@@ -36,8 +57,13 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-      <h1>POST ID:{params.id}</h1>
-      <div><Post {...post} /></div>
+      
+      <div className={style.container}>
+        <div className={style.containerWrapper}>
+        <Post {...post} />
+        <Comments comments = {post.comments}/>
+        </div>
+        </div>
      
     </div>
   );

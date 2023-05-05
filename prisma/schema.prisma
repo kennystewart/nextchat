@@ -7,19 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ChatMessage {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  message   String
+  authorId  String
 
+  author User @relation(fields: [authorId], references: [id])
+}
 
 model Post {
-  id        String  @id @default(cuid())
-  createdAt DateTime @default(now())
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
   title     String
   content   String?
-  published Boolean @default(false)
+  published Boolean    @default(false)
   authorId  String?
-  vote_up    Int?
+  vote_up   Int?
   vote_down Int?
   added     String?
-  author    User?   @relation(fields: [authorId], references: [id])
+  author    User?      @relation(fields: [authorId], references: [id])
+  comments  Comments[]
+}
+
+model Comments {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  postId    String?
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  author    User?    @relation(fields: [authorId], references: [id])
+  posts     Post?    @relation(fields: [postId], references: [id])
 }
 
 model Account {
@@ -54,39 +73,42 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String            @id @default(cuid())
   name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  email         String?           @unique
+  emailVerified DateTime?         @map("email_verified")
   image         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  user_lvl     String?
-  isAdmin       Boolean  @default(false)
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+  user_lvl      String?
+  isAdmin       Boolean           @default(false)
   role          Int?
   afcRewards    Int?
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
   scratchCard   ScratchCardGame[]
+  comments      Comments[]
+  chatMessages  ChatMessage[]
+
   @@map("users")
 }
 
 model ScratchCardGame {
-   id            Int    @id @default(autoincrement())
-   user_id       String
-   outcome       String[]
-   prize         String?
-   user          User  @relation(fields: [user_id], references: [id])
-   createdAt     DateTime  @default(now()) @map("created_at")
-   updatedAt     DateTime  @updatedAt @map("updated_at")
+  id        Int      @id @default(autoincrement())
+  user_id   String
+  outcome   String[]
+  prize     String?
+  user      User     @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model AfcDetails {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique  
-  adcRewards    Int?
+  id         String  @id @default(cuid())
+  name       String?
+  email      String? @unique
+  adcRewards Int?
 }
 
 model VerificationToken {
@@ -98,7 +120,6 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
-
 model casino_p_bonus_lang {
   id      Int    @id @default(autoincrement())
   parent  Int
@@ -107,41 +128,41 @@ model casino_p_bonus_lang {
 }
 
 model casino_p_casinos {
-  id            Int                             @id @default(autoincrement())
-  aff_id        Int?
-  casino        String?
-  type          String?
-  url           String?
-  software      String?
-  approved      Int?
-  updated       String?
-  hot           Int?
-  new           Int?
-  rogue         Int?
-  button        String?
-  blurb         String?
-  softwareid    Int
-  telephone     String?
-  contactemail  String?
-  livechat      Int?
-  mobile        Int?
-  homepageimage String?
-  livegames     Int?
-  clean_name    String?
-  currencies    String?
-  datialsupdate Int?
-  currency_val  Int?
+  id             Int                             @id @default(autoincrement())
+  aff_id         Int?
+  casino         String?
+  type           String?
+  url            String?
+  software       String?
+  approved       Int?
+  updated        String?
+  hot            Int?
+  new            Int?
+  rogue          Int?
+  button         String?
+  blurb          String?
+  softwareid     Int
+  telephone      String?
+  contactemail   String?
+  livechat       Int?
+  mobile         Int?
+  homepageimage  String?
+  livegames      Int?
+  clean_name     String?
+  currencies     String?
+  datialsupdate  Int?
+  currency_val   Int?
   review_overall Int?
-  banklist      casino_p_bank_connect[]
-  bonuses       casino_p_bonus[]
-  review        casino_p_descriptions_casinos[]
-  jurisdictions casino_p_jurisdictions[]
-  meta          casino_p_meta_casinos[]
-  casino_geo    casino_p_restrictions[]
-  softwares     casino_p_software_link[]
-  casino_faq    casino_p_casino_faq[]
-  casino_pros   casino_p_casino_pros[]
-  casino_cons   casino_p_casino_cons[]
+  banklist       casino_p_bank_connect[]
+  bonuses        casino_p_bonus[]
+  review         casino_p_descriptions_casinos[]
+  jurisdictions  casino_p_jurisdictions[]
+  meta           casino_p_meta_casinos[]
+  casino_geo     casino_p_restrictions[]
+  softwares      casino_p_software_link[]
+  casino_faq     casino_p_casino_faq[]
+  casino_pros    casino_p_casino_pros[]
+  casino_cons    casino_p_casino_cons[]
 }
 
 model casino_p_meta_casinos {
@@ -249,6 +270,7 @@ model casino_p_games {
   game_pros              casino_p_games_pros[]
   game_cons              casino_p_games_cons[]
 }
+
 model casino_p_pages {
   id          Int     @id @default(autoincrement())
   name        String?
@@ -364,57 +386,57 @@ model casino_p_restrictions {
 }
 
 model casino_p_games_pros {
-  id         Int              @id @default(autoincrement())
-  game       Int
-  title      String
-  content    String
-  game_pros   casino_p_games @relation(fields: [game], references: [game_id])
+  id        Int            @id @default(autoincrement())
+  game      Int
+  title     String
+  content   String
+  game_pros casino_p_games @relation(fields: [game], references: [game_id])
 }
 
 model casino_p_games_cons {
-  id         Int              @id @default(autoincrement())
-  game       Int
-  title      String
-  content    String
-  game_cons   casino_p_games @relation(fields: [game], references: [game_id])
+  id        Int            @id @default(autoincrement())
+  game      Int
+  title     String
+  content   String
+  game_cons casino_p_games @relation(fields: [game], references: [game_id])
 }
 
 model casino_p_games_faq {
-  id         Int              @id @default(autoincrement())
-  game       Int
-  question   String
-  answer     String
-  game_faq   casino_p_games @relation(fields: [game], references: [game_id])
+  id       Int            @id @default(autoincrement())
+  game     Int
+  question String
+  answer   String
+  game_faq casino_p_games @relation(fields: [game], references: [game_id])
 }
 
 model casino_p_casino_pros {
-  id         Int              @id @default(autoincrement())
-  casino       Int
-  title      String
-  content    String
-  casino_pros   casino_p_casinos @relation(fields: [casino], references: [id])
+  id          Int              @id @default(autoincrement())
+  casino      Int
+  title       String
+  content     String
+  casino_pros casino_p_casinos @relation(fields: [casino], references: [id])
 }
 
 model casino_p_casino_cons {
-  id         Int              @id @default(autoincrement())
-  casino       Int
-  title      String
-  content    String
-  casino_cons   casino_p_casinos @relation(fields: [casino], references: [id])
+  id          Int              @id @default(autoincrement())
+  casino      Int
+  title       String
+  content     String
+  casino_cons casino_p_casinos @relation(fields: [casino], references: [id])
 }
 
 model casino_p_casino_faq {
   id         Int              @id @default(autoincrement())
-  casino       Int
+  casino     Int
   question   String
   answer     String
-  casino_faq   casino_p_casinos @relation(fields: [casino], references: [id])
+  casino_faq casino_p_casinos @relation(fields: [casino], references: [id])
 }
 
 model casino_p_subcontent {
-  id          Int              @id @default(autoincrement())
-  type        Int
-  content_id  Int
-  content     String
-  subcontent  casino_p_software @relation(fields: [content_id], references: [id])
+  id         Int               @id @default(autoincrement())
+  type       Int
+  content_id Int
+  content    String
+  subcontent casino_p_software @relation(fields: [content_id], references: [id])
 }

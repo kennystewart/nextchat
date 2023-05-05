@@ -7,6 +7,7 @@ const nextConfig = {
       "www.allfreechips.com",
       "afc-redux.vercel.app",
       "radiumpowered.com",
+      "lh3.googleusercontent.com",
     ],
   },
   experimental: {

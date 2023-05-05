@@ -8,26 +8,25 @@
     "start": "next start",
     "lint": "next lint",
     "studio": "dotenv -e .env.local -- prisma studio",
-    "db:push": "dotenv -e .env.local -- prisma db push"
+    "db:push": "dotenv -e .env.local -- prisma db push",
+    "db:validate": "dotenv -e .env.local -- prisma validate",
+    "db:format": "dotenv -e .env.local -- prisma format"
   },
   "dependencies": {
-    "@heroicons/react": "v1",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.7.1",
     "@vercel/analytics": "^0.1.11",
     "cheerio": "^1.0.0-rc.12",
     "emoji-mart": "^5.5.2",
     "js-cookie": "^3.0.1",
-    "next": "^13.2.4",
+    "next": "^13.4.0",
     "next-auth": "^4.20.1",
     "nodemailer": "^6.7.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.4.0",
-    "react-responsive-carousel": "^3.2.23",
-    "socket.io-client": "^4.6.1",
-    "swr": "^2.1.5"
+    "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
     "@types/node": "18.7.18",
