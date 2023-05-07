@@ -5,7 +5,7 @@ import prisma from "../../../../client";
 import {
   FaAngleRight,
 } from "react-icons/fa";
-import Comments from "../../../../components/commentsSection/Comments";
+import Comments from "../../../../components/commentsSection/Comment";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const post = await prisma.post.findFirst({
