@@ -5,7 +5,7 @@ import { DownvoteIcon } from "../common/DownvoteIcon";
 import { AnnotationIcon } from "../common/AnnotationIcon";
 const Comments = (data) => {
   const comments = data.comments;
-  //console.log(comments);
+  //console.log(comments); update
   const style = {
     profileImage: "object-contain",
     profileImageContainer:
