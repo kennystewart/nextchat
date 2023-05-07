@@ -2,7 +2,7 @@ import prisma from "../../client";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 // @ts-expect-error
-import { revalidatePath } from "next/server";
+import { revalidatePath ,revalidateTag} from "next/server";
 import { Suspense } from "react";
 import OnIntervalFn from "./OnIntervalFn";
 
@@ -17,7 +17,7 @@ async function MessageList() {
     orderBy: { createdAt: "desc" },
     take: 50,
   });
-
+ 
   return messages.map((message) => (
     <div key={message.id}>
       <div>
@@ -26,6 +26,7 @@ async function MessageList() {
       <div>{message.message}</div>
     </div>
   ));
+  
 }
 
 function ShoutBox({ email }: { email: string }) {
