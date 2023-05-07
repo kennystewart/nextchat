@@ -5,6 +5,7 @@ import { DownvoteIcon } from "../common/DownvoteIcon";
 import { AnnotationIcon } from "../common/AnnotationIcon";
 const Comments = (data) => {
   const comments = data.comments;
+
   //console.log(comments); update
   const style = {
     profileImage: "object-contain",
@@ -25,39 +26,41 @@ const Comments = (data) => {
       <div className={style.commentsWrapper}>
         {comments &&
           comments.map((comment, id) => (
-            <div className={style.commentContainer} key={id}>
-              <div className={style.postInfoContainer}>
-                <div className={style.profileImageContainer}>
-                  <Image
-                    src={comment.author.image ?? img}
-                    className={style.profileImage}
-                    alt={comment.author?.name ?? 'Author'}
-                    fill
-                  />
+            //<div key={comment.id}>  This breaks code with comment not defined error ? 
+              <div className={style.commentContainer}>
+                <div className={style.postInfoContainer}>
+                  <div className={style.profileImageContainer}>
+                    <Image
+                      src={comment.author.image ?? img}
+                      className={style.profileImage}
+                      alt={comment.author?.name ?? "Author"}
+                      fill
+                    />
+                  </div>
+                  <span>{comment.author?.name ?? "Author"}</span>
+                  <span>•</span>
+                  <span>
+                    <DisplayDate date={comment.createdAt} />
+                  </span>
                 </div>
-                <span>{comment.author.name}</span>
-                <span>•</span>
-                <span>
-                  <DisplayDate date={comment.createdAt} />
-                </span>
+                <div>{comment.content}</div>
+                <div className={style.icons}>
+                  <span className={style.icon}>
+                    <UpvoteIcon />
+                  </span>
+                  <span>0</span>
+                  <span className={style.icon}>
+                    <DownvoteIcon />
+                  </span>
+                  <span className={style.reply}>
+                    <AnnotationIcon className="6-6 w-6" />
+                    <span>Reply</span>
+                  </span>
+                  <span className={style.icon}>Give</span>
+                  <span className={style.icon}>Share</span>
+                </div>
               </div>
-              <div>{comment.content}</div>
-              <div className={style.icons}>
-                <span className={style.icon}>
-                  <UpvoteIcon />
-                </span>
-                <span>0</span>
-                <span className={style.icon}>
-                  <DownvoteIcon />
-                </span>
-                <span className={style.reply}>
-                  <AnnotationIcon className="6-6 w-6" />
-                  <span>Reply</span>
-                </span>
-                <span className={style.icon}>Give</span>
-                <span className={style.icon}>Share</span>
-              </div>
-            </div>
+            //</div>
           ))}
       </div>
     </>
