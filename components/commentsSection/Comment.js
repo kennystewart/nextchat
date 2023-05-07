@@ -25,7 +25,7 @@ const Comments = (data) => {
       <div className={style.commentsWrapper}>
         {comments &&
           comments.map((comment, id) => (
-            <div className={style.commentContainer}>
+            <div className={style.commentContainer} key={id}>
               <div className={style.postInfoContainer}>
                 <div className={style.profileImageContainer}>
                   <Image
