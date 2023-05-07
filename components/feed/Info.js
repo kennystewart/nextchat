@@ -18,6 +18,7 @@ const Info = ({ author }) => {
         <Image
           className={style.profilePic}
           src={author.author?.image ?? img}
+          alt={comment.author.name}
           fill
         />
       </div>

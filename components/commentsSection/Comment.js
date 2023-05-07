@@ -31,6 +31,7 @@ const Comments = (data) => {
                   <Image
                     src={comment.author.image ?? img}
                     className={style.profileImage}
+                    alt={comment.author.name}
                     fill
                   />
                 </div>
