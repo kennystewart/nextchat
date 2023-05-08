@@ -18,14 +18,14 @@ const Info = ({ author }) => {
         <Image
           className={style.profilePic}
           src={author.author?.image ?? img}
-          alt = {comment.author?.name ?? 'Author'}
+          alt = {'Author'}
           fill
         />
       </div>
       <div className={style.tag}>{author?.name}</div>
       <div>•</div>
       <div className={style.postedBy}>
-        <span>Posted By {comment.author?.name ?? 'Author'}</span>
+        <span>Posted By {author.author?.name ?? 'Author'}</span>
         <span>•</span>
         <span>
           <DisplayDate date={author.createdAt} />

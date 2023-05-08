@@ -6,7 +6,7 @@ import {
   FaAngleRight,
 } from "react-icons/fa";
 import Comments from "../../../../components/commentsSection/Comment";
-
+import SaveComment from "../../../../components/commentsSection/SaveComment";
 export default async function Page({ params }: { params: { id: string } }) {
   const post = await prisma.post.findFirst({
     where: {
@@ -29,13 +29,6 @@ export default async function Page({ params }: { params: { id: string } }) {
    
   });
   console.log(post.comments);
-  /* useEffect(() => {
-    if (post === null) {
-      router.push('/')
-    }
-    }, [])
-    */
-
   const style={
     containerWrapper : 'w-full space-y-4 lg:w-2/3',
     container:'mx-auto flex w-full max-w-5xl flex-1 space-x-6 py-[5rem] px-6',
@@ -61,6 +54,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div className={style.container}>
         <div className={style.containerWrapper}>
         <Post {...post} />
+        <SaveComment postId= {post.id}/>
         <Comments comments = {post.comments}/>
         </div>
         </div>

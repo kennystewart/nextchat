@@ -23,7 +23,7 @@ const DisplayDate = (date) => {
     const year = d.getUTCFullYear();
     const month = months[d.getUTCMonth()];
     const day = d.getUTCDay();
-    return month + ", " + day + " " +year;
+    return  month + ", " + day + " " +year ;
   };
   export default DisplayDate;
   

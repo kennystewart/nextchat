@@ -3,9 +3,9 @@ import DisplayDate from "../functions/DisplayDate";
 import { UpvoteIcon } from "../common/UpvoteIcon";
 import { DownvoteIcon } from "../common/DownvoteIcon";
 import { AnnotationIcon } from "../common/AnnotationIcon";
-const Comments = (data) => {
-  const comments = data.comments;
-
+const Comments = (comments) => {
+  const commentsLoop = comments.comments;
+ 
   //console.log(comments); update
   const style = {
     profileImage: "object-contain",
@@ -18,29 +18,29 @@ const Comments = (data) => {
     commentsWrapper: "bg-[#1A1A1B] p-4",
     reply: "flex items-center gap-[.2rem] text-[#818384]",
   };
+  const auth = "Author"
   const img =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAAHVJREFUKFNjrKura/j06RP/+/fvBT5+/CiATjP29/cXgCQ+fPjA/+HDBxCNghnnzp2b8OnTJ7BOZJNgChnXr18fAONgM4lx9+7dDl++fBF49+4dyAQMkxjPnz9vgG4vskmM9+/fV0BWgG4SI8hx2FwPEgOZBACHNbSCBLKzegAAAABJRU5ErkJggg==";
 
   return (
     <>
       <div className={style.commentsWrapper}>
-        {comments &&
-          comments.map((comment, id) => (
-            //<div key={comment.id}>  This breaks code with comment not defined error ? 
+        {commentsLoop && commentsLoop.map((comment, id) => (
+           
               <div className={style.commentContainer}>
                 <div className={style.postInfoContainer}>
                   <div className={style.profileImageContainer}>
                     <Image
-                      src={comment.author.image ?? img}
+                      src={comment.author?.image ?? img}
                       className={style.profileImage}
-                      alt={comment.author?.name ?? "Author"}
+                      alt={auth}
                       fill
                     />
                   </div>
-                  <span>{comment.author?.name ?? "Author"}</span>
+                  <span>{comment.author?.name ?? auth}</span>
                   <span>•</span>
                   <span>
-                    <DisplayDate date={comment.createdAt} />
+                    {DisplayDate(comment.createdAt)}
                   </span>
                 </div>
                 <div>{comment.content}</div>
@@ -53,14 +53,14 @@ const Comments = (data) => {
                     <DownvoteIcon />
                   </span>
                   <span className={style.reply}>
-                    <AnnotationIcon className="6-6 w-6" />
+                    <AnnotationIcon />
                     <span>Reply</span>
                   </span>
                   <span className={style.icon}>Give</span>
                   <span className={style.icon}>Share</span>
                 </div>
               </div>
-            //</div>
+            
           ))}
       </div>
     </>
