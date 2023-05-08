@@ -33,7 +33,7 @@ const Comments = (comments) => {
                     <Image
                       src={comment.author?.image ?? img}
                       className={style.profileImage}
-                      alt={auth}
+                      alt={comment.author.name ?? auth}
                       fill
                     />
                   </div>
