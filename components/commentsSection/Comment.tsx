@@ -27,7 +27,7 @@ const Comments = (comments) => {
       <div className={style.commentsWrapper}>
         {commentsLoop && commentsLoop.map((comment, id) => (
            
-              <div className={style.commentContainer}>
+              <div key = {comment.id} className={style.commentContainer}>
                 <div className={style.postInfoContainer}>
                   <div className={style.profileImageContainer}>
                     <Image
