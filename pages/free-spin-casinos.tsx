@@ -7,7 +7,6 @@ import { InferGetStaticPropsType } from "next";
 import { FaBalanceScale, FaHandsWash, FaGifts, FaGift } from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import Footer from "../components/Footer";
-import { PrismaClient } from "@prisma/client";
 import CasinoDisplayList from "../components/CasinoDisplayList";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,7 +17,7 @@ import monthYear from "../components/functions/monthYear";
 import Author from "../components/AboutAuthor";
 import ProsCons from "../components/ProsCons";
 import FaqJsonLD from "../components/FaqJsonLDX";
-const prisma = new PrismaClient();
+import prisma from "@/client";
 //added to synch
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({

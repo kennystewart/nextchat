@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/client";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import Head from "next/head";
@@ -15,7 +15,7 @@ import Header from "../components/Header";
 import ProsCons from "../components/ProsCons";
 import FaqJsonLD from "../components/FaqJsonLDX";
 import CasinoDisplayList from "../components/CasinoDisplayList";
-const prisma = new PrismaClient();
+
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
     where: {

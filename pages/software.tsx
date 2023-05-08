@@ -12,10 +12,9 @@ import Head from "next/head";
 import { GrClose } from "react-icons/gr";
 import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
-import { PrismaClient } from "@prisma/client";
 import Author from "../components/AboutAuthor";
 import monthYear from "../components/functions/monthYear";
-const prisma = new PrismaClient();
+import prisma from "@/client";
 export async function getStaticProps() {
   const data = await prisma.casino_p_software.findMany({
     select: {
