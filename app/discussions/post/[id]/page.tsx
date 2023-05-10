@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
    
   });
-  console.log(post.comments);
+  //console.log(post.comments);
   const style={
     containerWrapper : 'w-full space-y-4 lg:w-2/3',
     container:'mx-auto flex w-full max-w-5xl flex-1 space-x-6 py-[5rem] px-6',
