@@ -18,30 +18,6 @@ const Bonus = ({ d }) => {
         <div className="flex items-center md:flex-col">
           <Image src={lapander} width={200} height={80} alt={"Lapander"} />
         </div>
-        {/* <div className="flex items-center">
-          <p className="flex items-center">
-            <span className="text-4xl font-medium md:text-5xl">25</span>{" "}
-            <span className="flex flex-col font-bold leading-4 text-left ml-3">
-              FREE<span>SPINS</span>
-            </span>
-          </p>
-        </div> */}
-        {/* <div className="flex  items-center ">
-          <span className="flex flex-col font-medium text-lg pr-4 md:text-4xl">
-            $0
-            <span className="text-xs font-light md:text-base md:font-normal">
-              Min. deposit
-            </span>
-          </span>
-          <hr className="md:border md:h-14 border-sky-700 dark:border-white" />
-
-          <span className="flex flex-col font-medium text-lg md:text-4xl md:px-4">
-            50x
-            <span className="text-xs font-light md:text-base md:font-normal">
-              Playthrough
-            </span>
-          </span>
-        </div> */}
         <div className="flex items-center justify-between px-4  md:flex-col">
           <span className="flex flex-col font-medium text-lg md:text-4xl md:px-4">
             25
@@ -101,7 +77,7 @@ const Bonus = ({ d }) => {
       </div>
       {showTerms === d.id && (
         <div className=" pt-3 text-sm">
-          <h6>{bonusTerms}</h6>
+          <div>{bonusTerms}</div>
         </div>
       )}
     </div>

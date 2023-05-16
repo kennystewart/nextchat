@@ -1,6 +1,6 @@
 import React from 'react';
 import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
+
 
 type EmojiData = {
   colons: string;

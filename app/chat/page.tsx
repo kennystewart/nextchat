@@ -6,6 +6,7 @@ import { revalidatePath ,revalidateTag} from "next/server";
 import { Suspense } from "react";
 import OnIntervalFn from "./OnIntervalFn";
 
+
 async function MessageList() {
   const messages = await prisma.chatMessage.findMany({
     select: {
@@ -30,6 +31,9 @@ async function MessageList() {
 }
 
 function ShoutBox({ email }: { email: string }) {
+  if(!email){  // if not logged in no form.
+    return
+  }
   async function sendMessage(formData: FormData) {
     "use server";
     const message = formData.get("message")?.toString() ?? "";

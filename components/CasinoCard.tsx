@@ -9,7 +9,7 @@ const CasinoCard = (data) => {
   return (
     <>
     {casinos.map((casino,id) =>( 
-    <div key = {id} className="border-1 border-2 items-center border-gray-300 p-6 rounded my-8 md:mx-80 md:p-12 md:rounded-xl ">
+    <div key= {id} className="border-1 border-2 items-center border-gray-300 p-6 rounded my-8 md:mx-80 md:p-12 md:rounded-xl ">
       <div className="md:flex md:justify-between">
         <div className="flex items-center md:flex-col">
           <Image src={lapander} alt={"High Roller Card"} />

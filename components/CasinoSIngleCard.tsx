@@ -6,7 +6,7 @@ const CasinoSingleCard = (data) => {
   return (
     
     
-    <div className="flex flex-col lg:flex-row border-2 border-gray-300 p-6 rounded lg:mx-80 lg:p-12 lg:rounded-xl space-x-8">
+    <div className="flex flex-col lg:flex-row border-2 border-gray-300 p-6 rounded lg:mx-40 lg:p-12 lg:rounded-xl space-x-8">
       <span className="bg-sky-600 dark:bg-white rounded-t-lg text-white dark:text-black p-1 lg:hidden">
       {cardData.title}
       </span>

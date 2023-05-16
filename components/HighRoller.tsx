@@ -147,9 +147,7 @@ const HighRoller = () => {
         </p>
         <div className="flex flex-col">
           <Bonus d={{ id: 1 }} />
-          <Bonus d={{ id: 2 }} />
-          <Bonus d={{ id: 3 }} />
-          <Bonus d={{ id: 4 }} />
+         
           <div className="flex justify-center items-center text-xl font-medium md:text-3xl">
             Show more
             <FaAngleDown className="mx-4 text-lg font-thin md:text-4xl" />
