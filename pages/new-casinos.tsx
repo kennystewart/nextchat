@@ -1,4 +1,3 @@
-
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import Head from "next/head";
@@ -216,15 +215,20 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
           <div className="lg:w-3/4  text-lg md:text-xl font-medium">
             <div className="text-lg font-normal">
-              <h3 id="LikeCasinos" className="text-3xl font-semibold my-6 md:text-4xl md:my-10 scroll-mt-40">
+              <h3
+                id="LikeCasinos"
+                className="text-3xl font-semibold my-6 md:text-4xl md:my-10 scroll-mt-40"
+              >
                 List Of Newest Casinos
               </h3>
-              <p className="my-4">
-                <CasinoDisplayList data={bdata} />
-              </p>
+
+              <CasinoDisplayList data={bdata} />
             </div>
             <div>
-              <h1 id="Review" className="text-3xl font-semibold my-4 scroll-mt-40">
+              <h1
+                id="Review"
+                className="text-3xl font-semibold my-4 scroll-mt-40"
+              >
                 About Playing New Online Casinos
               </h1>
               <div className="text-lg font-normal">
@@ -277,7 +281,6 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
                   community of players who love to gamble. It will help you
                   quickly become an expert player.{" "}
                 </p>
-                
               </div>
               <ProsCons data={prosCons} />
               <Faq data={faq} />

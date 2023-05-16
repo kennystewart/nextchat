@@ -257,9 +257,9 @@ const PageOut = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               <h3 id="LikeCasinos" className="text-3xl font-semibold my-6 md:text-4xl md:my-10 scroll-mt-40">
                 Bitcoin online casinos
               </h3>
-              <p className="my-4">
+            
                 <CasinoDisplayList data={bdata} />
-              </p>
+            
             </div>
             <div>
               <h3 id="SlotReview" className="text-3xl font-semibold my-4 scroll-mt-40">
