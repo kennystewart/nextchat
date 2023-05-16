@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Header from "../components/Header";
-import Casinos from "../components/Casinos";
+import GridGuide from "../components/GridGuide";
 import HighRoller from "../components/HighRoller";
 import Faq from "../components/faq";
 import {
@@ -27,7 +27,8 @@ export default function Home() {
       </Head>
       <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
         <Header />
-        <Casinos />
+        <GridGuide />
+        <HighRoller />
      
         <div className="text-left p-4 md:container mx-auto">
           <h3 className="text-2xl font-semibold md:text-5xl md:my-12">

@@ -7,9 +7,9 @@ import { SiBitcoinsv } from "react-icons/si";
 import { RiGameFill } from "react-icons/ri";
 import { BiNotepad } from "react-icons/bi";
 
-const Casinos = () => {
+const GridGuide = () => {
   return (
-    <div className="md:px-24 py-8 text-center mt-28 p-2">
+    <div className="md:px-24 py-8 text-center mt-2 p-2">
       <h2 className="text-3xl font-semibold px-8 md:text-6xl md:">
         Helping you find the right online casino
       </h2>
@@ -58,4 +58,4 @@ const Casinos = () => {
   );
 };
 
-export default Casinos;
+export default GridGuide;

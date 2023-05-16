@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import React from "react";
 import Header from "../components/Header";
-import Casinos from "../components/Casinos";
+import Casinos from "../components/GridGuide";
 import Faq from "../components/faq";
 import {
   FaAngleDown,
