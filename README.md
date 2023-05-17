@@ -1,3 +1,6 @@
+Hello, this is kennyth.
+$kyp3:live:.cid.13ce6d6ed56cfc8
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
