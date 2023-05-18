@@ -16,6 +16,7 @@ import { InferGetStaticPropsType } from "next";
 import { CgMenuLeft } from "react-icons/cg";
 import { PrismaClient } from "@prisma/client";
 import Author from "../components/AboutAuthor";
+import CasinoDisplayList from "@/components/CasinoDisplayList";
 const prisma = new PrismaClient();
 export async function getStaticProps({ params }) {
   const data = await prisma.casino_p_casinos.findMany({
@@ -23,16 +24,15 @@ export async function getStaticProps({ params }) {
       approved: 1,
       rogue: 0,
       bonuses: { some: { deposit: { gt: 0 } } },
-      OR: [
-        {
-          NOT: { casino_geo: { some: { country: "US", allow: 0 } } },
-          casino_geo: { some: { allow: 0 } },
+      review: {
+        some: {
+            description: {
+              contains: '&',
+            },
+          },
         },
-        {
-          casino_geo: { some: { allow: 1, country: "US" } },
-        },
-      ],
-    },
+      },
+
     select: {
       id: true,
       clean_name: true,
@@ -40,6 +40,14 @@ export async function getStaticProps({ params }) {
       hot: true,
       new: true,
       button: true,
+      review: {
+        select: {
+          description: true,
+        },
+        orderBy: {
+          ordered: "desc",
+        },
+      },
       bonuses: {
         orderBy: [{ nodeposit: "desc" }, { deposit: "desc" }],
       },
@@ -102,7 +110,7 @@ const faq = [{question,answer}];
             </div>
           </div>
         </div>
-
+        <CasinoDisplayList data={data} />
         <section className="py-8  px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl md:text-5xl font-semibold border-b border-blue-800 dark:border-white pb-12">
