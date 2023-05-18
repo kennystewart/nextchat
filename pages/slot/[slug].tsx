@@ -36,6 +36,7 @@ const prisma = new PrismaClient();
 
 export async function getStaticProps({ params }) {
   const slug = params.slug;
+  console.log(slug)
   const data = await prisma.casino_p_games.findFirst({
     where: { game_clean_name: slug },
     select: {
