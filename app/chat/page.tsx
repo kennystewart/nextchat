@@ -165,9 +165,10 @@ function ShoutBox({ email }: { email: string }) {
           name="message"
           className="border"
           type="text"
+          placeholder="comment..."
         />
         <button className="border" type="submit">
-          Send this is me..
+          Send this..
         </button>
         <Rating />
       </form>
