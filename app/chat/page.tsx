@@ -100,7 +100,6 @@ import { Suspense } from "react";
 import OnIntervalFn from "./OnIntervalFn";
 import EmojiPicker from "@/components/EmojiPicker";
 import Rating from "./Rating"; 
-import RatingComponent from "@/components/RatingComponent";
 
 async function MessageList() {
   const messages = await prisma.chatMessage.findMany({
