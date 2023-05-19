@@ -31,6 +31,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "pages/newpost.js"
-  ],
+, "pages/api/TestRating.js"  ],
   "exclude": ["node_modules"]
 }
