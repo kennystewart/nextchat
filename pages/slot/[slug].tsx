@@ -287,9 +287,9 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
         </section>
         <div>Rate This game!</div>
-        <div>
+       {/* <div>
           <RatingComponent type="slot" id="2" />
-        </div>
+  </div> */}
         <div className="flex md:hidden justify-between bg-sky-700 px-4 py-2 items-center text-white dark:bg-white dark:text-black">
           <span className="font-medium">ON THIS PAGE</span>
           <span
@@ -374,7 +374,7 @@ const Review = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
               </h1>
               <div
                 className="text-lg font-normal"
-                dangerouslySetInnerHTML={gameReview}
+                dangerouslySetInnerHTML={ gameReview }
               ></div>
               <ProsCons data={prosCons} />
               <div className="text-lg font-normal">
