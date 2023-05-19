@@ -66,7 +66,7 @@ function ShoutBox({ email }: { email: string }) {
           type="text"
         />
         <button className="border" type="submit">
-          Send
+          Send dancing
         </button>
       </form>
       <OnIntervalFn intervalMs={5000} fn={refresh} />
