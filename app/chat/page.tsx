@@ -99,7 +99,7 @@ import { revalidatePath ,revalidateTag} from "next/server";
 import { Suspense } from "react";
 import OnIntervalFn from "./OnIntervalFn";
 import EmojiPicker from "@/components/EmojiPicker";
-import Rating from "./rating";
+// import Rating from "./rating";
 
 async function MessageList() {
   const messages = await prisma.chatMessage.findMany({
@@ -168,9 +168,9 @@ function ShoutBox({ email }: { email: string }) {
           placeholder="comment..."
         />
         <button className="border" type="submit">
-          Send this..
+          Send keenny..
         </button>
-        <Rating />
+        {/* <Rating /> */}
       </form>
 
       <OnIntervalFn intervalMs={5000} fn={refresh} />
