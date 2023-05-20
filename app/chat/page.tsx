@@ -18,8 +18,7 @@ async function MessageList() {
     orderBy: { createdAt: "desc" },
     take: 50,
   });
- 
-  return messages.map((message) => (
+  const renderMessages = messages.length>0  && messages.map((message) => (
     <div key={message.id}>
       <div>
         <span>{message.author.name}</span>
@@ -27,6 +26,15 @@ async function MessageList() {
       <div>{message.message}</div>
     </div>
   ));
+
+  const renderNullMessages = (
+    <>
+      <h2>
+        Hello , Kennyth, there is no messages...
+      </h2>
+    </>
+  )
+  return messages ? renderMessages: renderNullMessages;
   
 }
 
