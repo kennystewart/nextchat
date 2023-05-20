@@ -115,7 +115,7 @@ async function MessageList() {
   return messages?messages.map((message) => (
     <div key={message.id}>
       <div className="bg-white w-full sm:max-w-7xl md:w-1/3 h-auto shadow px-3 py-2 flex flex-col space-y-2">
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 self-start cursor-pointer">
             <img src="https://images.unsplash.com/photo-1609349744982-0de6526d978b?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDU5fHRvd0paRnNrcEdnfHxlbnwwfHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" alt="" className="h-8 w-8 object-cover rounded-full" />
           </div>
@@ -149,7 +149,8 @@ async function MessageList() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        this is chat..
       </div>
     </div>
   )): 'no messages';
