@@ -4,25 +4,18 @@ import React, { useState } from "react";
 
 const Rating = () => {
     const [rating, setRating] = useState(0);
-    const [submited, setSubmited] = useState(false);
-    const handleSubmit = () => {
-      console.log("handleSubmit:", rating);
-      setSubmited(true);
-    };
   
     return (
           <SelectRating
             rating={rating}
-            handleSubmit={handleSubmit}
             setRating={setRating}
           />
     );
   };
   
   
-const SelectRating = ({ rating, handleSubmit, setRating }) => (
+const SelectRating = ({ rating, setRating }) => (
     <>
-  
       <div className="flex items-center">
         {[1, 2, 3, 4, 5].map((value) => (
           <button
@@ -45,8 +38,12 @@ const SelectRating = ({ rating, handleSubmit, setRating }) => (
           </button>
         ))}
         </div>
-  
+
     </>
   );
   
+  export asyn function getServerSideProps (rate) {
+    const rat = rate;
+  }
+
   export default Rating;
