@@ -5,7 +5,6 @@ import { FaStar, FaCopyright, FaArrowCircleRight } from "react-icons/fa";
 
 const CasinoCard = (data) => {
   const casinos = data.data;
-  console.log(casinos);
   return (
     <>
     {casinos.map((casino,id) =>( 

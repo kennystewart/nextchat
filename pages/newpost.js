@@ -21,7 +21,6 @@ const New = () => {
               <span>
                 <Link href="/">AFC Home</Link>
               </span>
-
               <span>Allfreechips Discussions</span>
             </div>
             <main className='mx-auro my-16 flex w-full max-w-5xl flex-1 space-x-6 py-5 px-6'>

@@ -7,7 +7,6 @@ import {
 
 const Bonus = (data) => {
   const casinos = data.data;
-  console.log(casinos);
   const bonusTerms =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat elit vel tellus eleifend imperdiet. Donec consectetur urna sed neque rhoncus dapibus. Aenean nunc erat, lobortis a ex dignissim, scelerisque malesuada odio. Sed vestibulum dictum eleifend.";
   return (

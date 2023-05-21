@@ -2,7 +2,6 @@ import { FaStar, FaCopyright, FaArrowCircleRight } from "react-icons/fa";
 import Image from "next/image";
 const CasinoSingleCard = (data) => {
     const cardData = data.data
-    console.log(cardData);
   return (
     
     

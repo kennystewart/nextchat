@@ -41,9 +41,6 @@ const SelectRating = ({ rating, setRating }) => (
 
     </>
   );
-  
-  export asyn function getServerSideProps (rate) {
-    const rat = rate;
-  }
+
 
   export default Rating;

@@ -3,7 +3,6 @@ import BonusFilter from "../../components/functions/bonusfilter";
 
 
 export default async function handler(req, res) {
-  console.log(req.query, "\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
   try {
     const data = await prisma.casino_p_casinos.findMany({
       where: {
