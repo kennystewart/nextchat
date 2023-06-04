@@ -26,9 +26,7 @@ export default function Home() {
       </Head>
       <div className="bg-white text-sky-700 dark:bg-zinc-800 dark:text-white">
         <Header />
-       
         <Casinos />
-  
         <div className="text-left p-4 md:container mx-auto">
           <h3 className="text-2xl font-semibold md:text-5xl md:my-12">
             Allfreechips - Your source of casino codes and exclusive offers
@@ -44,7 +42,8 @@ export default function Home() {
             experience to the next level. It is our website that combines tons
             of bonuses and a useful casino guide to the most reliable online
             gambling platforms in the USA.
-          </p>
+          </p> 
+
           <p className="text-base font-medium my-6 text-justify md:text-2xl">
             With all that hype around online gambling, it is now clear that the
             era of brick and mortar casinos is coming to a dramatic end. You no

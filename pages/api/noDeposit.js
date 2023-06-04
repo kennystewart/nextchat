@@ -37,7 +37,8 @@ export default async function handler(req, res) {
 
     res.status(200).json({ bonus: bonus });
   } catch (err) {
-    console.log(err);
+
+    console.log("This is deposit area.." + err);
   } finally {
     //await prisma.$disconnect(); We now use one connections
   }

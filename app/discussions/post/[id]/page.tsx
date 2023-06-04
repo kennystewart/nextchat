@@ -28,11 +28,12 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
    
   });
-  //console.log(post.comments);
+
   const style={
     containerWrapper : 'w-full space-y-4 lg:w-2/3',
     container:'mx-auto flex w-full max-w-5xl flex-1 space-x-6 py-[5rem] px-6',
   }
+  
   return (
     <div className="md:container mx-auto text-sky-700 dark:text-white">
       <div className="py-6 px-1 mt-28">
