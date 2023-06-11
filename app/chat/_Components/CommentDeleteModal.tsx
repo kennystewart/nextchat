@@ -4,14 +4,14 @@ import React from 'react';
 interface Props {
     show: boolean,
     setShow: (boolean) => void,
-    messageId: string,
+    message: any,
     removeMessage: (messageId:string) => void
 }
 
-const CommentDeleteModal: React.FC<Props> = ({show, setShow, messageId, removeMessage}) => {
+const CommentDeleteModal: React.FC<Props> = ({show, setShow, message, removeMessage}) => {
 
     const submit = () => {
-        removeMessage(messageId);
+        removeMessage(message);
     };
     
     return (

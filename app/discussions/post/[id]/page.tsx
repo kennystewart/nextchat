@@ -54,9 +54,15 @@ export default async function Page({ params }: { params: { id: string } }) {
       
       <div className={style.container}>
         <div className={style.containerWrapper}>
-        <Post {...post} />
-        <SaveComment postId= {post.id}/>
-        <Comments comments = {post.comments}/>
+        {post ? (
+          <>
+            <Post {...post} />
+            <SaveComment postId={post.id} />
+            <Comments comments={post.comments} />
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
         </div>
         </div>
      

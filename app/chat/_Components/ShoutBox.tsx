@@ -16,7 +16,7 @@ interface props {
 
 const ShoutBox : React.FC<props> = ( {loading,  sendMessage}) => {
 
-    const textAreaRef = useRef(null);
+    const textAreaRef: any = useRef(null);
     const [formData, setFormData] = useState({
       message: ''
     });
@@ -35,7 +35,7 @@ const ShoutBox : React.FC<props> = ( {loading,  sendMessage}) => {
     }
     // add Emoji from emoji mart
     const addEmoji = (emoji: any) => {
-      let myField = document.getElementById('message');
+      let myField: any = document.getElementById('message');
       let myValue = emoji['native'];
 
       // count emoji in textarea 
@@ -101,7 +101,7 @@ const ShoutBox : React.FC<props> = ( {loading,  sendMessage}) => {
         {!loading ? <div>
             <form 
             className="mb-6" 
-            // @ts-expect-error
+            //// @ts-expect-error
             action={sendMessage}>
                 <div className="bg-grey-lighter md:px-4 md:py-4 sm:px:2 sm:py-2 flex ">
                   <div className="flex-1 md:mx-4 sm:mx-2">

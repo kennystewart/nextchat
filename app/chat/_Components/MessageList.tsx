@@ -1,8 +1,9 @@
 'use client';
-import {lazy, useEffect, useState, experimental_use as useOptimistic} from 'react';
+import {lazy, useEffect, useState} from 'react';
 import { DeleteIcon, EditIcon, NoAvartar, replaceEmoticons} from "../_lib/ChatData";
 import { sendMessage } from '../_lib/functions';
 import ShoutBox from './ShoutBox';
+import LikeButton from './LikeButton';
 const factoryDeleteModal = () => import('./CommentDeleteModal');
 const CommentDeleteModal = lazy(factoryDeleteModal);
 const factoryEditModal = () => import('./CommentEditModal');
@@ -10,33 +11,47 @@ const CommentEditModal = lazy(factoryEditModal);
 
 interface props {
     user: any,
-    messages: any,
+    getMessages: () => any,
     like: (message: any) => void,
     updateMessage: (message: any) => Promise<void>,
-    removeMessage: (messageId: string) => Promise<void>,
+    removeMessage: (messageId: string) => any,
     sendMessage: (message: any) => any
 }
 
-const MessageList: React.FC<props> = ({user, messages, like, updateMessage, removeMessage, sendMessage}) => {
-    
-    const myId = user?.id;
 
+const MessageList: React.FC<props> = ({user, getMessages, like, updateMessage, removeMessage, sendMessage}) => {
+    const myId = user?.id;
     const [showEditModal, setShowEditModal] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [message, setMessage] = useState(null);
+    // const [messages, setMessages] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [optimisticMessages, setOptimisticMessages] = useState(messages);
+    const [optimisticMessages, setOptimisticMessages] = useState<any[]>([]);
+    const [initLoading, setInitLoading] = useState(true);
+    useEffect(() => {
+        async function fetchMessages() {
+            try {
+              const initMessages = await getMessages();
+              setOptimisticMessages(initMessages);
+              setInitLoading(false);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        
+          fetchMessages();
+          const intervalId = setInterval(() => {
+            fetchMessages();
+          }, 5000); // Fetch every 5 seconds
+        
+          // Return a cleanup function to clear the interval when the component unmounts
+          return () => clearInterval(intervalId);
+    }, [])
 
     const likeMessage = async (message) => {
-        let likedMessage = await like(message);
-        let updatedMessages = optimisticMessages.map(message => {
-            if (message.id === likedMessage['id']){ 
-                return likedMessage;
-            }
-            return message;
-        })
-
-        setOptimisticMessages(updatedMessages);
+        await like(message);
+        
+        modifyOptimisticMessage(message);
     }
 
     const addOptimisticMessage = (message: any) => {
@@ -46,12 +61,22 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
         setOptimisticMessages(updatedMessages);
     }
 
+    const modifyOptimisticMessage = (message: any) => {
+        let updatedMessages = optimisticMessages.map(mes => {
+            if (mes.id === message['id']){
+                return message;
+            }
+            return mes;
+        })
+        setOptimisticMessages(updatedMessages);
+    }
+
     const sendNewMessage = async (event: any) => {
         const message = event.message?.toString() ?? "";
         setLoading(true);
         addOptimisticMessage(message);
         const result = await sendMessage(message);
-        if (result?.id) {
+        if (result.id) {
             let updatedMessages = optimisticMessages.map(message => {
                 if(message?.sending) {
                     return result;
@@ -60,19 +85,22 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
                     return message;
                 }
             })
-            setOptimisticMessages(updatedMessages);
-
-            messages = updatedMessages;
+            setOptimisticMessages(updatedMessages);            
+            // messages = updatedMessages;
+            setLoading(false);
         }
-        else return;
-        setOptimisticMessages(messages);
-        setLoading(false);
+        else {
+            console.log('this is sending message else')
+            // setOptimisticMessages(messages);
+            setLoading(false);
+            return;
+        }
     }
     // import MessageDeleteModal
     useEffect(() => {
         factoryDeleteModal();
       },[showModalDelete]);
-
+      
     // import MessageEditModal
     useEffect(() => {
         factoryEditModal();
@@ -88,13 +116,22 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
         setShowModalDelete(true);
     }
 
-    const deleteMessage = (messageId: string) => {
+    const deleteMessage = (message: any) => {
         setLoading(true);
-        removeMessage(messageId);
+        let updatedMessages = optimisticMessages.filter(mes => mes.id != message.id);
+        setOptimisticMessages(updatedMessages);            
+        const res = removeMessage(message?.id);
+        console.log(res);
         setLoading(false);
     }
 
-    const renderMessages =  optimisticMessages.length > 0  && optimisticMessages.map((message) => {
+    const editMesssage = (message: any) => {
+        
+        modifyOptimisticMessage(message);
+        
+        updateMessage(message);
+    }
+    const renderMessages =  optimisticMessages && optimisticMessages.length > 0  && optimisticMessages.map((message) => {
         if(message?.sending == true ) {
             return <div key={new Date() + 'sending...'} className="flex items-center justify-between">
             <div>
@@ -112,22 +149,15 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
         let text = message?.message;
         const replacedText = replaceEmoticons(text);
 
-        function messageToolButtons(message: any, role: number)  {
+        const messageToolButtons = (message: any, role: number) =>  {
         // function messageToolButtons(message: any)  {
-                const likes = <>
-                <button className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700" 
-                    onClick={() => 
-                        {
-                            setLoading(true)
-                            likeMessage(message);
-                            setLoading(false);
-                        }} type="button" >
-                        ❤️
-                    <p>{message?.like}</p>
-                </button>
-            </>
+            let liked:boolean = message.isLiked;
 
-            if (role == 0 || role == 2 || (role == 1 && message?.author.id == myId)) {
+            const likes = <>
+                <LikeButton likeMessage={likeMessage} message={message} liked={liked} myId={myId}/>   
+            </>
+            
+            if (role == 0 || role == 2 || (role == 1 && message?.userId == myId)) {
             // if (message?.author.id == myId) {
             return <div className="flex items-center">
                 {likes}
@@ -152,17 +182,17 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
                     <footer className="flex justify-between items-center mb-2">
                         <div className="flex items-center">
                             <div className="inline-flex items-center text-sm text-gray-900 dark:text-white">
-                            {message?.author.image && 
-                                <img className="mr-2 sm:w-8 sm:h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full" src={message?.author.image} alt={message?.author.name}  />
+                            {message?.userImage && 
+                                <img className="mr-2 sm:w-8 sm:h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full" src={message?.userImage} alt={message?.username}  />
                             }
-                            {!message?.author.image &&
+                            {!message?.userImage &&
                                 <div className="relative w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                                     <NoAvartar />             
                                 </div>
                             }
                             </div>
                             <div className="flex items-center flex-1 px-4 font-bold leading-tight">
-                            {message?.author.name} 
+                            {message?.username} 
                             </div>
                             
                             <p className="text-sm text-gray-600 dark:text-gray-400 ">{createdAt}</p>
@@ -182,21 +212,11 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
 
     const renderNullMessages = (
         <>
-            <h2>
+        {(loading || initLoading) ? (<></>) : (<h2>
                 Sorry, there is no message.
-            </h2>
+            </h2>)}
         </>
     )
-
-    const messageRender =
-    <>
-        {optimisticMessages && optimisticMessages.length > 0 ? renderMessages: renderNullMessages}
-        {message && 
-            <>
-                <CommentEditModal message={message} show={showEditModal} setShow={setShowEditModal} saveMessage={updateMessage}/>
-                <CommentDeleteModal messageId={message?.id} show={showModalDelete} setShow={setShowModalDelete} removeMessage={deleteMessage}/>
-            </>}
-    </>
     const loadingSkeleton = <>        
         <div role="status" className="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
             <div className="flex items-center justify-between">
@@ -237,16 +257,29 @@ const MessageList: React.FC<props> = ({user, messages, like, updateMessage, remo
                 <span className="sr-only">Loading...</span>
             </div>
         </>
+    const messageRender =
+    <>
+        {initLoading && 
+            loadingSkeleton
+        }
+        {!initLoading && optimisticMessages && optimisticMessages.length > 0 ? renderMessages: renderNullMessages}
+        {message && 
+            <>
+                <CommentEditModal message={message} show={showEditModal} setShow={setShowEditModal} saveMessage={editMesssage}/>
+                <CommentDeleteModal message={message} show={showModalDelete} setShow={setShowModalDelete} removeMessage={deleteMessage}/>
+            </>}
+    </>
+
     return <div className="md:w-10/12 sm:w-full mx-auto px-4">
 
-    {<ShoutBox sendMessage={sendNewMessage} loading={loading} />}
+    {user && user.id && <ShoutBox sendMessage={sendNewMessage} loading={loading} />}
 
     <div className="max-h-200 h-200 overflow-y-auto">
         <div className="flex flex-col space-y-2">
-            {!loading && 
-                messageRender
-            }
-            {loading && loadingSkeleton}
+            {/* {!loading &&  */}
+                {messageRender}
+            {/* // }
+            // {loading && loadingSkeleton} */}
         </div>
     </div>
     </div>
